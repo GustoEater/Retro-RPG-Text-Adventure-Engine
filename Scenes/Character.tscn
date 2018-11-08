@@ -1,0 +1,2500 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scenes/Character.gd" type="Script" id=1]
+[ext_resource path="res://Assets/GUI/CharacterFrame.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Character/Fighter-female.png" type="Texture" id=3]
+[ext_resource path="res://Assets/GUI/CharacterInfoFrame.png" type="Texture" id=4]
+[ext_resource path="res://Assets/GUI/Themes/Fonts/VT323-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Assets/GUI/new_theme.tres" type="Theme" id=6]
+[ext_resource path="res://Assets/GUI/stylebox-tan.tres" type="StyleBox" id=7]
+[ext_resource path="res://Assets/Character/146257.png" type="Texture" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 30
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 5 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[node name="Characters" type="MarginContainer"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 1 )
+_sections_unfolded = [ "Rect" ]
+
+[node name="LeftBlock" type="VBoxContainer" parent="." index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Character1" type="HBoxContainer" parent="LeftBlock" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1016.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Image" type="HBoxContainer" parent="LeftBlock/Character1" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="m" type="MarginContainer" parent="LeftBlock/Character1/Image" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Background" type="NinePatchRect" parent="LeftBlock/Character1/Image/m" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Rect" ]
+
+[node name="Picture" type="TextureRect" parent="LeftBlock/Character1/Image/m" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 75, 75 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Info" type="HBoxContainer" parent="LeftBlock/Character1" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 112.0
+margin_right = 1016.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 168, 0 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="m" type="MarginContainer" parent="LeftBlock/Character1/Info" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 208.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin" ]
+
+[node name="Background" type="NinePatchRect" parent="LeftBlock/Character1/Info/m" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 208.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 200, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Rect" ]
+
+[node name="v" type="VBoxContainer" parent="LeftBlock/Character1/Info/m" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 208.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="m" type="MarginContainer" parent="LeftBlock/Character1/Info/m/v" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 200.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Name1" type="Button" parent="LeftBlock/Character1/Info/m/v/m" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 200.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 1 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Dr. Agon"
+flat = true
+align = 0
+_sections_unfolded = [ "Size Flags", "custom_fonts" ]
+
+[node name="HealthBar" type="ProgressBar" parent="LeftBlock/Character1/Info/m/v" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 40.0
+margin_right = 200.0
+margin_bottom = 68.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 75.0
+exp_edit = false
+rounded = false
+percent_visible = true
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="MagicBar" type="ProgressBar" parent="LeftBlock/Character1/Info/m/v" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 72.0
+margin_right = 200.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 50.0
+exp_edit = false
+rounded = false
+percent_visible = true
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Character2" type="HBoxContainer" parent="LeftBlock" index="1"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 104.0
+margin_right = 1016.0
+margin_bottom = 204.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Image" type="HBoxContainer" parent="LeftBlock/Character2" index="0"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="m" type="MarginContainer" parent="LeftBlock/Character2/Image" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Background" type="NinePatchRect" parent="LeftBlock/Character2/Image/m" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Rect" ]
+
+[node name="Picture" type="TextureRect" parent="LeftBlock/Character2/Image/m" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 75, 75 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Info" type="HBoxContainer" parent="LeftBlock/Character2" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 112.0
+margin_right = 1016.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="m" type="MarginContainer" parent="LeftBlock/Character2/Info" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 208.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin" ]
+
+[node name="Background" type="NinePatchRect" parent="LeftBlock/Character2/Info/m" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 208.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 200, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="v" type="VBoxContainer" parent="LeftBlock/Character2/Info/m" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 208.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="m" type="MarginContainer" parent="LeftBlock/Character2/Info/m/v" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 200.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin" ]
+
+[node name="Name2" type="Button" parent="LeftBlock/Character2/Info/m/v/m" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 200.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 1 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Dr. Agon"
+flat = true
+align = 0
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="HealthBar" type="ProgressBar" parent="LeftBlock/Character2/Info/m/v" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 40.0
+margin_right = 200.0
+margin_bottom = 68.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 75.0
+exp_edit = false
+rounded = false
+percent_visible = true
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="MagicBar" type="ProgressBar" parent="LeftBlock/Character2/Info/m/v" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 72.0
+margin_right = 200.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 50.0
+exp_edit = false
+rounded = false
+percent_visible = true
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Character3" type="HBoxContainer" parent="LeftBlock" index="2"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 208.0
+margin_right = 1016.0
+margin_bottom = 308.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Image" type="HBoxContainer" parent="LeftBlock/Character3" index="0"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="m" type="MarginContainer" parent="LeftBlock/Character3/Image" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Background" type="NinePatchRect" parent="LeftBlock/Character3/Image/m" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Rect" ]
+
+[node name="Picture" type="TextureRect" parent="LeftBlock/Character3/Image/m" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 75, 75 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Info" type="HBoxContainer" parent="LeftBlock/Character3" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 112.0
+margin_right = 1016.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="m" type="MarginContainer" parent="LeftBlock/Character3/Info" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 208.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin" ]
+
+[node name="Background" type="NinePatchRect" parent="LeftBlock/Character3/Info/m" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 208.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 200, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="v" type="VBoxContainer" parent="LeftBlock/Character3/Info/m" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 208.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="m" type="MarginContainer" parent="LeftBlock/Character3/Info/m/v" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 200.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin" ]
+
+[node name="Name3" type="Button" parent="LeftBlock/Character3/Info/m/v/m" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 200.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 1 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Dr. Agon"
+flat = true
+align = 0
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="HealthBar" type="ProgressBar" parent="LeftBlock/Character3/Info/m/v" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 40.0
+margin_right = 200.0
+margin_bottom = 68.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 75.0
+exp_edit = false
+rounded = false
+percent_visible = true
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="MagicBar" type="ProgressBar" parent="LeftBlock/Character3/Info/m/v" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 72.0
+margin_right = 200.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 50.0
+exp_edit = false
+rounded = false
+percent_visible = true
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Character4" type="HBoxContainer" parent="LeftBlock" index="3"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 312.0
+margin_right = 1016.0
+margin_bottom = 412.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Image" type="HBoxContainer" parent="LeftBlock/Character4" index="0"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="m" type="MarginContainer" parent="LeftBlock/Character4/Image" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Background" type="NinePatchRect" parent="LeftBlock/Character4/Image/m" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Rect" ]
+
+[node name="Picture" type="TextureRect" parent="LeftBlock/Character4/Image/m" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 75, 75 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Info" type="HBoxContainer" parent="LeftBlock/Character4" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 112.0
+margin_right = 1016.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="m" type="MarginContainer" parent="LeftBlock/Character4/Info" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 208.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin" ]
+
+[node name="Background" type="NinePatchRect" parent="LeftBlock/Character4/Info/m" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 208.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 200, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="v" type="VBoxContainer" parent="LeftBlock/Character4/Info/m" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 208.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="m" type="MarginContainer" parent="LeftBlock/Character4/Info/m/v" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 200.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin" ]
+
+[node name="Name4" type="Button" parent="LeftBlock/Character4/Info/m/v/m" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 200.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 1 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Dr. Agon"
+flat = true
+align = 0
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="HealthBar" type="ProgressBar" parent="LeftBlock/Character4/Info/m/v" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 40.0
+margin_right = 200.0
+margin_bottom = 68.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 75.0
+exp_edit = false
+rounded = false
+percent_visible = true
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="MagicBar" type="ProgressBar" parent="LeftBlock/Character4/Info/m/v" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 72.0
+margin_right = 200.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 50.0
+exp_edit = false
+rounded = false
+percent_visible = true
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="PopupPanel" type="PopupPanel" parent="." index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+theme = ExtResource( 6 )
+custom_styles/panel = ExtResource( 7 )
+popup_exclusive = false
+_sections_unfolded = [ "Margin", "Theme", "custom_styles" ]
+
+[node name="m" type="MarginContainer" parent="PopupPanel" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin" ]
+
+[node name="h" type="VBoxContainer" parent="PopupPanel/m" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 976.0
+margin_bottom = 560.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="v" type="VBoxContainer" parent="PopupPanel/m/h" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 968.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="h2" type="HBoxContainer" parent="PopupPanel/m/h/v" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 968.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="v" type="VBoxContainer" parent="PopupPanel/m/h/v/h2" index="0"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 482.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Name" type="Label" parent="PopupPanel/m/h/v/h2/v" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 482.0
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Character Name"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Gender" type="Label" parent="PopupPanel/m/h/v/h2/v" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 34.0
+margin_right = 482.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Gender"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Race" type="Label" parent="PopupPanel/m/h/v/h2/v" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 68.0
+margin_right = 482.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Race"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Class" type="Label" parent="PopupPanel/m/h/v/h2/v" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 102.0
+margin_right = 482.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Class"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="h" type="HBoxContainer" parent="PopupPanel/m/h/v/h2" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 486.0
+margin_right = 968.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Rect" ]
+
+[node name="Image" type="TextureRect" parent="PopupPanel/m/h/v/h2/h" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 132.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 132, 132 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="h" type="HBoxContainer" parent="PopupPanel/m/h/v/h2/h" index="1"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 136.0
+margin_right = 220.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="v" type="VBoxContainer" parent="PopupPanel/m/h/v/h2/h/h" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 84.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="HPL" type="Label" parent="PopupPanel/m/h/v/h2/h/h/v" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 84.0
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "HP:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="MPL" type="Label" parent="PopupPanel/m/h/v/h2/h/h/v" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 34.0
+margin_right = 84.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "MP:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ACL" type="Label" parent="PopupPanel/m/h/v/h2/h/h/v" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 68.0
+margin_right = 84.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "AC:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ABL" type="Label" parent="PopupPanel/m/h/v/h2/h/h/v" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 102.0
+margin_right = 84.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Attack:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="v" type="VBoxContainer" parent="PopupPanel/m/h/v/h2/h" index="2"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 224.0
+margin_right = 248.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="v2" type="VBoxContainer" parent="PopupPanel/m/h/v/h2/h/v" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 24.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="HP" type="Label" parent="PopupPanel/m/h/v/h2/h/v/v2" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 24.0
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "5"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="MP" type="Label" parent="PopupPanel/m/h/v/h2/h/v/v2" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 34.0
+margin_right = 24.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "10"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="AC" type="Label" parent="PopupPanel/m/h/v/h2/h/v/v2" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 68.0
+margin_right = 24.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "6"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="AB" type="Label" parent="PopupPanel/m/h/v/h2/h/v/v2" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 102.0
+margin_right = 24.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "2"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="h" type="HBoxContainer" parent="PopupPanel/m/h" index="1"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 136.0
+margin_right = 968.0
+margin_bottom = 404.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="v" type="VBoxContainer" parent="PopupPanel/m/h/h" index="0"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 190.0
+margin_bottom = 268.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="blank" type="Label" parent="PopupPanel/m/h/h/v" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 190.0
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="blank2" type="Label" parent="PopupPanel/m/h/h/v" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 34.0
+margin_right = 190.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="StrL" type="Label" parent="PopupPanel/m/h/h/v" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 68.0
+margin_right = 190.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Strength:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="IntL" type="Label" parent="PopupPanel/m/h/h/v" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 102.0
+margin_right = 190.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Intelligence:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="WisL" type="Label" parent="PopupPanel/m/h/h/v" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 136.0
+margin_right = 190.0
+margin_bottom = 166.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Wisdom:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="DexL" type="Label" parent="PopupPanel/m/h/h/v" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 170.0
+margin_right = 190.0
+margin_bottom = 200.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Dexterity:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ConL" type="Label" parent="PopupPanel/m/h/h/v" index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 204.0
+margin_right = 190.0
+margin_bottom = 234.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Constitution:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ChrL" type="Label" parent="PopupPanel/m/h/h/v" index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 238.0
+margin_right = 190.0
+margin_bottom = 268.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Charisma:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="v2" type="VBoxContainer" parent="PopupPanel/m/h/h" index="1"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 194.0
+margin_right = 384.0
+margin_bottom = 268.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="blank" type="Label" parent="PopupPanel/m/h/h/v2" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 190.0
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="blank2" type="Label" parent="PopupPanel/m/h/h/v2" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 34.0
+margin_right = 190.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Str" type="Label" parent="PopupPanel/m/h/h/v2" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 68.0
+margin_right = 190.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "9"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Int" type="Label" parent="PopupPanel/m/h/h/v2" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 102.0
+margin_right = 190.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "9"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Wis" type="Label" parent="PopupPanel/m/h/h/v2" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 136.0
+margin_right = 190.0
+margin_bottom = 166.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "9"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Dex" type="Label" parent="PopupPanel/m/h/h/v2" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 170.0
+margin_right = 190.0
+margin_bottom = 200.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "9"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Con" type="Label" parent="PopupPanel/m/h/h/v2" index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 204.0
+margin_right = 190.0
+margin_bottom = 234.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "9"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Chr" type="Label" parent="PopupPanel/m/h/h/v2" index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 238.0
+margin_right = 190.0
+margin_bottom = 268.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "9"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="v3" type="VBoxContainer" parent="PopupPanel/m/h/h" index="2"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 388.0
+margin_right = 578.0
+margin_bottom = 268.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="blank" type="Label" parent="PopupPanel/m/h/h/v3" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 190.0
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="blank2" type="Label" parent="PopupPanel/m/h/h/v3" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 34.0
+margin_right = 190.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Bonus"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="StrB" type="Label" parent="PopupPanel/m/h/h/v3" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 68.0
+margin_right = 190.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "9"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="IntB" type="Label" parent="PopupPanel/m/h/h/v3" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 102.0
+margin_right = 190.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "9"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="WisB" type="Label" parent="PopupPanel/m/h/h/v3" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 136.0
+margin_right = 190.0
+margin_bottom = 166.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "9"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="DexB" type="Label" parent="PopupPanel/m/h/h/v3" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 170.0
+margin_right = 190.0
+margin_bottom = 200.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "9"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ConB" type="Label" parent="PopupPanel/m/h/h/v3" index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 204.0
+margin_right = 190.0
+margin_bottom = 234.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "9"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ChrB" type="Label" parent="PopupPanel/m/h/h/v3" index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 238.0
+margin_right = 190.0
+margin_bottom = 268.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "9"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="v4" type="VBoxContainer" parent="PopupPanel/m/h/h" index="3"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 582.0
+margin_right = 772.0
+margin_bottom = 268.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="blank" type="Label" parent="PopupPanel/m/h/h/v4" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 190.0
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="blank2" type="Label" parent="PopupPanel/m/h/h/v4" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 34.0
+margin_right = 190.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="blank3" type="Label" parent="PopupPanel/m/h/h/v4" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 68.0
+margin_right = 190.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Saving Throws"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="blank4" type="Label" parent="PopupPanel/m/h/h/v4" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 102.0
+margin_right = 190.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Death / Poison:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="blank5" type="Label" parent="PopupPanel/m/h/h/v4" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 136.0
+margin_right = 190.0
+margin_bottom = 166.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Wands:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="blank6" type="Label" parent="PopupPanel/m/h/h/v4" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 170.0
+margin_right = 190.0
+margin_bottom = 200.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Stone:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="blank7" type="Label" parent="PopupPanel/m/h/h/v4" index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 204.0
+margin_right = 190.0
+margin_bottom = 234.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Dragon:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="blank8" type="Label" parent="PopupPanel/m/h/h/v4" index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 238.0
+margin_right = 190.0
+margin_bottom = 268.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Spells:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="v5" type="VBoxContainer" parent="PopupPanel/m/h/h" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 776.0
+margin_right = 968.0
+margin_bottom = 268.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="blank" type="Label" parent="PopupPanel/m/h/h/v5" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 192.0
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="blank2" type="Label" parent="PopupPanel/m/h/h/v5" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 34.0
+margin_right = 192.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="blank3" type="Label" parent="PopupPanel/m/h/h/v5" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 68.0
+margin_right = 192.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Death" type="Label" parent="PopupPanel/m/h/h/v5" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 102.0
+margin_right = 192.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "10"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Wands" type="Label" parent="PopupPanel/m/h/h/v5" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 136.0
+margin_right = 192.0
+margin_bottom = 166.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "10"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Stone" type="Label" parent="PopupPanel/m/h/h/v5" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 170.0
+margin_right = 192.0
+margin_bottom = 200.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "10"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Dragon" type="Label" parent="PopupPanel/m/h/h/v5" index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 204.0
+margin_right = 192.0
+margin_bottom = 234.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "10"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Spells" type="Label" parent="PopupPanel/m/h/h/v5" index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 238.0
+margin_right = 192.0
+margin_bottom = 268.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "10"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Buttons" type="HBoxContainer" parent="PopupPanel/m/h" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 408.0
+margin_right = 968.0
+margin_bottom = 560.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Label" type="Label" parent="PopupPanel/m/h/Buttons" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 61.0
+margin_right = 482.0
+margin_bottom = 91.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Done" type="Button" parent="PopupPanel/m/h/Buttons" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 486.0
+margin_top = 122.0
+margin_right = 968.0
+margin_bottom = 152.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 8
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Done"
+flat = false
+align = 1
+_sections_unfolded = [ "Size Flags" ]
+
+[connection signal="pressed" from="LeftBlock/Character1/Info/m/v/m/Name1" to="." method="_on_Name1_pressed"]
+
+[connection signal="pressed" from="LeftBlock/Character2/Info/m/v/m/Name2" to="." method="_on_Name2_pressed"]
+
+[connection signal="pressed" from="LeftBlock/Character3/Info/m/v/m/Name3" to="." method="_on_Name3_pressed"]
+
+[connection signal="pressed" from="LeftBlock/Character4/Info/m/v/m/Name4" to="." method="_on_Name4_pressed"]
+
+[connection signal="pressed" from="PopupPanel/m/h/Buttons/Done" to="." method="_on_Done_pressed"]
+
+
