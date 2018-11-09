@@ -2,48 +2,48 @@ extends Node
 
 # The "Stats" of the character.
 
-var name
-var gender
-var race
-var _class
-var strength
-var intel
-var wis
-var dex
-var con
-var cha
-var level
-var xp
-var ac
-var max_hp
-var current_hp
-var max_mp
-var current_mp
-var combat_order
-var attack_bonus
-var str_bonus
-var int_bonus
-var wis_bonus
-var dex_bonus
-var con_bonus
-var cha_bonus
-var save_death
-var save_wands
-var save_stone
-var save_dragon
-var save_spells
-var picture
-var weapons = []
-var spells = []
-var armor = []
+export (String) var char_name
+export (String) var gender
+export (String) var race
+export (String) var char_class
+export (int) var strength
+export (int) var intel
+export (int) var wis
+export (int) var dex
+export (int) var con
+export (int) var cha
+export (int) var level
+export (int) var xp
+export (int) var ac
+export (int) var max_hp
+export (int) var current_hp
+export (int) var max_mp
+export (int) var current_mp
+export (int) var combat_order
+export (int) var attack_bonus
+export (int) var str_bonus
+export (int) var int_bonus
+export (int) var wis_bonus
+export (int) var dex_bonus
+export (int) var con_bonus
+export (int) var cha_bonus
+export (int) var save_death
+export (int) var save_wands
+export (int) var save_stone
+export (int) var save_dragon
+export (int) var save_spells
+export (String, FILE, "*.png") var picture
+export (Array) var weapons = []
+export (Array) var spells = []
+export (Array) var armor = []
 
 
 func import_from_dict(from_dict):
 	# This function will take a dictionary (which is a single character "sheet" pulled from the "Characters.JSON" file.
-	name = from_dict.name
+	char_name = from_dict.name
 	gender = from_dict.gender
 	race = from_dict.race
-	_class = from_dict.class
+	char_class = from_dict.class
 	strength = from_dict.str
 	intel = from_dict.int
 	wis = from_dict.wis
@@ -64,16 +64,16 @@ func import_from_dict(from_dict):
 	wis_bonus = from_dict.wis_bonus
 	dex_bonus = from_dict.dex_bonus
 	con_bonus = from_dict.con_bonus
-	cha_bonus = from_dict.cha_bonus
+	cha_bonus = from_dict.chr_bonus
 	save_death = from_dict.save_death
 	save_wands = from_dict.save_wands
 	save_stone = from_dict.save_stone
 	save_dragon = from_dict.save_dragon
 	save_spells = from_dict.save_spells
 	picture = from_dict.pic
-	weapons = from_dict.weapons
-	spells = from_dict.spells
-	armor = from_dict.armor
+	#weapons = from_dict.weapons
+	#spells = from_dict.spells
+	#armor = from_dict.armor
 
 
 func output_to_dict():

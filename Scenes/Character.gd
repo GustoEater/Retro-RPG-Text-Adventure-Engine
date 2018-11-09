@@ -52,7 +52,7 @@ func update_characters(characters_array):
 	$LeftBlock/Character3/Image/m/Picture.texture = texture[2]
 	$LeftBlock/Character4/Image/m/Picture.texture = texture[3]
 	
-	emit_signal("turn_completed")
+	
 	
 
 func prep_popup(i):

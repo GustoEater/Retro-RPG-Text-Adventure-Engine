@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Scenes/Combat.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Character.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/GUI/new_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Scenes/Combat.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Character.tscn" type="PackedScene" id=3]
 
-[node name="Combat" type="PopupPanel"]
+[node name="Combat" type="PopupPanel" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -15,8 +16,10 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+theme = ExtResource( 1 )
 popup_exclusive = false
-script = ExtResource( 1 )
+script = ExtResource( 2 )
+_sections_unfolded = [ "Theme" ]
 
 [node name="MarginContainer" type="MarginContainer" parent="." index="0"]
 
@@ -53,7 +56,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 alignment = 0
 
-[node name="Characters" parent="MarginContainer/HBoxContainer" index="0" instance=ExtResource( 2 )]
+[node name="Characters" parent="MarginContainer/HBoxContainer" index="0" instance=ExtResource( 3 )]
 
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -78,6 +81,57 @@ size_flags_vertical = 3
 alignment = 0
 _sections_unfolded = [ "Size Flags" ]
 
+[node name="Commentary" type="RichTextLabel" parent="MarginContainer/HBoxContainer/Main" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 300.0
+margin_bottom = 486.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+bbcode_enabled = false
+bbcode_text = ""
+visible_characters = -1
+percent_visible = 1.0
+meta_underlined = true
+tab_size = 4
+text = ""
+scroll_active = true
+scroll_following = false
+selection_enabled = false
+override_selected_font_color = false
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Button" type="Button" parent="MarginContainer/HBoxContainer/Main" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 490.0
+margin_right = 300.0
+margin_bottom = 520.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Melee Attack"
+flat = false
+align = 1
+
 [node name="Monsters" type="VBoxContainer" parent="MarginContainer/HBoxContainer" index="2"]
 
 anchor_left = 0.0
@@ -95,5 +149,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 0
 _sections_unfolded = [ "Size Flags" ]
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Main/Button" to="." method="_on_Button_pressed"]
 
 

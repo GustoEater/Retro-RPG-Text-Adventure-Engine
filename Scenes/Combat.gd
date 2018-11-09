@@ -1,5 +1,8 @@
 extends PopupPanel
 
+
+
+
 # HOW COMBAT WORKS:
 	# 1) Check for surprise. (NEED TO PASS WHETHER SURPRISE IS POSSIBLE FROM THE STORY.
 		# For surprise, you check each side that could be surprised and roll 1d6. Normal characters are surprised on 1-2.
@@ -32,6 +35,7 @@ extends PopupPanel
 	
 var current_character
 var current_monster
+var commentary
 
 var monsters = {}
 var monster_list_text
@@ -121,7 +125,10 @@ func start():
 		else:
 			opening_message += monsters[ monster_list[i] ]["name"] + "."
 
-	print( opening_message )
+	#print( opening_message )
+	commentary = $MarginContainer/HBoxContainer/Main/Commentary
+	commentary.set_scroll_follow(true)
+	commentary.text = commentary.text + opening_message
 
 	# Roll Initiative.
 	roll_initiative()
@@ -154,7 +161,8 @@ func battle():
 			for j in range( get_parent().current_characters.size() ):
 				if get_parent().current_characters[ j ]["combat_order"] == now_serving:
 					# found the character whose turn it is.
-					print( "It's ", get_parent().current_characters[j]["name"], "'s Turn" )
+					#print( "It's ", get_parent().current_characters[j]["name"], "'s Turn" )
+					commentary.text = commentary.text + "\nIt's " + get_parent().current_characters[j]["name"] + "'s Turn"
 					var target_player = get_parent().current_characters[j]
 					
 					#popup the character interfact to allow them to do what they can do.
@@ -166,6 +174,11 @@ func battle():
 					#pass
 			for j in range( monster_list.size() ):
 				if monsters[ monster_list[j] ]["combat_order"] == now_serving:
+					#print("It's ", monsters[ monster_list[j] ]['name'], "'s Turn" )
+					commentary.text = commentary.text + "\nIt's " + monsters[ monster_list[j] ]['name'] + "'s Turn"
+					#print(monsters[ monster_list[j] ]['name'], " attacked!")
+					commentary.text = commentary.text + "\n" + monsters[ monster_list[j] ]['name'] + " attacked!"
+					
 					# found the monster whose turn it is.
 					# ALLOW THE MONSTER TO DO IT'S TURN
 					# CALL THE MONSTER PLAY FUNCTION WITH YIELD() FUNCTION
@@ -178,6 +191,8 @@ func battle():
 			player_hp += get_parent().current_characters[i]['current_hp']
 		for i in range( monster_list.size() ):
 			enemy_hp = enemy_hp + monsters[ monster_list[i] ]["current_hp"] 
+		
+		print("END OF ROUND Player HP: ", player_hp, "     Enemy HP: ", enemy_hp)
 		
 		if enemy_hp <= 0:
 		# Player has won.
@@ -206,25 +221,25 @@ func roll_initiative():
 	var available_ranks = []
 	var max_size
 	var decreasing = true
-	available_ranks.resize( monsters.size() + get_parent().current_characters.size() )
+	available_ranks.resize( monsters.size() + get_parent().current_characters.size() - 1 )
 	for i in range( available_ranks.size() ):
 		available_ranks[i] = int(i)
 		max_size = i
-	print("Available Numbers: ", available_ranks, "Max Size: ", str(max_size) )
+	#print("Available Numbers: ", available_ranks, " Max Size: ", str(max_size) )
 	
 	# Loop through the characters first and assign ranks.
 	for i in range( get_parent().current_characters.size() ):
 		randomize()
 		var num_to_try  = randi() % available_ranks.size() # + 1
-		print( "Loop: ", i, " Random: ", num_to_try )
+		#print( "Loop: ", i, " Random: ", num_to_try )
 		num_to_try += get_parent().current_characters[i]["dex_bonus"]
-		print( "With bonus: ", num_to_try )
+		#print( "With bonus: ", num_to_try )
 		if num_to_try > max_size:
 			num_to_try = max_size
 		num_to_try = int(num_to_try)
-		print( "Capped: ", str(num_to_try) )
+		#print( "Capped: ", str(num_to_try) )
 		if !available_ranks.has( num_to_try ):
-			print( str(num_to_try), " is not available." )
+			#print( str(num_to_try), " is not available." )
 			# the number to try doesn't appear in the available numbers.
 			# here we need to subtract one from it and check again. We can do this up to 6 times.
 			for x in range( max_size * 2 ):
@@ -237,20 +252,20 @@ func roll_initiative():
 					num_to_try += 1
 				if !available_ranks.has( num_to_try ):
 					# the number is still not available then subtract.
-					print ( str(num_to_try), " is not available." )
+					#print ( str(num_to_try), " is not available." )
 					pass
 				else:
 					break
 		available_ranks.remove( available_ranks.find( num_to_try ) )
-		print( "Final Num: ", str(num_to_try) )
+		#print( "Final Num: ", str(num_to_try) )
 		get_parent().current_characters[i]["combat_order"] = num_to_try
-		print("Available: ", available_ranks)
+		#print("Available: ", available_ranks)
 
 	# Loop through the monsters and assign ranks.
 	for i in range( monster_list.size() ):
 		randomize()
 		var num_to_try  = randi() % available_ranks.size() # + 1
-		print( "Loop: ", i, " Random: ", num_to_try )
+		#print( "Loop: ", i, " Random: ", num_to_try )
 		#num_to_try += monsters[i]["dex_bonus"]
 		#print( "With bonus: ", num_to_try )
 		#if num_to_try > max_size:
@@ -258,7 +273,7 @@ func roll_initiative():
 		num_to_try = int(num_to_try)
 		#print( "Capped: ", str(num_to_try) )
 		if !available_ranks.has( num_to_try ):
-			print( str(num_to_try), " is not available." )
+			#print( str(num_to_try), " is not available." )
 			# the number to try doesn't appear in the available numbers.
 			# here we need to subtract one from it and check again. We can do this up to 6 times.
 			decreasing = true
@@ -272,14 +287,14 @@ func roll_initiative():
 					num_to_try += 1
 				if !available_ranks.has( num_to_try ):
 					# the number is still not available then subtract.
-					print ( str(num_to_try), " is not available." )
+					#print ( str(num_to_try), " is not available." )
 					pass
 				else:
 					break
 		available_ranks.remove( available_ranks.find( num_to_try ) )
-		print( "Final Num: ", str(num_to_try) )
+		#print( "Final Num: ", str(num_to_try) )
 		monsters[ monster_list[i] ]["combat_order"] = num_to_try
-		print("Available: ", available_ranks)
+		#print("Available: ", available_ranks)
 
 #	# show all of the ranks
 #	for i in range( get_parent().current_characters.size() ):
@@ -297,12 +312,21 @@ func roll_initiative():
 		for x in range( get_parent().current_characters.size() ):
 			# loop through each of the players.
 			if get_parent().current_characters[x]['combat_order'] == rank:
-				print( get_parent().current_characters[x]['name'], ": ", get_parent().current_characters[x]['combat_order'] )
+				#print( get_parent().current_characters[x]['name'], ": ", get_parent().current_characters[x]['combat_order'] )
+				pass
 		for x in range( monster_list.size() ):
 			# loop through each of the monsters.
 			if monsters[ monster_list[x] ]['combat_order'] == rank:
-				print( monsters[ monster_list[x] ]['name'], ": ", monsters[ monster_list[x] ]['combat_order'] )
+				#print( monsters[ monster_list[x] ]['name'], ": ", monsters[ monster_list[x] ]['combat_order'] )
+				pass
 
 
 func next_player_by_index(index):
 	pass
+
+
+func _on_Button_pressed():
+	# The melee attack button is pressed:
+	print("Melee Attack Completed by Player")
+	$MarginContainer/HBoxContainer/Characters.emit_signal('turn_completed')
+	
