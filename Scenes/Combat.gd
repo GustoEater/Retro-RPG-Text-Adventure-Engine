@@ -47,8 +47,6 @@ var on_lose
 
 
 
-func _ready():
-	roll_dice( "2d6" )
 
 
 
@@ -158,12 +156,14 @@ func battle():
 					# found the character whose turn it is.
 					print( "It's ", get_parent().current_characters[j]["name"], "'s Turn" )
 					var target_player = get_parent().current_characters[j]
-					yield($Combat.player_turn(target_player), "completed")
+					
+					#popup the character interfact to allow them to do what they can do.
+					yield($MarginContainer/HBoxContainer/Characters, "turn_completed")
 					
 					# ALLOW THE CHARACTER TO DO IT'S TURN
 					# POP UP IT'S PANEL WITH COMMANDS, HAND OFF PROCESS TO IT USING THE YIELD() FUNCTION
 					# WAIT FOR SIGNAL BACK TO CONTINUE WITH THIS.
-					pass
+					#pass
 			for j in range( monster_list.size() ):
 				if monsters[ monster_list[j] ]["combat_order"] == now_serving:
 					# found the monster whose turn it is.
@@ -193,10 +193,6 @@ func battle():
 		
 
 
-
-func player_turn(target_player):
-	print( "It's ", target_player['name'], "'s turn." )
-	
 
 
 

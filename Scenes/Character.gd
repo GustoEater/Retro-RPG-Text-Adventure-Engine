@@ -1,6 +1,9 @@
 extends MarginContainer
 
 var current_characters = []
+signal turn_completed
+
+
 
 
 
@@ -49,7 +52,7 @@ func update_characters(characters_array):
 	$LeftBlock/Character3/Image/m/Picture.texture = texture[2]
 	$LeftBlock/Character4/Image/m/Picture.texture = texture[3]
 	
-	
+	emit_signal("turn_completed")
 	
 
 func prep_popup(i):
@@ -142,6 +145,10 @@ func _on_Name4_pressed():
 	get_node("PopupPanel").popup()
 
 
-
 func _on_Done_pressed():
 	get_node("PopupPanel").hide()
+
+
+func Player_Turn(target_player):
+		print( "It's ", target_player['name'], "'s turn." )
+		emit_signal("turn_completed")

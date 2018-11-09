@@ -11,4 +11,6 @@
 
 visible = false
 
+[node name="Characters" type="Node" parent="." index="2"]
+
 

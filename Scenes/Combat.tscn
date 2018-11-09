@@ -3,7 +3,7 @@
 [ext_resource path="res://Scenes/Combat.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Character.tscn" type="PackedScene" id=2]
 
-[node name="Combat" type="PopupPanel" index="0"]
+[node name="Combat" type="PopupPanel"]
 
 anchor_left = 0.0
 anchor_top = 0.0

@@ -55,6 +55,15 @@ func _ready():
 	current_characters = all_characters
 	$FullWidth/Character/Character.update_characters( current_characters )
 	
+	# THIS STUFF SHOULD PROBABLY BE IN THE GAME NODE SCRIPT (OR THE CHARACTERS NODE SCRIPT)
+	# Load the characters into new character nodes and add them as children of "Characters"
+	#var character_scene = load("res://Scenes/CharacterNew.tscn")
+	#var character_instance = character_scene.instance()
+	#character_instance.set_name("Character1")
+	
+	#get_parent().add_child()
+	# load the variable info.
+	
 	
 # Load the full monster list.
 
