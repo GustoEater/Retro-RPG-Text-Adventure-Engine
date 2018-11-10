@@ -1,15 +1,28 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scenes/MainGUI.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Units.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Game.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/StoryUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/CombatUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/CombatUI.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Units.gd" type="Script" id=5]
 
 [node name="Game" type="Node"]
 
-[node name="GUI" parent="." index="0" instance=ExtResource( 1 )]
+script = ExtResource( 1 )
+current_characters_to_load = "res://Data/Characters.JSON"
+available_characters_to_load = ""
+all_monsters_to_load = "res://Data/Monsters.JSON"
 
-[node name="Units" type="Node" parent="." index="1"]
+[node name="StoryUI" parent="." index="0" instance=ExtResource( 2 )]
 
-script = ExtResource( 2 )
+[node name="CombatUI" parent="." index="1" instance=ExtResource( 3 )]
+
+visible = false
+script = ExtResource( 4 )
+
+[node name="Units" type="Node" parent="." index="2"]
+
+script = ExtResource( 5 )
 characters_to_load = "res://Data/Characters.JSON"
 opt_characters_to_load = ""
 

@@ -33,8 +33,8 @@ extends PopupPanel
 	# IF THERE IS ANY TREASURE TO BE RECEIVED.
 	
 	
-var current_character
-var current_monster
+var active_character
+var active_monster
 var commentary
 
 var monsters = {}
@@ -98,20 +98,24 @@ func prep_monsters():
 	for i in range( monster_list.size() ):
 		#monsters.append( get_parent().all_monsters[ monster_list[ i ] ])
 		monsters = get_parent().all_monsters.duplicate()
-		print( monster_list[i] )
-		print( monsters[ monster_list[i] ] )
+		#print( monster_list[i] )
+		#print( monsters[ monster_list[i] ] )
 
 	# Update the "hp" for each monster using their "hit dice"
 	print( monsters.size() )
 	for i in range( monster_list.size() ):
 		var hd = monsters[ monster_list[i] ][ "hit_dice" ]
-		print("Hit Dice: ", hd )
+		#print("Hit Dice: ", hd )
 		var hp = roll_dice( hd )
-		print("Hit Points: ", hp )
+		#print("Hit Points: ", hp )
 		monsters[ monster_list[i] ]["max_hp"] = hp
 		if monsters[ monster_list[i] ].has('current_hp'):
 			monsters[ monster_list[i] ]["current_hp"] = hp
 #		print( monsters[ i ][ "current_hp" ] )
+	
+	# Add the Monster Information to the screen. (under "$MarginContainer/HBoxContainer/Monsters"
+	# This should include a label, a picture, a health bar.
+
 
 
 func start():
@@ -126,8 +130,8 @@ func start():
 			opening_message += monsters[ monster_list[i] ]["name"] + "."
 
 	#print( opening_message )
-	commentary = $MarginContainer/HBoxContainer/Main/Commentary
-	commentary.set_scroll_follow(true)
+	commentary = $M/H/Main/Commentary
+	#commentary.set_scroll_follow(true)
 	commentary.text = commentary.text + opening_message
 
 	# Roll Initiative.
@@ -162,11 +166,12 @@ func battle():
 				if get_parent().current_characters[ j ]["combat_order"] == now_serving:
 					# found the character whose turn it is.
 					#print( "It's ", get_parent().current_characters[j]["name"], "'s Turn" )
-					commentary.text = commentary.text + "\nIt's " + get_parent().current_characters[j]["name"] + "'s Turn"
-					var target_player = get_parent().current_characters[j]
+					active_character = get_parent().current_characters[j]
+					commentary.text = commentary.text + "\nIt's " + active_character["name"] + "'s Turn"
 					
 					#popup the character interfact to allow them to do what they can do.
-					yield($MarginContainer/HBoxContainer/Characters, "turn_completed")
+					$CharacterTurn.show()
+					yield($M/H/Characters, "turn_completed")
 					
 					# ALLOW THE CHARACTER TO DO IT'S TURN
 					# POP UP IT'S PANEL WITH COMMANDS, HAND OFF PROCESS TO IT USING THE YIELD() FUNCTION
@@ -326,7 +331,23 @@ func next_player_by_index(index):
 
 
 func _on_Button_pressed():
+	# THIS IS A TEMPORARY PLACE FOR THIS...EVENTUALLY THIS SHOULD BE COMING UP IN A POPUP.
 	# The melee attack button is pressed:
-	print("Melee Attack Completed by Player")
+	commentary.text += "\nMelee Attack by player."
+	
+	# How do we decide which monster is being attacked.
+	
+	var monster_ac
+	var player_bonus
+	
+	
+	
+	
+	
 	$MarginContainer/HBoxContainer/Characters.emit_signal('turn_completed')
 	
+
+
+func _on_Melee_pressed():
+	$CharacterTurn.hide()
+

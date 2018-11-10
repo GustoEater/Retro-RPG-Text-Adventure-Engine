@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/GUI/new_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scenes/Combat.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Character.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Monsters/1.png" type="Texture" id=4]
 
-[node name="Combat" type="PopupPanel" index="0"]
+[node name="Combat" type="PopupPanel"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -21,7 +22,7 @@ popup_exclusive = false
 script = ExtResource( 2 )
 _sections_unfolded = [ "Theme" ]
 
-[node name="MarginContainer" type="MarginContainer" parent="." index="0"]
+[node name="M" type="MarginContainer" parent="." index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -39,7 +40,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Margin" ]
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" index="0"]
+[node name="H" type="HBoxContainer" parent="M" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -56,14 +57,15 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 alignment = 0
 
-[node name="Characters" parent="MarginContainer/HBoxContainer" index="0" instance=ExtResource( 3 )]
+[node name="Characters" parent="M/H" index="0" instance=ExtResource( 3 )]
 
+editor/display_folded = true
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 328.0
 margin_bottom = 520.0
 
-[node name="Main" type="VBoxContainer" parent="MarginContainer/HBoxContainer" index="1"]
+[node name="Main" type="VBoxContainer" parent="M/H" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -81,7 +83,7 @@ size_flags_vertical = 3
 alignment = 0
 _sections_unfolded = [ "Size Flags" ]
 
-[node name="Commentary" type="RichTextLabel" parent="MarginContainer/HBoxContainer/Main" index="0"]
+[node name="Commentary" type="RichTextLabel" parent="M/H/Main" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -102,13 +104,13 @@ percent_visible = 1.0
 meta_underlined = true
 tab_size = 4
 text = ""
-scroll_active = true
-scroll_following = false
+scroll_active = false
+scroll_following = true
 selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "Size Flags" ]
 
-[node name="Button" type="Button" parent="MarginContainer/HBoxContainer/Main" index="1"]
+[node name="Button" type="Button" parent="M/H/Main" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -132,7 +134,7 @@ text = "Melee Attack"
 flat = false
 align = 1
 
-[node name="Monsters" type="VBoxContainer" parent="MarginContainer/HBoxContainer" index="2"]
+[node name="Monsters" type="VBoxContainer" parent="M/H" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -150,6 +152,247 @@ size_flags_vertical = 3
 alignment = 0
 _sections_unfolded = [ "Size Flags" ]
 
-[connection signal="pressed" from="MarginContainer/HBoxContainer/Main/Button" to="." method="_on_Button_pressed"]
+[node name="H" type="HBoxContainer" parent="M/H/Monsters" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 300.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="M1" type="MarginContainer" parent="M/H/Monsters/H" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 144.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin", "Size Flags" ]
+
+[node name="Background" type="NinePatchRect" parent="M/H/Monsters/H/M1" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 144.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Image" type="TextureRect" parent="M/H/Monsters/H/M1/Background" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -12.0
+margin_right = 431.0
+margin_bottom = 443.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 4 )
+stretch_mode = 0
+_sections_unfolded = [ "Rect" ]
+
+[node name="M2" type="MarginContainer" parent="M/H/Monsters/H" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 148.0
+margin_right = 300.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="V" type="VBoxContainer" parent="M/H/Monsters/H/M2" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 152.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Name" type="Label" parent="M/H/Monsters/H/M2/V" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 144.0
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Grizzly Bear"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Health" type="ProgressBar" parent="M/H/Monsters/H/M2/V" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 34.0
+margin_right = 144.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 0
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+percent_visible = true
+
+[node name="CharacterTurn" type="PopupPanel" parent="." index="1"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+popup_exclusive = true
+_sections_unfolded = [ "Popup", "Theme" ]
+
+[node name="M" type="MarginContainer" parent="CharacterTurn" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin" ]
+
+[node name="V" type="VBoxContainer" parent="CharacterTurn/M" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 236.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Name" type="Label" parent="CharacterTurn/M/V" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 228.0
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Current Player Name"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Melee" type="Button" parent="CharacterTurn/M/V" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 34.0
+margin_right = 228.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Melee Attack"
+flat = false
+align = 1
+
+[connection signal="pressed" from="M/H/Main/Button" to="." method="_on_Button_pressed"]
+
+[connection signal="pressed" from="CharacterTurn/M/V/Melee" to="." method="_on_Melee_pressed"]
 
 

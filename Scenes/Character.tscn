@@ -51,6 +51,7 @@ alignment = 0
 
 [node name="Character1" type="HBoxContainer" parent="LeftBlock" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0

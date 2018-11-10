@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/GUI/new_theme.tres" type="Theme" id=1]
-[ext_resource path="res://Assets/GUI/paper-1074131_1920.jpg" type="Texture" id=2]
+[ext_resource path="res://Assets/GUI/paper-bg.jpg" type="Texture" id=2]
 [ext_resource path="res://Scenes/MainGUI.gd" type="Script" id=3]
 [ext_resource path="res://Assets/GUI/CharacterFrame.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Character/Fighter-female.png" type="Texture" id=5]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Assets/GUI/MapFrame.png" type="Texture" id=9]
 [ext_resource path="res://Scenes/Combat.tscn" type="PackedScene" id=10]
 
+
 [sub_resource type="DynamicFont" id=1]
 
 size = 30
@@ -19,7 +20,7 @@ use_filter = true
 font_data = ExtResource( 7 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="GUI" type="NinePatchRect"]
+[node name="GUI" type="NinePatchRect" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -59,7 +60,6 @@ _sections_unfolded = [ "Rect", "Size Flags" ]
 
 [node name="Character" type="VBoxContainer" parent="FullWidth" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
