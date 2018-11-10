@@ -40,6 +40,11 @@ func prep_monsters(list, on_win, on_lose):
 	
 	# Add the Monster Information to the screen. (under "$MarginContainer/HBoxContainer/Monsters"
 	# This should include a label, a picture, a health bar.
+	for i in range( current_monster_list.size() ):
+		pass
+	
+	
+	
 
 
 func roll_dice( string ):
