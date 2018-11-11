@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/CharacterNew.gd" type="Script" id=1]
 [ext_resource path="res://Stats.gd" type="Script" id=2]
-[ext_resource path="res://Assets/GUI/new_theme.tres" type="Theme" id=3]
+[ext_resource path="res://Assets/GUI/FantasyTheme.tres" type="Theme" id=3]
 
 [node name="Character" type="Node2D"]
 

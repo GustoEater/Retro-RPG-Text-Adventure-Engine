@@ -5,9 +5,10 @@
 [ext_resource path="res://Assets/Character/Fighter-female.png" type="Texture" id=3]
 [ext_resource path="res://Assets/GUI/CharacterInfoFrame.png" type="Texture" id=4]
 [ext_resource path="res://Assets/GUI/Themes/Fonts/VT323-Regular.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://Assets/GUI/new_theme.tres" type="Theme" id=6]
+[ext_resource path="res://Assets/GUI/FantasyTheme.tres" type="Theme" id=6]
 [ext_resource path="res://Assets/GUI/stylebox-tan.tres" type="StyleBox" id=7]
 [ext_resource path="res://Assets/Character/146257.png" type="Texture" id=8]
+
 
 [sub_resource type="DynamicFont" id=1]
 

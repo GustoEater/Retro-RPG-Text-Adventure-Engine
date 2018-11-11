@@ -3,13 +3,13 @@ extends NinePatchRect
 # This script handles the placing of narrative text into the appropriate
 # text box and choice buttons.
 
-export ( String, FILE, "*.json" ) var adventure_to_load = "res://Data/AdventureParsed.JSON"
-export ( String, FILE, "*.json" ) var current_characters_to_load = "res://Data/Characters.JSON"
+#export ( String, FILE, "*.json" ) var adventure_to_load = "res://Data/AdventureParsed.JSON"
+#export ( String, FILE, "*.json" ) var current_characters_to_load = "res://Data/Characters.JSON"
 #export ( String, FILE, "*.json" ) var characters_to_load = "res://Data/Characters.JSON"
 #export ( String, FILE, "*.json" ) var monsters_to_load = "res://Data/Monsters.JSON"
-var full_adventure = {}
+#var full_adventure = {}
 var current_page = {}
-var current_characters = []
+#var current_characters = []
 # This variable is an array of the Character scene / data structure.
 #var all_characters = []
 #var current_characters = []
@@ -19,34 +19,9 @@ var current_characters = []
 
 
 func _ready():
-	# Load the adventure file.
-	var file = File.new()
-	file.open( adventure_to_load, file.READ )
-	var full_file_text = file.get_as_text()
-	file.close()
-
-	var full_file_parse = JSON.parse( full_file_text )
-	if full_file_parse.error == OK:  # If the JSON file was okay, then process it.
-		full_adventure = full_file_parse.result
-		update_page("p1")
-	else:  # If there is an error in the JSON file, then deal with it.
-		print( "Adventure:", full_file_parse.error_line, ", ", full_file_parse.error_string )
-
-# Load the current characters.
-	file = File.new()
-	file.open( current_characters_to_load, file.READ )
-	full_file_text = file.get_as_text()
-	file.close()
-
-	full_file_parse = JSON.parse( full_file_text )
-	if full_file_parse.error == OK:  # If the JSON file was okay, then process it.
-		current_characters = full_file_parse.result
-	else:  # If there is an error in the JSON file, then deal with it.
-		print( "Characters: ", full_file_parse.error_line, ", ", full_file_parse.error_string )
-
 # Add CharacterUI information.
-	var target_parent_node = $M/FullWidth/Character
-	for i in range( current_characters.size() ):
+	var target_parent_node = $M/FullWidth/Characters
+	for i in range( Global.current_characters.size() ):
 		var scene = load("res://Scenes/CharacterUI.tscn")
 		var scene_instance = scene.instance()
 		scene_instance.set_name( 'Character' + str(i) )
@@ -54,12 +29,6 @@ func _ready():
 		var new_node = target_parent_node.get_child(i)
 		# Fill in the data on the new node with info from character.
 		new_node.my_index = i
-#		new_node.image_path = current_characters[i]['pic']
-#		new_node.character_name = current_characters[i]['name']
-#		new_node.max_hp = current_characters[i]['max_hp']
-#		new_node.current_hp = current_characters[i]['current_hp']
-#		new_node.max_mp = current_characters[i]['max_mp']
-#		new_node.current_mp = current_characters[i]['current_mp']
 		new_node.update_ui()
 		
 
@@ -131,8 +100,8 @@ func _ready():
 
 func update_page( target_page ):
 	# Updates the current page to the target_page passed in. This is how we move from page to page.
-	if full_adventure.has( target_page ):
-		current_page = full_adventure[ target_page ]
+	if Global.full_adventure.has( target_page ):
+		current_page = Global.full_adventure[ target_page ]
 	else:
 		print("Error: The adventure requested a page that does not exist. The request page was ", target_page, ".")
 
@@ -149,7 +118,6 @@ func update_page( target_page ):
 		title_box.text = current_page[ "title" ]
 		narrative_box.text = current_page[ "narrative" ]
 		if current_page.has( "choice0" ):
-			print("current_page has 'choice0'")
 			choice0_box.text = current_page[ "choice0" ]
 			choice0_box.visible = true
 		if current_page.has( "choice1" ):

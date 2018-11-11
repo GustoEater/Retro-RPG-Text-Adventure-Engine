@@ -1,12 +1,12 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Assets/GUI/new_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/GUI/FantasyTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/GUI/paper-bg.jpg" type="Texture" id=2]
 [ext_resource path="res://Scenes/StoryUI.gd" type="Script" id=3]
 [ext_resource path="res://Assets/GUI/MapFrame.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/Combat.tscn" type="PackedScene" id=5]
 
-[node name="StoryUI" type="NinePatchRect" index="0"]
+[node name="StoryUI" type="NinePatchRect"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -22,8 +22,6 @@ theme = ExtResource( 1 )
 texture = ExtResource( 2 )
 script = ExtResource( 3 )
 _sections_unfolded = [ "Margin", "Theme", "custom_constants" ]
-adventure_to_load = "res://Data/AdventureParsed.JSON"
-current_characters_to_load = "res://Data/Characters.JSON"
 
 [node name="M" type="MarginContainer" parent="." index="0"]
 
@@ -61,7 +59,7 @@ size_flags_vertical = 3
 alignment = 0
 _sections_unfolded = [ "Rect", "Size Flags" ]
 
-[node name="Character" type="VBoxContainer" parent="M/FullWidth" index="0"]
+[node name="Characters" type="VBoxContainer" parent="M/FullWidth" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
