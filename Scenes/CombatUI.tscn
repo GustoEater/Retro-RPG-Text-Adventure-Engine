@@ -3,9 +3,9 @@
 [ext_resource path="res://Assets/GUI/FantasyTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/GUI/paper-bg.jpg" type="Texture" id=2]
 [ext_resource path="res://Scenes/CombatUI.gd" type="Script" id=3]
-[ext_resource path="res://Assets/GUI/CharacterInfoFrame.png" type="Texture" id=4]
+[ext_resource path="res://Assets/GUI/CommentaryShade.png" type="Texture" id=4]
 
-[node name="CombatUI" type="NinePatchRect"]
+[node name="CombatUI" type="NinePatchRect" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -125,10 +125,12 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Commands"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+_sections_unfolded = [ "custom_colors" ]
 
 [node name="MeleeButton" type="Button" parent="M/V/H/Commands" index="1"]
 
@@ -146,6 +148,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -153,7 +156,7 @@ group = null
 text = "Melee Attack"
 flat = false
 align = 1
-_sections_unfolded = [ "Size Flags" ]
+_sections_unfolded = [ "Size Flags", "custom_colors" ]
 
 [node name="Monsters" type="VBoxContainer" parent="M/V/H" index="2"]
 
@@ -206,7 +209,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
-_sections_unfolded = [ "Axis Stretch", "Size Flags" ]
+_sections_unfolded = [ "Axis Stretch", "Rect", "Size Flags" ]
 
 [node name="M" type="MarginContainer" parent="M/V/H2/BG" index="0"]
 

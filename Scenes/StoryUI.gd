@@ -29,7 +29,7 @@ func _ready():
 		var new_node = target_parent_node.get_child(i)
 		# Fill in the data on the new node with info from character.
 		new_node.my_index = i
-		new_node.update_ui()
+		new_node.update_ui(true)
 		
 
 	#adventure = get_parent().full_adventure

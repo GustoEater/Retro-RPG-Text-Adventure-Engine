@@ -115,5 +115,5 @@ Label/constants/shadow_offset_y = 1
 Label/fonts/font = ExtResource( 2 )
 Label/styles/normal = null
 PopupPanel/styles/panel = ExtResource( 3 )
-_sections_unfolded = [ "Button", "Button/fonts", "Button/icons", "Button/styles", "Label", "Label/fonts", "PopupPanel/styles" ]
+_sections_unfolded = [ "Button", "Button/fonts", "Button/icons", "Button/styles", "Label", "Label/fonts", "PopupPanel/styles", "ProgressBar", "ProgressBar/colors", "ProgressBar/fonts", "ProgressBar/styles" ]
 

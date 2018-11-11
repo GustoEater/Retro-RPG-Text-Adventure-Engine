@@ -7,10 +7,13 @@ onready var commentary = $M/V/H2/BG/M/Commentary
 var num_of_fighters
 var active_character
 var active_monster
+var selected_character
+var selected_monster
 
 onready var selected_box = ResourceLoader.load("res://Assets/GUI/SelectedBox.png")
 
 signal turn_completed
+signal end_combat
 
 
 
@@ -26,7 +29,7 @@ func _ready():
 		var new_node = target_parent_node.get_child(i)
 		# Fill in the data on the new node with info from character.
 		new_node.my_index = i
-		new_node.update_ui()
+		new_node.update_ui(true)
 
 
 
@@ -77,9 +80,13 @@ func prep_monsters(list, on_win, on_lose):
 		var new_node = target_parent_node.get_child(i)
 		# Fill in the data on the new node with info from character.
 		new_node.my_index = i
-		new_node.update_ui()
+		if i == 0:
+			selected_monster = 0
+			new_node.selected = true
+		new_node.update_ui(true)
 	
 	
+
 
 
 func roll_dice( string ):
@@ -87,7 +94,13 @@ func roll_dice( string ):
 	# Parse the string.
 	var sum = 0
 	var number = int( string.left( string.findn( "d" ) ) )
-	var type = int( string.right( string.length() - string.findn( "d" ) ) )
+	#var type = int( string.right( string.length() - string.rfindn( "d" ) ) )
+	var type = int( string.right( string.length() - ( str(number).length() + 1) ) )
+	#print("Here are some tries: a) ", string.right( string.length() - string.rfind("d")), "  b) ", string.right( string.length() - string.findn("d")) )
+	#var type = int( string.right( string.length() - str(number).length() + 1 ) )
+	#print("String: ", string, ", Rolling Number: ", number, " and Type: ", type, "  rfind returned: ", string.rfind("d"))
+	#print("string.right ( ", string.length(), " - ", string.findn("d"), ") = ", type)
+	#print( "string.lenghth(): ", string.length(), " number.length(): ", str(number).length(), "  string.right( string.lenghth() - ( number.length() + 1): ", string.right( string.length() - ( str(number).length() + 1) ) )
 	for i in range( number ):
 		randomize()
 		sum += randi() % type + 1
@@ -145,11 +158,11 @@ func battle():
 					#print( "It's ", get_parent().current_characters[j]["name"], "'s Turn" )
 					active_character = Global.current_characters[j]
 					commentary.text = commentary.text + "\nIt's " + active_character["name"] + "'s Turn"
-					
+					$M/V/H/Commands/MeleeButton.disabled = false
+				# Highlight the current character.
 					for x in range( Global.current_characters.size() ):  # Clear previous selections
 						var char_node = get_node("./M/V/H/Characters/Character" + str(x) + "/BG")
 						char_node.texture = null
-					# Add new selection.
 					var char_node = get_node("./M/V/H/Characters/Character" + str(j) + "/BG")
 					char_node.texture = selected_box
 					
@@ -315,13 +328,36 @@ func roll_initiative():
 
 
 func _on_MeleeButton_pressed():
-	# THIS IS A TEMPORARY PLACE FOR THIS...EVENTUALLY THIS SHOULD BE COMING UP IN A POPUP.
-	# The melee attack button is pressed:
-	commentary.text += "\nMelee Attack by player."
+	$M/V/H/Commands/MeleeButton.disabled = true
+	var selected_monster_data = Global.all_monsters[ Global.current_monster_list[ selected_monster ] ]
+	var selected_monster_node = get_node('M/V/H/Monsters/Monster' + str(selected_monster) )
+	var monster_ac = Global.all_monsters[ Global.current_monster_list[ selected_monster ] ].ac
+	var message = "\n"
+	var critical = false
+	var attack_roll = roll_dice('1d20')
+	if attack_roll == 20:
+		critical = true
+		message += "CRITICAL HIT!\n"
+	attack_roll += active_character.attack_bonus + active_character.str_bonus
+	if attack_roll >= monster_ac or critical:
+		message = active_character.name + " hit " + selected_monster_data.name + " with a roll of " + str(attack_roll) + "."
+		var damage = roll_dice('1d8')
+		message += "\n" + selected_monster_data.name + " took " + str(damage) + " sword damage." 
+		selected_monster_data.current_hp -= damage
+		if selected_monster_data.current_hp <= 0:
+			# monster has been killed. What do we do?
+			selected_monster_data.current_hp = 0
+			if $M/V/H/Monsters.get_child_count() == 1:
+				# No more monsters...players have won!!
+				message = "You won!"
+				emit_signal('end_combat')
+			else:
+				selected_monster_node.queue_free()
+		else:
+			selected_monster_node.update_ui(false)
+	else:
+		message = active_character.name + " missed " + selected_monster_data.name + " with a roll of " + str(attack_roll) + "."
+	commentary.text += message
 	
-	# How do we decide which monster is being attacked.
-	
-	var monster_ac
-	var player_bonus
-	
+		
 	emit_signal('turn_completed')

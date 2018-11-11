@@ -1,7 +1,7 @@
 {
 	"Bear":
 	{
-		"name":"Grizzly Bear", "ac":14, "hit_dice":"5d8", "num_of_attacks":4,"attacks":["claws","claws","a bite","a hug"],
+		"name":"Grizzly Bear", "ac":4, "hit_dice":"5d8", "num_of_attacks":4,"attacks":["claws","claws","a bite","a hug"],
 		"attack_bonus":5, "damage":["1d4","1d4","1d8","2d8"],"xp":360, "max_hp":0, "current_hp":0, "pic":"000001.png", "combat_order":0
 	},
 	"Cat":

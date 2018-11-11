@@ -12,14 +12,21 @@ var my_index
 #onready var monster_node = preload("res://Scenes/CombatUI.tscn")
 
 
-func update_ui():
-	#image_path = Global.current_characters[my_index]['pic']
-	$BG/Info/M/V/Name.text = Global.current_characters[my_index]['name']
-	$BG/Info/M/V/Health.max_value = Global.current_characters[my_index]['max_hp']
-	$BG/Info/M/V/Health.value = Global.current_characters[my_index]['current_hp']
-	$BG/Info/M/V/Magic.max_value = Global.current_characters[my_index]['max_mp']
-	$BG/Info/M/V/Magic.value = Global.current_characters[my_index]['current_mp']
-	$BG/Image/M/Image.texture_normal = load("res://Assets/Character/" + Global.current_characters[my_index].pic)
+func update_ui(full):
+	if full:
+		#image_path = Global.current_characters[my_index]['pic']
+		$BG/Info/M/V/Name.text = Global.current_characters[my_index]['name']
+		$BG/Info/M/V/Health.max_value = Global.current_characters[my_index]['max_hp']
+		$BG/Info/M/V/Health.value = Global.current_characters[my_index]['current_hp']
+		$BG/Info/M/V/Magic.max_value = Global.current_characters[my_index]['max_mp']
+		$BG/Info/M/V/Magic.value = Global.current_characters[my_index]['current_mp']
+		$BG/Image/M/Image.texture_normal = load("res://Assets/Character/" + Global.current_characters[my_index].pic)
+	else:
+		$BG/Info/M/V/Health.value = Global.current_characters[my_index]['current_hp']
+		$BG/Info/M/V/Magic.value = Global.current_characters[my_index]['current_mp']
+	
+	
+	
 	#print("res://Assets/Character/" + Global.current_characters[my_index].pic)
 	
 #	var image.append(Image.new())
