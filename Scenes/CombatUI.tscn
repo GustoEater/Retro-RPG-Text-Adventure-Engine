@@ -253,6 +253,8 @@ scroll_following = true
 selection_enabled = false
 override_selected_font_color = false
 
+[connection signal="end_combat" from="." to="." method="_on_CombatUI_end_combat"]
+
 [connection signal="pressed" from="M/V/H/Commands/MeleeButton" to="." method="_on_MeleeButton_pressed"]
 
 

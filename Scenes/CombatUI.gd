@@ -11,6 +11,8 @@ var selected_character
 var selected_monster
 
 onready var selected_box = ResourceLoader.load("res://Assets/GUI/SelectedBox.png")
+onready var monsters_node = get_node('M/V/H/Monsters')
+
 
 signal turn_completed
 signal end_combat
@@ -109,14 +111,16 @@ func battle():
 	# function for the main loop.
 	var enemy_hp = 0
 	var player_hp = 0
-	num_of_fighters = Global.current_characters.size() + Global.current_monster_list.size()
+	#num_of_fighters = Global.current_characters.size() + Global.current_monster_list.size()
+	num_of_fighters = Global.current_characters.size() + monsters_node.get_child_count()
 	#print( "Fighters: ", num_of_fighters )
 	
 	# Total up HP from each fighter
 	for i in range( Global.current_characters.size() ):
 		player_hp += Global.current_characters[i]['current_hp']
-	for i in range( Global.current_monster_list.size() ):
-		enemy_hp = enemy_hp + int( Global.all_monsters[ Global.current_monster_list[i] ]["current_hp"] )
+	for i in range( monsters_node.get_child_count() ):
+		#enemy_hp = enemy_hp + int( Global.all_monsters[ Global.current_monster_list[i] ]["current_hp"] )
+		enemy_hp = enemy_hp + int( monsters_node.get_child(i).monster_data["current_hp"] )
 	
 	
 	while enemy_hp > 0 and player_hp > 0:
@@ -150,13 +154,14 @@ func battle():
 					# POP UP IT'S PANEL WITH COMMANDS, HAND OFF PROCESS TO IT USING THE YIELD() FUNCTION
 					# WAIT FOR SIGNAL BACK TO CONTINUE WITH THIS.
 					#pass
-			for j in range( Global.current_monster_list.size() ):
-				if Global.all_monsters[ Global.current_monster_list[j] ]["combat_order"] == now_serving:
+			for j in range( monsters_node.get_child_count() ):
+				#if Global.all_monsters[ Global.current_monster_list[j] ]["combat_order"] == now_serving:
+				if monsters_node.get_child(j).monster_data["combat_order"] == now_serving:
 					#print("It's ", monsters[ monster_list[j] ]['name'], "'s Turn" )
-					commentary.text = commentary.text + "\nIt's " + Global.all_monsters[ Global.current_monster_list[j] ]['name'] + "'s Turn"
+					#commentary.text = commentary.text + "\nIt's " + Global.all_monsters[ Global.current_monster_list[j] ]['name'] + "'s Turn"
+					commentary.text = commentary.text + "\nIt's " + monsters_node.get_child(j).monster_data['name'] + "'s Turn"
 					#print(monsters[ monster_list[j] ]['name'], " attacked!")
-					commentary.text = commentary.text + "\n" + Global.all_monsters[ Global.current_monster_list[j] ]['name'] + " attacked!"
-					
+					commentary.text = commentary.text + "\n" + monsters_node.get_child(j).monster_data['name'] + " attacked!"
 					# found the monster whose turn it is.
 					# ALLOW THE MONSTER TO DO IT'S TURN
 					# CALL THE MONSTER PLAY FUNCTION WITH YIELD() FUNCTION
@@ -169,13 +174,16 @@ func battle():
 		enemy_hp = 0
 		for i in range( Global.current_characters.size() ):
 			player_hp += Global.current_characters[i]['current_hp']
-		for i in range( Global.current_monster_list.size() ):
-			enemy_hp = enemy_hp + Global.all_monsters[ Global.current_monster_list[i] ]["current_hp"] 
+		for i in range( monsters_node.get_child_count() ):
+			#enemy_hp = enemy_hp + Global.all_monsters[ Global.current_monster_list[i] ]["current_hp"] 
+			enemy_hp = enemy_hp + monsters_node.get_child(i).monster_data["current_hp"]
 		
 		print("END OF ROUND Player HP: ", player_hp, "     Enemy HP: ", enemy_hp)
 		commentary.text += "\n========== End of Round =========="
 		roll_initiative()
-		
+
+
+#	The below code may never run since I'm now using a signal to end the battle.
 		if enemy_hp <= 0:
 		# Player has won.
 		# close everything and go to the on_win page
@@ -304,59 +312,64 @@ func roll_initiative():
 				pass
 
 
-# ==============================================================================================
-# WORKING HERE. NEED TO UPDATE BATTLE AND _ON_MELEEBUTTON_PRESSED FUNCTIONS TO RELY ON THE DATA
-# IN THE MONSTERS NODES INSTEAD OF THE GLOBAL VARIABLES.
-# ==============================================================================================
 
 func _on_MeleeButton_pressed():
 	$M/V/H/Commands/MeleeButton.disabled = true
-	var selected_monster_data = Global.all_monsters[ Global.current_monster_list[ selected_monster ] ]
+	#var selected_monster_data = Global.all_monsters[ Global.current_monster_list[ selected_monster ] ]
 	var selected_monster_node = get_node('M/V/H/Monsters/Monster' + str(selected_monster) )
-	var monsters_node = get_node('M/V/H/Monsters')
-	var monster_ac = Global.all_monsters[ Global.current_monster_list[ selected_monster ] ].ac
+	#var monsters_node = get_node('M/V/H/Monsters')
+	var monster_ac = selected_monster_node.monster_data['ac']
+	#var monster_ac = Global.all_monsters[ Global.current_monster_list[ selected_monster ] ].ac
 	var message = "\n"
 	var critical_hit = false
 	var critical_miss = false
 	var attack_roll = roll_dice('1d20')
 	if attack_roll == 20:
 		critical_hit = true
-		message += "CRITICAL HIT! Double damage.\n"
-	if attack_roll == 1:
+		message += "CRITICAL HIT! Double damage!\n"
+	if attack_roll == 1:  # A critical miss always misses.
 		critical_miss = true
 		message += "CRITIICAL MISS!\n"
-		attack_roll = -10
+		attack_roll = -10  # This is so that even if the really low roll hits, it will miss
 	attack_roll += active_character.attack_bonus + active_character.str_bonus
-	if attack_roll >= monster_ac or critical_hit:
-		message = active_character.name + " hit " + selected_monster_data.name + " with a roll of " + str(attack_roll) + "."
+	if attack_roll >= monster_ac or critical_hit:   # A Hit
+		#message = active_character.name + " hit " + selected_monster_data.name + " with a roll of " + str(attack_roll) + "."
+		message = active_character.name + " hit " + selected_monster_node.monster_data['name'] + " with a roll of " + str(attack_roll) + "."
 		var damage = roll_dice('1d8')
 		if critical_hit:
 			damage = damage * 2
-		message += "\n" + selected_monster_data.name + " took " + str(damage) + " sword damage." 
-		selected_monster_data.current_hp -= damage
-		if selected_monster_data.current_hp <= 0:
-			# monster has been killed. What do we do?
-			selected_monster_data.current_hp = 0
-			if $M/V/H/Monsters.get_child_count() == 1:
-				# No more monsters...players have won!!
+		message += "\n" + selected_monster_node.monster_data['name'] + " took " + str(damage) + " sword damage." 
+		#selected_monster_data.current_hp -= damage
+		selected_monster_node.monster_data['current_hp'] -= damage
+		#if selected_monster_data.current_hp <= 0:
+		if selected_monster_node.monster_data['current_hp'] <= 0:  # Monster has been killed.
+			selected_monster_node.monster_data['current_hp'] = 0
+			if monsters_node.get_child_count() == 1:  # The last monster was killed. Battle is won.
 				message = "You won!"
 				emit_signal('end_combat')
-			else:
-				# WHICH MONSTER GOT KILLED? "Monster + str(selected_monster) is the one that got killed.
-				selected_monster_data.selected = false
-				selected_monster_node.get_parent().remove_child(selected_monster_node)
+			else:   # There are still monsters remaining.
+				#selected_monster_data.selected = false
+				selected_monster_node.selected = false
+				monsters_node.remove_child(selected_monster_node)
+				#selected_monster_node.get_parent().remove_child(selected_monster_node)
 				var remaining_monsters = monsters_node.get_children()
+				print( remaining_monsters )
 				remaining_monsters[0].selected = true
-				Global.current_monster_list.remove(selected_monster)
+				selected_monster = remaining_monsters[0].name.right( remaining_monsters[0].name.length() - 1 )
+				#Global.current_monster_list.remove(selected_monster)
 				#get_node('M/V/H/Monsters/' + remaining_monsters[0].name).selected = true
-				print("All: ", remaining_monsters, "  Just [0]: ", remaining_monsters[0].name)
-				print(remaining_monsters[0].name, " is now selected: ", remaining_monsters[0].selected)
+				#print("All: ", remaining_monsters, "  Just [0]: ", remaining_monsters[0].name)
+				#print(remaining_monsters[0].name, " is now selected: ", remaining_monsters[0].selected)
 				remaining_monsters[0].update_ui(false)
 		else:
 			selected_monster_node.update_ui(false)
 	else:
-		message = active_character.name + " missed " + selected_monster_data.name + " with a roll of " + str(attack_roll) + "."
+		message = active_character.name + " missed " + selected_monster_node.monster_data['name'] + " with a roll of " + str(attack_roll) + "."
 	commentary.text += message
 	
 		
 	emit_signal('turn_completed')
+
+
+func _on_CombatUI_end_combat():
+	print('Now to wrap up the combat.')
