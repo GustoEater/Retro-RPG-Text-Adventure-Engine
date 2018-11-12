@@ -9,9 +9,13 @@ var active_character
 var active_monster
 var selected_character
 var selected_monster
+var xp_earned = 0
+var on_win
+var on_lose
 
 onready var selected_box = ResourceLoader.load("res://Assets/GUI/SelectedBox.png")
 onready var monsters_node = get_node('M/V/H/Monsters')
+onready var characters_node = get_node('M/V/H/Characters')
 
 
 signal turn_completed
@@ -20,8 +24,10 @@ signal end_combat
 
 
 
-func _ready():
-	# Add CharacterUI information.
+
+
+func prep_combat(monster_list, on_win_page, on_lose_page):
+# Add Characters
 	var target_parent_node = $M/V/H/Characters
 	for i in range( Global.current_characters.size() ):
 		var scene = load("res://Scenes/CharacterUI.tscn")
@@ -31,20 +37,17 @@ func _ready():
 		var new_node = target_parent_node.get_child(i)
 		# Fill in the data on the new node with info from character.
 		new_node.my_index = i
+		new_node.char_data = Global.current_characters[i]
+		#print(new_node.char_data)
 		new_node.update_ui(true)
-
-
-
-
-
-func prep_monsters(list, on_win, on_lose):
 # Parse the list of monsters and add to Global.current_monster_list array.
-	var number_of_monsters = list.left( list.findn( ":" ) )
-	list = list.right( list.findn( ":" ) + 1 )
-	list = list.right ( 3 )   # remove leading \n\r\n from the beginning.
+	Global.current_monster_list.clear()
+	var number_of_monsters = monster_list.left( monster_list.findn( ":" ) )
+	monster_list = monster_list.right( monster_list.findn( ":" ) + 1 )
+	monster_list = monster_list.right ( 3 )   # remove leading \n\r\n from the beginning.
 	for i in range( number_of_monsters ):
-		Global.current_monster_list.append( list.left( list.findn( "\n" ) ) )
-		list = list.right( Global.current_monster_list[i].length() + 3 )
+		Global.current_monster_list.append( monster_list.left( monster_list.findn( "\n" ) ) )
+		monster_list = monster_list.right( Global.current_monster_list[ i ].length() + 3 )
 		Global.current_monster_list[ i ] = Global.current_monster_list[ i ].right( 1 )
 		Global.current_monster_list[ i ] = Global.current_monster_list[ i ].left( Global.current_monster_list[ i ].length() - 1 )
 #	From the monster's hit_dice, calculate their max_hp
@@ -55,7 +58,7 @@ func prep_monsters(list, on_win, on_lose):
 		if Global.all_monsters[ Global.current_monster_list[i] ].has('current_hp'):
 			Global.all_monsters[ Global.current_monster_list[i] ]["current_hp"] = hp
 #	Add MonsterUI information.
-	var target_parent_node = $M/V/H/Monsters
+	target_parent_node = $M/V/H/Monsters
 	for i in range( Global.current_monster_list.size() ):
 		var scene = load("res://Scenes/MonsterUI.tscn")
 		var scene_instance = scene.instance()
@@ -71,6 +74,8 @@ func prep_monsters(list, on_win, on_lose):
 			new_node.selected = true
 #	Update the user interface (true = a full update)
 		new_node.update_ui(true)
+	on_win = on_win_page
+	on_lose = on_lose_page
 
 
 
@@ -92,14 +97,15 @@ func roll_dice( string ):
 func start():
 #	Sets up the beginning of combat.
 	var opening_message = "You are fighting a "
-	var num_of_monsters = $M/V/H/Monsters.get_child_count()
+	var num_of_monsters = monsters_node.get_child_count()
 	for i in range( num_of_monsters ):  # Shows what monsters are attacking.
-		if i < num_of_monsters - 2 :
-			opening_message += $M/V/H/Monsters.get_child(i).monster_data['name'] + ", a "
-		elif i < num_of_monsters - 1:
-			opening_message += $M/V/H/Monsters.get_child(i).monster_data['name'] + ", and a "
-		else:
-			opening_message += $M/V/H/Monsters.get_child(i).monster_data['name'] + ".\n"
+		opening_message += monsters_node.get_child(i).monster_data['name']
+#		if i < num_of_monsters - 2 :
+#			opening_message += monsters_node.get_child(i).monster_data['name'] + ", a "
+#		elif i < num_of_monsters - 1:
+#			opening_message += monsters_node.get_child(i).monster_data['name'] + ", and a "
+#		else:
+#			opening_message += monsters_node.get_child(i).monster_data['name'] + ".\n"
 	commentary.text = commentary.text + opening_message
 #	Roll Initiative.
 	roll_initiative()
@@ -112,12 +118,13 @@ func battle():
 	var enemy_hp = 0
 	var player_hp = 0
 	#num_of_fighters = Global.current_characters.size() + Global.current_monster_list.size()
-	num_of_fighters = Global.current_characters.size() + monsters_node.get_child_count()
+	num_of_fighters = characters_node.get_child_count() + monsters_node.get_child_count()
 	#print( "Fighters: ", num_of_fighters )
 	
 	# Total up HP from each fighter
-	for i in range( Global.current_characters.size() ):
-		player_hp += Global.current_characters[i]['current_hp']
+	for i in range( characters_node.get_child_count() ):
+		#player_hp += Global.current_characters[i]['current_hp']
+		player_hp += characters_node.get_child(i).char_data['current_hp']
 	for i in range( monsters_node.get_child_count() ):
 		#enemy_hp = enemy_hp + int( Global.all_monsters[ Global.current_monster_list[i] ]["current_hp"] )
 		enemy_hp = enemy_hp + int( monsters_node.get_child(i).monster_data["current_hp"] )
@@ -133,19 +140,25 @@ func battle():
 		for i in range( num_of_fighters ):
 			# Loop through each fighter and allow them to conduct their turn.
 			# Start with the one with the hightest "combat_order"
-			for j in range( Global.current_characters.size() ):
-				if Global.current_characters[ j ]["combat_order"] == now_serving:
+			#for j in range( Global.current_characters.size() ):
+			for j in range( characters_node.get_child_count() ):
+				#if Global.current_characters[ j ]["combat_order"] == now_serving:
+				if characters_node.get_child(j).char_data["combat_order"] == now_serving:
 					# found the character whose turn it is.
 					#print( "It's ", get_parent().current_characters[j]["name"], "'s Turn" )
-					active_character = Global.current_characters[j]
-					commentary.text = commentary.text + "\nIt's " + active_character["name"] + "'s Turn"
+					#active_character = Global.current_characters[j]
+					active_character = characters_node.get_child(j)
+					commentary.text = commentary.text + "\nIt's " + active_character.char_data["name"] + "'s Turn"
 					$M/V/H/Commands/MeleeButton.disabled = false
 				# Highlight the current character.
-					for x in range( Global.current_characters.size() ):  # Clear previous selections
-						var char_node = get_node("./M/V/H/Characters/Character" + str(x) + "/BG")
-						char_node.texture = null
-					var char_node = get_node("./M/V/H/Characters/Character" + str(j) + "/BG")
-					char_node.texture = selected_box
+					#for x in range( Global.current_characters.size() ):  # Clear previous selections
+					for x in range( characters_node.get_child_count() ):  # Clear previous selections
+						#var char_node = get_node("./M/V/H/Characters/Character" + str(x) + "/BG")
+						#char_node.texture = null
+						characters_node.get_child(x).get_node('BG').texture = null
+					#var char_node = get_node("./M/V/H/Characters/Character" + str(j) + "/BG")
+					#char_node.texture = selected_box
+					characters_node.get_child(j).get_node('BG').texture = selected_box
 					
 					# Allow the Player to tell their character what to do.
 					yield(self, "turn_completed")
@@ -172,8 +185,10 @@ func battle():
 		# At the end, sum up the enemy_hp and the player_hp
 		player_hp = 0
 		enemy_hp = 0
-		for i in range( Global.current_characters.size() ):
-			player_hp += Global.current_characters[i]['current_hp']
+		#for i in range( Global.current_characters.size() ):
+		for i in range( characters_node.get_child_count() ):
+			#player_hp += Global.current_characters[i]['current_hp']
+			player_hp += characters_node.get_child(i).char_data['current_hp']
 		for i in range( monsters_node.get_child_count() ):
 			#enemy_hp = enemy_hp + Global.all_monsters[ Global.current_monster_list[i] ]["current_hp"] 
 			enemy_hp = enemy_hp + monsters_node.get_child(i).monster_data["current_hp"]
@@ -211,16 +226,18 @@ func roll_initiative():
 	var max_size
 	var decreasing = true
 	#available_ranks.resize( Global.current_monster_list.size() + Global.current_characters.size() )
-	available_ranks.resize( $M/V/H/Monsters.get_child_count() + Global.current_characters.size() )
+	available_ranks.resize( $M/V/H/Monsters.get_child_count() + characters_node.get_child_count() )
 	for i in range( available_ranks.size() ):
 		available_ranks[i] = int(i)
 		max_size = i
 #	Loop through the characters first and assign ranks.
-	for i in range( Global.current_characters.size() ):
+	#for i in range( Global.current_characters.size() ):
+	for i in range( characters_node.get_child_count() - 1 ):
 		randomize()
 		var num_to_try  = randi() % available_ranks.size() # + 1
 		#print( "Loop: ", i, " Random: ", num_to_try )
-		num_to_try += Global.current_characters[i]["dex_bonus"]
+		#num_to_try += Global.current_characters[i]["dex_bonus"]
+		num_to_try += characters_node.get_child(i).char_data["dex_bonus"]
 		#print( "With bonus: ", num_to_try )
 		if num_to_try > max_size:
 			num_to_try = max_size
@@ -246,7 +263,8 @@ func roll_initiative():
 					break
 		available_ranks.remove( available_ranks.find( num_to_try ) )
 		#print( "Final Num: ", str(num_to_try) )
-		Global.current_characters[i]["combat_order"] = num_to_try
+		#Global.current_characters[i]["combat_order"] = num_to_try
+		characters_node.get_child(i).char_data["combat_order"] = num_to_try
 		#print("Available: ", available_ranks)
 
 #	Loop through the monsters and assign ranks.
@@ -299,9 +317,11 @@ func roll_initiative():
 		#print("Loop: ", str(i) )
 		rank = rank - 1
 		#print("Looking for Rank: ", rank)
-		for x in range( Global.current_characters.size() ):
+		#for x in range( Global.current_characters.size() ):
+		for x in range( characters_node.get_child_count() ):
 			# loop through each of the players.
-			if Global.current_characters[x]['combat_order'] == rank:
+			#if Global.current_characters[x]['combat_order'] == rank:
+			if characters_node.get_child(x).char_data['combat_order'] == rank:
 				#print( get_parent().current_characters[x]['name'], ": ", get_parent().current_characters[x]['combat_order'] )
 				pass
 		for x in range( $M/V/H/Monsters.get_child_count() ):
@@ -331,10 +351,10 @@ func _on_MeleeButton_pressed():
 		critical_miss = true
 		message += "CRITIICAL MISS!\n"
 		attack_roll = -10  # This is so that even if the really low roll hits, it will miss
-	attack_roll += active_character.attack_bonus + active_character.str_bonus
+	attack_roll += active_character.char_data['attack_bonus'] + active_character.char_data['str_bonus']
 	if attack_roll >= monster_ac or critical_hit:   # A Hit
 		#message = active_character.name + " hit " + selected_monster_data.name + " with a roll of " + str(attack_roll) + "."
-		message = active_character.name + " hit " + selected_monster_node.monster_data['name'] + " with a roll of " + str(attack_roll) + "."
+		message = active_character.char_data['name'] + " hit " + selected_monster_node.monster_data['name'] + " with a roll of " + str(attack_roll) + "."
 		var damage = roll_dice('1d8')
 		if critical_hit:
 			damage = damage * 2
@@ -343,6 +363,7 @@ func _on_MeleeButton_pressed():
 		selected_monster_node.monster_data['current_hp'] -= damage
 		#if selected_monster_data.current_hp <= 0:
 		if selected_monster_node.monster_data['current_hp'] <= 0:  # Monster has been killed.
+			xp_earned += int(selected_monster_node.monster_data['xp'])
 			selected_monster_node.monster_data['current_hp'] = 0
 			if monsters_node.get_child_count() == 1:  # The last monster was killed. Battle is won.
 				message = "You won!"
@@ -373,3 +394,25 @@ func _on_MeleeButton_pressed():
 
 func _on_CombatUI_end_combat():
 	print('Now to wrap up the combat.')
+	print('XP Earned: ', str(xp_earned) )
+	$EndCombat/MarginContainer/VBoxContainer/Label3.text = str(xp_earned) + " XP"
+	$EndCombat.show()
+	
+
+func _on_DoneButton_pressed():
+	# Send back to the StoryUI (make sure you update the earned XP
+#	Clean Up
+	for monster in monsters_node.get_children():
+		monster.queue_free()
+	for character in characters_node.get_children():
+		character.queue_free()
+	
+	$EndCombat.hide()
+	self.get_parent().get_node('/root/Game/StoryUI').update_page(on_win)
+	self.get_parent().get_node('/root/Game/StoryUI').show()
+	
+	# NEED TO SEND THE CHARACTER INFORMATION BACK TO THE GLOBAL VARIABLE. AND THEN UPDATE
+	# THAT INFORMATION BACK TO THE CHARACTERS ON STORY UI.
+	
+	self.hide()
+	

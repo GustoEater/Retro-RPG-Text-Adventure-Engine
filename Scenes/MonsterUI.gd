@@ -1,19 +1,6 @@
 extends HBoxContainer
 
 var monster_data = {}
-#var image_path
-#var monster_name
-#var max_hp
-#var current_hp
-#var ac
-#var combat_order
-#var attack_bonus
-#var xp
-#var num_of_attacks
-#var attacks = []
-#var damage = []
-#var max_mp
-#var current_mp
 var my_index
 var selected = false
 
@@ -26,36 +13,14 @@ func update_ui(full):
 	if full:
 		$NinePatchRect/Info/M/V/Name.text = monster_data.name
 		$NinePatchRect/Info/M/V/Health.max_value = monster_data.max_hp
-		$NinePatchRect/Info/M/V/Health.value = monster_data.current_hp
+		#$NinePatchRect/Info/M/V/Health.value = monster_data.current_hp
 		$NinePatchRect/Image/M/Image.texture_normal = ResourceLoader.load( "res://Assets/Character/" + monster_data.pic )
-		#image_path = Global.current_characters[my_index]['pic']
-		#$NinePatchRect/Info/M/V/Name.text = Global.all_monsters[ Global.current_monster_list[my_index] ]['name']
-		#$NinePatchRect/Info/M/V/Health.max_value = Global.all_monsters[ Global.current_monster_list[my_index] ]['max_hp']
-		#$NinePatchRect/Image/M/Image.texture_normal = ResourceLoader.load( "res://Assets/Character/" + Global.all_monsters[ Global.current_monster_list[ my_index ] ].pic )
-		#$NinePatchRect/Info/M/V/Health.value = Global.all_monsters[ Global.current_monster_list[my_index] ]['current_hp']
-		if selected:
-			$Selected.visible = true
-		else:
-			$Selected.visible = false
+	$NinePatchRect/Info/M/V/Health.value = monster_data.current_hp
+	if selected:
+		$Selected.visible = true
 	else:
-		$NinePatchRect/Info/M/V/Health.value = monster_data.current_hp
-		#$NinePatchRect/Info/M/V/Health.value = Global.all_monsters[ Global.current_monster_list[my_index] ]['current_hp']
-		if selected:
-			$Selected.visible = true
-		else:
-			$Selected.visible = false
-	
-	
-	
-	
-#	$NinePatchRect/Info/M/V/Magic.max_value = Global.all_monsters[ Global.current_monster_list[my_index] ]['max_mp']
-#	$NinePatchRect/Info/M/V/Magic.value = Global.all_monsters[ Global.current_monster_list[my_index] ]['current_mp']
-	
-#	$NinePatchRect/Info/M/V/Name.text = character_name
-#	$NinePatchRect/Info/M/V/Magic.max_value = max_mp
-#	$NinePatchRect/Info/M/V/Magic.value = current_mp
-#	$NinePatchRect/Info/M/V/Health.max_value = max_hp
-#	$NinePatchRect/Info/M/V/Health.value = current_hp
+		$Selected.visible = false
+
 
 
 func _on_Name_pressed():

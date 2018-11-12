@@ -52,5 +52,13 @@ If there are any choices in a page then it would goto the specified page number.
 
 Otherwise, it just goes to the next page.
 
-* Next<!--goto_p1_-->
+* Next<!--goto_p11_-->
+
+# p11_COMBAT
+2:
+_Cat_
+_Spider_
+
+* Win<!--goto_p1_-->
+* Lose<!--goto_p1_-->
 

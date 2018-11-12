@@ -29,6 +29,7 @@ func _ready():
 		var new_node = target_parent_node.get_child(i)
 		# Fill in the data on the new node with info from character.
 		new_node.my_index = i
+		new_node.char_data = Global.current_characters[i]
 		new_node.update_ui(true)
 		
 
@@ -139,11 +140,12 @@ func update_page( target_page ):
 		# Changing to combat mode.
 		# Load required information from the current page.
 		var monster_list_text = current_page['narrative']
+		print("Monster List Text: ", monster_list_text)
 		var on_win = current_page['choice-goto0']
 		var on_lose = current_page['choice-goto1']
 		
 		var combat_node = get_node('/root/Game/CombatUI')
-		combat_node.prep_monsters(monster_list_text, on_win, on_lose)
+		combat_node.prep_combat(monster_list_text, on_win, on_lose)
 		self.hide()
 		combat_node.show()
 		combat_node.start()
