@@ -33,44 +33,26 @@ func _ready():
 
 
 
+
+
 func prep_monsters(list, on_win, on_lose):
+# Parse the list of monsters and add to Global.current_monster_list array.
 	var number_of_monsters = list.left( list.findn( ":" ) )
 	list = list.right( list.findn( ":" ) + 1 )
-	# remove leading \n\r\n from the beginning.
-	list = list.right ( 3 )
-
-	# separate each monster (monster_list) into our list of monsters.
+	list = list.right ( 3 )   # remove leading \n\r\n from the beginning.
 	for i in range( number_of_monsters ):
 		Global.current_monster_list.append( list.left( list.findn( "\n" ) ) )
 		list = list.right( Global.current_monster_list[i].length() + 3 )
 		Global.current_monster_list[ i ] = Global.current_monster_list[ i ].right( 1 )
 		Global.current_monster_list[ i ] = Global.current_monster_list[ i ].left( Global.current_monster_list[ i ].length() - 1 )
-	
-	# Load monsters into the monsters array.
-	# load the appropriate monsters into the monsters array.
-#	for i in range( Global.current_monster_list.size() ):
-#		#monsters.append( get_parent().all_monsters[ monster_list[ i ] ])
-#		monsters = Global.all_monsters.duplicate()
-		#print( monster_list[i] )
-		#print( monsters[ monster_list[i] ] )
-
-	# Update the "hp" for each monster using their "hit dice"
-	#print( monsters.size() )
+#	From the monster's hit_dice, calculate their max_hp
 	for i in range( Global.current_monster_list.size() ):
 		var hd = Global.all_monsters[ Global.current_monster_list[i] ][ "hit_dice" ]
-		#print("Hit Dice: ", hd )
 		var hp = roll_dice( hd )
-		#print("Hit Points: ", hp )
 		Global.all_monsters[ Global.current_monster_list[i] ]["max_hp"] = hp
 		if Global.all_monsters[ Global.current_monster_list[i] ].has('current_hp'):
 			Global.all_monsters[ Global.current_monster_list[i] ]["current_hp"] = hp
-#		print( monsters[ i ][ "current_hp" ] )
-	
-	# Add the Monster Information to the screen. (under "$MarginContainer/HBoxContainer/Monsters"
-	# This should include a label, a picture, a health bar.
-	for i in range( Global.current_monster_list.size() ):
-		pass
-# Add MonsterUI information.
+#	Add MonsterUI information.
 	var target_parent_node = $M/V/H/Monsters
 	for i in range( Global.current_monster_list.size() ):
 		var scene = load("res://Scenes/MonsterUI.tscn")
@@ -78,14 +60,16 @@ func prep_monsters(list, on_win, on_lose):
 		scene_instance.set_name( 'Monster' + str(i) )
 		target_parent_node.add_child(scene_instance)
 		var new_node = target_parent_node.get_child(i)
-		# Fill in the data on the new node with info from character.
+		# Fill in the data on the new node with info from monster.
+		new_node.monster_data = Global.all_monsters[ Global.current_monster_list[i] ]
 		new_node.my_index = i
+#	The first monster should be selected (all others should not be selected)
 		if i == 0:
 			selected_monster = 0
 			new_node.selected = true
+#	Update the user interface (true = a full update)
 		new_node.update_ui(true)
-	
-	
+
 
 
 
@@ -94,13 +78,7 @@ func roll_dice( string ):
 	# Parse the string.
 	var sum = 0
 	var number = int( string.left( string.findn( "d" ) ) )
-	#var type = int( string.right( string.length() - string.rfindn( "d" ) ) )
 	var type = int( string.right( string.length() - ( str(number).length() + 1) ) )
-	#print("Here are some tries: a) ", string.right( string.length() - string.rfind("d")), "  b) ", string.right( string.length() - string.findn("d")) )
-	#var type = int( string.right( string.length() - str(number).length() + 1 ) )
-	#print("String: ", string, ", Rolling Number: ", number, " and Type: ", type, "  rfind returned: ", string.rfind("d"))
-	#print("string.right ( ", string.length(), " - ", string.findn("d"), ") = ", type)
-	#print( "string.lenghth(): ", string.length(), " number.length(): ", str(number).length(), "  string.right( string.lenghth() - ( number.length() + 1): ", string.right( string.length() - ( str(number).length() + 1) ) )
 	for i in range( number ):
 		randomize()
 		sum += randi() % type + 1
@@ -108,21 +86,20 @@ func roll_dice( string ):
 
 
 
+
 func start():
-	# Begins the combat loop.
+#	Sets up the beginning of combat.
 	var opening_message = "You are fighting a "
-	for i in range( Global.current_monster_list.size() ):
-		if i < Global.current_monster_list.size() - 2 :
-			opening_message += Global.all_monsters[ Global.current_monster_list[i] ]["name"] + ", a "
-		elif i < Global.current_monster_list.size() - 1:
-			opening_message += Global.all_monsters[ Global.current_monster_list[i] ]["name"] + ", and a "
+	var num_of_monsters = $M/V/H/Monsters.get_child_count()
+	for i in range( num_of_monsters ):  # Shows what monsters are attacking.
+		if i < num_of_monsters - 2 :
+			opening_message += $M/V/H/Monsters.get_child(i).monster_data['name'] + ", a "
+		elif i < num_of_monsters - 1:
+			opening_message += $M/V/H/Monsters.get_child(i).monster_data['name'] + ", and a "
 		else:
-			opening_message += Global.all_monsters[ Global.current_monster_list[i] ]["name"] + "."
-
-	#print( opening_message )
+			opening_message += $M/V/H/Monsters.get_child(i).monster_data['name'] + ".\n"
 	commentary.text = commentary.text + opening_message
-
-	# Roll Initiative.
+#	Roll Initiative.
 	roll_initiative()
 	battle()
 
@@ -165,7 +142,6 @@ func battle():
 						char_node.texture = null
 					var char_node = get_node("./M/V/H/Characters/Character" + str(j) + "/BG")
 					char_node.texture = selected_box
-					
 					
 					# Allow the Player to tell their character what to do.
 					yield(self, "turn_completed")
@@ -226,13 +202,12 @@ func roll_initiative():
 	var available_ranks = []
 	var max_size
 	var decreasing = true
-	available_ranks.resize( Global.current_monster_list.size() + Global.current_characters.size() )
+	#available_ranks.resize( Global.current_monster_list.size() + Global.current_characters.size() )
+	available_ranks.resize( $M/V/H/Monsters.get_child_count() + Global.current_characters.size() )
 	for i in range( available_ranks.size() ):
 		available_ranks[i] = int(i)
 		max_size = i
-	#print("Available Numbers: ", available_ranks, " Max Size: ", str(max_size) )
-	
-# Loop through the characters first and assign ranks.
+#	Loop through the characters first and assign ranks.
 	for i in range( Global.current_characters.size() ):
 		randomize()
 		var num_to_try  = randi() % available_ranks.size() # + 1
@@ -266,8 +241,9 @@ func roll_initiative():
 		Global.current_characters[i]["combat_order"] = num_to_try
 		#print("Available: ", available_ranks)
 
-	# Loop through the monsters and assign ranks.
-	for i in range( Global.current_monster_list.size() ):
+#	Loop through the monsters and assign ranks.
+	#for i in range( Global.current_monster_list.size() ):
+	for i in range( $M/V/H/Monsters.get_child_count() ):
 		randomize()
 		var num_to_try  = randi() % available_ranks.size() # + 1
 		#print( "Loop: ", i, " Random: ", num_to_try )
@@ -298,7 +274,8 @@ func roll_initiative():
 					break
 		available_ranks.remove( available_ranks.find( num_to_try ) )
 		#print( "Final Num: ", str(num_to_try) )
-		Global.all_monsters[ Global.current_monster_list[i] ]["combat_order"] = num_to_try
+		#Global.all_monsters[ Global.current_monster_list[i] ]["combat_order"] = num_to_try
+		$M/V/H/Monsters.get_child(i).monster_data['combat_order'] = num_to_try
 		#print("Available: ", available_ranks)
 
 #	# show all of the ranks
@@ -307,7 +284,7 @@ func roll_initiative():
 #	for i in range( monsters.size() ):
 #		print( monsters[i]['name'], ": ", monsters[i]['combat_order'] )
 		
-# show all of the ranks in order:
+#	Show all of the ranks in order:
 	max_size += 1
 	var rank = int(max_size)
 	for i in range(max_size):
@@ -319,29 +296,42 @@ func roll_initiative():
 			if Global.current_characters[x]['combat_order'] == rank:
 				#print( get_parent().current_characters[x]['name'], ": ", get_parent().current_characters[x]['combat_order'] )
 				pass
-		for x in range( Global.current_monster_list.size() ):
+		for x in range( $M/V/H/Monsters.get_child_count() ):
 			# loop through each of the monsters.
-			if Global.all_monsters[ Global.current_monster_list[x] ]['combat_order'] == rank:
+			#if Global.all_monsters[ Global.current_monster_list[x] ]['combat_order'] == rank:
+			if $M/V/H/Monsters.get_child(x).monster_data['combat_order'] == rank:
 				#print( monsters[ monster_list[x] ]['name'], ": ", monsters[ monster_list[x] ]['combat_order'] )
 				pass
 
 
+# ==============================================================================================
+# WORKING HERE. NEED TO UPDATE BATTLE AND _ON_MELEEBUTTON_PRESSED FUNCTIONS TO RELY ON THE DATA
+# IN THE MONSTERS NODES INSTEAD OF THE GLOBAL VARIABLES.
+# ==============================================================================================
 
 func _on_MeleeButton_pressed():
 	$M/V/H/Commands/MeleeButton.disabled = true
 	var selected_monster_data = Global.all_monsters[ Global.current_monster_list[ selected_monster ] ]
 	var selected_monster_node = get_node('M/V/H/Monsters/Monster' + str(selected_monster) )
+	var monsters_node = get_node('M/V/H/Monsters')
 	var monster_ac = Global.all_monsters[ Global.current_monster_list[ selected_monster ] ].ac
 	var message = "\n"
-	var critical = false
+	var critical_hit = false
+	var critical_miss = false
 	var attack_roll = roll_dice('1d20')
 	if attack_roll == 20:
-		critical = true
-		message += "CRITICAL HIT!\n"
+		critical_hit = true
+		message += "CRITICAL HIT! Double damage.\n"
+	if attack_roll == 1:
+		critical_miss = true
+		message += "CRITIICAL MISS!\n"
+		attack_roll = -10
 	attack_roll += active_character.attack_bonus + active_character.str_bonus
-	if attack_roll >= monster_ac or critical:
+	if attack_roll >= monster_ac or critical_hit:
 		message = active_character.name + " hit " + selected_monster_data.name + " with a roll of " + str(attack_roll) + "."
 		var damage = roll_dice('1d8')
+		if critical_hit:
+			damage = damage * 2
 		message += "\n" + selected_monster_data.name + " took " + str(damage) + " sword damage." 
 		selected_monster_data.current_hp -= damage
 		if selected_monster_data.current_hp <= 0:
@@ -352,7 +342,16 @@ func _on_MeleeButton_pressed():
 				message = "You won!"
 				emit_signal('end_combat')
 			else:
-				selected_monster_node.queue_free()
+				# WHICH MONSTER GOT KILLED? "Monster + str(selected_monster) is the one that got killed.
+				selected_monster_data.selected = false
+				selected_monster_node.get_parent().remove_child(selected_monster_node)
+				var remaining_monsters = monsters_node.get_children()
+				remaining_monsters[0].selected = true
+				Global.current_monster_list.remove(selected_monster)
+				#get_node('M/V/H/Monsters/' + remaining_monsters[0].name).selected = true
+				print("All: ", remaining_monsters, "  Just [0]: ", remaining_monsters[0].name)
+				print(remaining_monsters[0].name, " is now selected: ", remaining_monsters[0].selected)
+				remaining_monsters[0].update_ui(false)
 		else:
 			selected_monster_node.update_ui(false)
 	else:

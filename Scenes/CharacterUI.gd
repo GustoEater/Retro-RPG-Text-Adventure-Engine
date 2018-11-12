@@ -7,6 +7,7 @@ extends HBoxContainer
 #var max_mp
 #var current_mp
 var my_index
+var selected = false
 
 #onready var character_node = get_node('/root/Game/StoryUI')
 #onready var monster_node = preload("res://Scenes/CombatUI.tscn")
