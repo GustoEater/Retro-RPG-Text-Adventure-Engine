@@ -1,16 +1,14 @@
 extends Node
 
-export ( String, FILE, "*.json" ) var adventure_to_load = "res://Data/AdventureParsed.JSON"
-export ( String, FILE, "*.json" ) var current_characters_to_load = "res://Data/Characters.JSON"
-export ( String, FILE, "*.json" ) var available_characters_to_load = ""
-export ( String, FILE, "*.json" ) var all_monsters_to_load = "res://Data/Monsters.JSON"
+export ( String, FILE, '*.json' ) var adventure_to_load = 'res://Data/AdventureParsed.JSON'
+export ( String, FILE, '*.json' ) var current_characters_to_load = 'res://Data/Characters.JSON'
+export ( String, FILE, '*.json' ) var available_characters_to_load = ''
+export ( String, FILE, '*.json' ) var all_monsters_to_load = 'res://Data/Monsters.JSON'
 
 export var full_adventure = {}
 var current_characters = []
 var all_monsters = {}
 var current_monster_list = []
-
-
 
 
 func _ready():
@@ -24,7 +22,7 @@ func _ready():
 	if full_file_parse.error == OK:  # If the JSON file was okay, then process it.
 		current_characters = full_file_parse.result
 	else:  # If there is an error in the JSON file, then deal with it.
-		print( "Characters: ", full_file_parse.error_line, ", ", full_file_parse.error_string )
+		print( 'Characters: ', full_file_parse.error_line, ', ', full_file_parse.error_string )
 
 # Load the full monster list.
 	file = File.new()
@@ -36,7 +34,7 @@ func _ready():
 	if full_file_parse.error == OK:  # If the JSON file was okay, then process it.
 		all_monsters = full_file_parse.result
 	else:  # If there is an error in the JSON file, then deal with it.
-		print( "Monsters: ", full_file_parse.error_line, ", ", full_file_parse.error_string )
+		print( 'Monsters: ', full_file_parse.error_line, ', ', full_file_parse.error_string )
 
 # Load the adventure file.
 	file = File.new()
@@ -49,22 +47,18 @@ func _ready():
 		full_adventure = full_file_parse.result
 		#update_page("p1")
 	else:  # If there is an error in the JSON file, then deal with it.
-		print( "Adventure:", full_file_parse.error_line, ", ", full_file_parse.error_string )
-	
-	
+		print( 'Adventure:', full_file_parse.error_line, ', ', full_file_parse.error_string )
+
 # Add Scenes to the Tree
-	var scene = load("res://Scenes/StoryUI.tscn")
+	var scene = load('res://Scenes/StoryUI.tscn')
 	var scene_instance = scene.instance()
 	scene_instance.set_name( 'StoryUI' )
 	scene_instance.hide()
 	get_node('/root/Game').add_child(scene_instance)
-	get_node('/root/Game').get_node('StoryUI').update_page("p1")
+	get_node('/root/Game').get_node('StoryUI').update_page('p1')
 	
-	scene = load("res://Scenes/CombatUI.tscn")
+	scene = load('res://Scenes/CombatUI.tscn')
 	scene_instance = scene.instance()
 	scene_instance.set_name( 'CombatUI' )
 	scene_instance.hide()
 	get_node('/root/Game').add_child(scene_instance)
-	
-	
-	
