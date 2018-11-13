@@ -94,7 +94,6 @@ func start():
 		else:
 			opening_message += monsters_node.get_child(i).monster_data['name'] + '.\n'
 	commentary.text = opening_message
-
 	battle()
 
 
@@ -132,9 +131,10 @@ func battle():
 			for j in range( monsters_node.get_child_count() ):  # Monsters
 				if monsters_node.get_child(j).monster_data['combat_order'] == now_serving:
 					commentary.text = commentary.text + "\nIt's " + monsters_node.get_child(j).monster_data['name'] + "'s Turn"
-
+					active_monster = monsters_node.get_child(j)
+					monster_attack()
 				#	NEED TO ADD THE MONSTER'S ATTACK HERE.
-					commentary.text = commentary.text + '\n' + monsters_node.get_child(j).monster_data['name'] + ' attacked!'
+					#commentary.text = commentary.text + '\n' + monsters_node.get_child(j).monster_data['name'] + ' attacked!'
 		#	Serving the next player.
 			now_serving -= 1
 		
@@ -145,7 +145,7 @@ func battle():
 			player_hp += characters_node.get_child(i).char_data['current_hp']
 		for i in range( monsters_node.get_child_count() ):
 			enemy_hp = enemy_hp + monsters_node.get_child(i).monster_data['current_hp']
-		commentary.text += '\n========== End of Round ==========/n'
+		commentary.text += '\n========== End of Round ==========\n'
 #		The below code may never run since I'm now using a signal to end the battle.
 		if enemy_hp <= 0:   # Player has won.
 		# close everything and go to the on_win page
@@ -215,6 +215,36 @@ func roll_initiative():
 		monsters_node.get_child(i).monster_data['combat_order'] = num_to_try
 
 
+func monster_attack():
+#	Process attack from active_monster.
+	var num_of_attacks = active_monster.monster_data['attacks'].size()
+	#print('This monster has ' + str(num_of_attacks) + ' attacks.')
+#	Decide which character to attack. (STARTING WITHOUT ANY KIND OF AI, JUST RANDOMLY CHOOSING)
+	randomize()
+	var character_to_attack = randi() % characters_node.get_child_count()
+	var attacked_character_node = characters_node.get_child(character_to_attack)
+	var message = ' The ' + active_monster.monster_data['name'] + ' attacks ' + attacked_character_node.char_data['name'] + '.'
+	commentary.text += message
+	for i in range( active_monster.monster_data['attacks'].size() ):
+		var critical_miss = false
+		var critical_hit = false
+		var attack_roll = roll_dice('1d20')
+		if attack_roll == 0:  # Critical Miss
+			critical_miss = true
+			attack_roll = -20
+		elif attack_roll == 20:  # Critical Hit
+			critical_hit = true
+		attack_roll += active_monster.monster_data['attack_bonus']
+		if attack_roll >= attacked_character_node.char_data['ac'] or critical_hit: # A hit
+			var damage = roll_dice( active_monster.monster_data['damage'][i] )
+			message = ' The ' + active_monster.monster_data['name'] + ' attacks with ' + active_monster.monster_data['attacks'][i] + ' and does ' + str(damage) + ' damage.'
+			commentary.text += message
+		else:  # A miss.
+			message = ' The ' + active_monster.monster_data['name'] + ' attacks with ' + active_monster.monster_data['attacks'][i] + ' but misses.'
+			commentary.text += message
+	
+
+
 func _on_MeleeButton_pressed():
 	$M/V/H/Commands/MeleeButton.disabled = true
 	var selected_monster_node = get_node('M/V/H/Monsters/Monster' + str(selected_monster) )
@@ -232,7 +262,7 @@ func _on_MeleeButton_pressed():
 		attack_roll = -10  # This is so that even if the really low roll hits, it will miss
 	attack_roll += active_character.char_data['attack_bonus'] + active_character.char_data['str_bonus']
 	if attack_roll >= monster_ac or critical_hit:   # A Hit
-		message = '/n' + active_character.char_data['name'] + ' hit ' + selected_monster_node.monster_data['name'] + ' with a roll of ' + str(attack_roll) + '.'
+		message = '\n' + active_character.char_data['name'] + ' hit ' + selected_monster_node.monster_data['name'] + ' with a roll of ' + str(attack_roll) + '.'
 		var damage = roll_dice('1d8')
 		if critical_hit:
 			damage = damage * 2
