@@ -8,6 +8,7 @@ var selected_monster
 var xp_earned = 0
 var on_win
 var on_lose
+var player_win = false
 
 onready var commentary = get_node('M/V/H2/BG/M/Commentary')
 onready var monsters_node = get_node('M/V/H/Monsters')
@@ -118,15 +119,16 @@ func battle():
 				if characters_node.get_child(j).char_data['combat_order'] == now_serving:
 				#	Found the character whose turn it is.
 					active_character = characters_node.get_child(j)
-					commentary.text = commentary.text + "\nIt's " + active_character.char_data['name'] + "'s Turn"
-					$M/V/H/Commands/MeleeButton.disabled = false
+					if active_character.char_data['current_hp'] > 0:
+						commentary.text = commentary.text + "\nIt's " + active_character.char_data['name'] + "'s Turn"
+						$M/V/H/Commands/MeleeButton.disabled = false
 				#	Highlight the active character.
-					for x in range( characters_node.get_child_count() ):  # Clear previous selections
-						characters_node.get_child(x).get_node('BG').texture = null
-					characters_node.get_child(j).get_node('BG').texture = selected_box
+						for x in range( characters_node.get_child_count() ):  # Clear previous selections
+							characters_node.get_child(x).get_node('BG').texture = null
+						characters_node.get_child(j).get_node('BG').texture = selected_box
 
 				#	Wait for Player Input, once finished, the signal 'turn_completed' is emitted.
-					yield(self, 'turn_completed')
+						yield(self, 'turn_completed')
 
 			for j in range( monsters_node.get_child_count() ):  # Monsters
 				if monsters_node.get_child(j).monster_data['combat_order'] == now_serving:
@@ -150,9 +152,14 @@ func battle():
 		if enemy_hp <= 0:   # Player has won.
 		# close everything and go to the on_win page
 			print('Player has won!')
+			player_win = true
+			emit_signal('end_combat')
 		if player_hp <= 0:  # Player has lost.
 		# close everything and go to the on_lose page
 			print('Player has lost!')
+			player_win = false
+			emit_signal('end_combat')
+			
 
 
 func roll_initiative():
@@ -221,13 +228,32 @@ func monster_attack():
 	#print('This monster has ' + str(num_of_attacks) + ' attacks.')
 #	Decide which character to attack. (STARTING WITHOUT ANY KIND OF AI, JUST RANDOMLY CHOOSING)
 	randomize()
-	var character_to_attack = randi() % characters_node.get_child_count()
-	var attacked_character_node = characters_node.get_child(character_to_attack)
+	#var character_to_attack = randi() % characters_node.get_child_count()
+	#var attacked_character_node = characters_node.get_child(character_to_attack)
+#	while attacked_character_node.char_data['current_hp'] > 0:  # Make sure the monster is attacking a living character.
+#		character_to_attack = randi() % characters_node.get_child_count()
+#		attacked_character_node = characters_node.get_child(character_to_attack)
+	var character_to_attack
+	var attacked_character_node
+	while true: # Make sure the monster is attacking a living character.
+		character_to_attack = randi() % characters_node.get_child_count()
+		print("Test character to attack: ", character_to_attack)
+		attacked_character_node = characters_node.get_child(character_to_attack)
+		print("Test character HP: ", attacked_character_node.char_data['current_hp'] )
+		if attacked_character_node.char_data['current_hp'] > 0:
+			break
+
+
+		# I THINK THIS IS FREEZING WHEN THERE ARE NO PLAYERS STILL ALIVE.
+
+
+	
 	var message = ' The ' + active_monster.monster_data['name'] + ' attacks ' + attacked_character_node.char_data['name'] + '.'
 	commentary.text += message
 	for i in range( active_monster.monster_data['attacks'].size() ):
 		var critical_miss = false
 		var critical_hit = false
+		randomize()
 		var attack_roll = roll_dice('1d20')
 		if attack_roll == 0:  # Critical Miss
 			critical_miss = true
@@ -237,8 +263,14 @@ func monster_attack():
 		attack_roll += active_monster.monster_data['attack_bonus']
 		if attack_roll >= attacked_character_node.char_data['ac'] or critical_hit: # A hit
 			var damage = roll_dice( active_monster.monster_data['damage'][i] )
+			# Apply damage.
+			attacked_character_node.char_data['current_hp'] -= damage
+			if attacked_character_node.char_data['current_hp'] < 0:
+				attacked_character_node.char_data['current_hp'] = 0
+				# CHARACTER KILLED, NEED TO DO SOMETHING...DO WE REMOVE THEM? DISABLE THEM?
 			message = ' The ' + active_monster.monster_data['name'] + ' attacks with ' + active_monster.monster_data['attacks'][i] + ' and does ' + str(damage) + ' damage.'
 			commentary.text += message
+			attacked_character_node.update_ui(false)
 		else:  # A miss.
 			message = ' The ' + active_monster.monster_data['name'] + ' attacks with ' + active_monster.monster_data['attacks'][i] + ' but misses.'
 			commentary.text += message
@@ -292,13 +324,21 @@ func _on_MeleeButton_pressed():
 
 
 func _on_CombatUI_end_combat():
-	print('Now to wrap up the combat.')
-	print('XP Earned: ', str(xp_earned) )
+	if player_win:
+		print('XP Earned: ', str(xp_earned) )
+		for i in range( characters_node.get_child_count() ):
+			Global.current_characters[i]['xp'] += xp_earned
+		
+		$EndCombatWin/MarginContainer/VBoxContainer/Label3.text = str(xp_earned) + " XP"
+		$EndCombatWin.show()
+	else:
+		$EndCombatLose.show()
+		pass
+	
+	
+	
 #	Update the XP in the Global variables.
-	for i in range( characters_node.get_child_count() ):
-		Global.current_characters(i)['xp'] += xp_earned
-	$EndCombat/MarginContainer/VBoxContainer/Label3.text = str(xp_earned) + " XP"
-	$EndCombat.show()
+	
 	
 
 func _on_DoneButton_pressed():
@@ -309,10 +349,14 @@ func _on_DoneButton_pressed():
 		character.queue_free()
 	xp_earned = 0
 	
-	$EndCombat.hide()
-	self.get_parent().get_node('/root/Game/StoryUI').update_page(on_win)
-	self.get_parent().get_node('/root/Game/StoryUI').show()
-	
+	if player_win:
+		$EndCombatWin.hide()
+		self.get_parent().get_node('/root/Game/StoryUI').update_page(on_win)
+		self.get_parent().get_node('/root/Game/StoryUI').show()
+	else:
+		$EndCombatLose.hide()
+		self.get_parent().get_node('/root/Game/StoryUI').update_page(on_lose)
+		self.get_parent().get_node('/root/Game/StoryUI').show()
 	# NEED TO SEND THE CHARACTER INFORMATION BACK TO THE GLOBAL VARIABLE. AND THEN UPDATE
 	# THAT INFORMATION BACK TO THE CHARACTERS ON STORY UI.
 	
