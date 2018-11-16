@@ -4,6 +4,23 @@ var char_data = {}
 var my_index
 var selected = false
 
+onready var selected_box = ResourceLoader.load('res://Assets/GUI/SelectedBox.png')
+onready var disabled_box = ResourceLoader.load('res://Assets/GUI/DisabledBox.png')
+
+func disable():
+	$BG.texture = disabled_box
+	$BG/Info/M/V/Name.disabled = true
+
+
+func enable():
+	$BG.texture = null
+	$BG/Info/M/V/Name.disabled = false
+
+
+func activate():
+	$BG.texture = selected_box
+	$BG/Info/M/V/Name.disabled = false
+
 
 func update_ui(full):
 	if full:
@@ -17,7 +34,8 @@ func update_ui(full):
 		$Selected.show()
 	else:
 		$Selected.hide()
-
+	if char_data['current_hp'] == 0:
+		$BG.texture = disabled_box
 
 func _on_Name_pressed():
 	# If we are in CombatUI then it selects this character and unselects the rest.

@@ -15,6 +15,7 @@ onready var monsters_node = get_node('M/V/H/Monsters')
 onready var characters_node = get_node('M/V/H/Characters')
 
 onready var selected_box = ResourceLoader.load('res://Assets/GUI/SelectedBox.png')
+onready var disabled_box = ResourceLoader.load('res://Assets/GUI/CommentaryShade.png')
 
 signal turn_completed
 signal end_combat
@@ -123,12 +124,14 @@ func battle():
 						commentary.text = commentary.text + "\nIt's " + active_character.char_data['name'] + "'s Turn"
 						$M/V/H/Commands/MeleeButton.disabled = false
 				#	Highlight the active character.
-						for x in range( characters_node.get_child_count() ):  # Clear previous selections
-							characters_node.get_child(x).get_node('BG').texture = null
-						characters_node.get_child(j).get_node('BG').texture = selected_box
+						#for x in range( characters_node.get_child_count() ):  # Clear previous selections
+						#	characters_node.get_child(x).get_node('BG').texture = null
+						#characters_node.get_child(j).get_node('BG').texture = selected_box
+						characters_node.get_child(j).activate()
 
 				#	Wait for Player Input, once finished, the signal 'turn_completed' is emitted.
 						yield(self, 'turn_completed')
+						characters_node.get_child(j).enable()
 
 			for j in range( monsters_node.get_child_count() ):  # Monsters
 				if monsters_node.get_child(j).monster_data['combat_order'] == now_serving:
@@ -145,6 +148,8 @@ func battle():
 		enemy_hp = 0
 		for i in range( characters_node.get_child_count() ):
 			player_hp += characters_node.get_child(i).char_data['current_hp']
+			if characters_node.get_child(i).char_data['current_hp'] == 0:
+				characters_node.get_child(i).disable()
 		for i in range( monsters_node.get_child_count() ):
 			enemy_hp = enemy_hp + monsters_node.get_child(i).monster_data['current_hp']
 		commentary.text += '\n========== End of Round ==========\n'
@@ -233,48 +238,55 @@ func monster_attack():
 #	while attacked_character_node.char_data['current_hp'] > 0:  # Make sure the monster is attacking a living character.
 #		character_to_attack = randi() % characters_node.get_child_count()
 #		attacked_character_node = characters_node.get_child(character_to_attack)
+	# Determine if there are any living players:
+	var player_hp = 0
 	var character_to_attack
 	var attacked_character_node
-	while true: # Make sure the monster is attacking a living character.
-		character_to_attack = randi() % characters_node.get_child_count()
-		print("Test character to attack: ", character_to_attack)
-		attacked_character_node = characters_node.get_child(character_to_attack)
-		print("Test character HP: ", attacked_character_node.char_data['current_hp'] )
-		if attacked_character_node.char_data['current_hp'] > 0:
-			break
-
-
-		# I THINK THIS IS FREEZING WHEN THERE ARE NO PLAYERS STILL ALIVE.
-
-
-	
-	var message = ' The ' + active_monster.monster_data['name'] + ' attacks ' + attacked_character_node.char_data['name'] + '.'
-	commentary.text += message
-	for i in range( active_monster.monster_data['attacks'].size() ):
-		var critical_miss = false
-		var critical_hit = false
-		randomize()
-		var attack_roll = roll_dice('1d20')
-		if attack_roll == 0:  # Critical Miss
-			critical_miss = true
-			attack_roll = -20
-		elif attack_roll == 20:  # Critical Hit
-			critical_hit = true
-		attack_roll += active_monster.monster_data['attack_bonus']
-		if attack_roll >= attacked_character_node.char_data['ac'] or critical_hit: # A hit
-			var damage = roll_dice( active_monster.monster_data['damage'][i] )
-			# Apply damage.
-			attacked_character_node.char_data['current_hp'] -= damage
-			if attacked_character_node.char_data['current_hp'] < 0:
-				attacked_character_node.char_data['current_hp'] = 0
-				# CHARACTER KILLED, NEED TO DO SOMETHING...DO WE REMOVE THEM? DISABLE THEM?
-			message = ' The ' + active_monster.monster_data['name'] + ' attacks with ' + active_monster.monster_data['attacks'][i] + ' and does ' + str(damage) + ' damage.'
-			commentary.text += message
-			attacked_character_node.update_ui(false)
-		else:  # A miss.
-			message = ' The ' + active_monster.monster_data['name'] + ' attacks with ' + active_monster.monster_data['attacks'][i] + ' but misses.'
-			commentary.text += message
-	
+	for i in range( characters_node.get_child_count() ):
+		player_hp += characters_node.get_child(i).char_data['current_hp']
+		if characters_node.get_child(i).char_data['current_hp'] == 0:
+			characters_node.get_child(i).get_node('BG').texture = disabled_box
+	if player_hp > 0:
+		while true: # Make sure the monster is attacking a living character.
+			character_to_attack = randi() % characters_node.get_child_count()
+			print("Test character to attack: ", character_to_attack)
+			attacked_character_node = characters_node.get_child(character_to_attack)
+			print("Test character HP: ", attacked_character_node.char_data['current_hp'] )
+			if attacked_character_node.char_data['current_hp'] > 0:
+				break
+		var message = ' The ' + active_monster.monster_data['name'] + ' attacks ' + attacked_character_node.char_data['name'] + '.'
+		commentary.text += message
+		for i in range( active_monster.monster_data['attacks'].size() ):
+			var critical_miss = false
+			var critical_hit = false
+			randomize()
+			var attack_roll = roll_dice('1d20')
+			if attack_roll == 0:  # Critical Miss
+				critical_miss = true
+				attack_roll = -20
+			elif attack_roll == 20:  # Critical Hit
+				critical_hit = true
+			attack_roll += active_monster.monster_data['attack_bonus']
+			if attack_roll >= attacked_character_node.char_data['ac'] or critical_hit: # A hit
+				var damage = roll_dice( active_monster.monster_data['damage'][i] )
+				# Apply damage.
+				attacked_character_node.char_data['current_hp'] -= damage
+				if attacked_character_node.char_data['current_hp'] < 0:
+					attacked_character_node.char_data['current_hp'] = 0
+					print('Going to disable the character:', attacked_character_node)
+					for x in range( characters_node.get_child_count() ):  # Clear previous selections
+							characters_node.get_child(x).get_node('BG').texture = null
+					attacked_character_node.disable()
+					# CHARACTER KILLED, NEED TO DO SOMETHING...DO WE REMOVE THEM? DISABLE THEM?
+				message = ' The ' + active_monster.monster_data['name'] + ' attacks with ' + active_monster.monster_data['attacks'][i] + ' and does ' + str(damage) + ' damage.'
+				commentary.text += message
+				attacked_character_node.update_ui(false)
+			else:  # A miss.
+				message = ' The ' + active_monster.monster_data['name'] + ' attacks with ' + active_monster.monster_data['attacks'][i] + ' but misses.'
+				commentary.text += message
+	else:
+		# It seems that all the characters are dead. Are they?
+		print('It seems that all the characters are dead. Are they?')
 
 
 func _on_MeleeButton_pressed():
@@ -317,7 +329,7 @@ func _on_MeleeButton_pressed():
 		else:
 			selected_monster_node.update_ui(false)
 	else:
-		message = active_character.name + ' missed ' + selected_monster_node.monster_data['name'] + ' with a roll of ' + str(attack_roll) + '.'
+		message = active_character.char_data['name'] + ' missed ' + selected_monster_node.monster_data['name'] + ' with a roll of ' + str(attack_roll) + '.'
 	commentary.text += message
 
 	emit_signal('turn_completed')

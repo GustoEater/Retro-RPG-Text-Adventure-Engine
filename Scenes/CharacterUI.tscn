@@ -7,7 +7,7 @@
 
 render_priority = 0
 
-[node name="CharacterUI" type="HBoxContainer"]
+[node name="CharacterUI" type="HBoxContainer" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
