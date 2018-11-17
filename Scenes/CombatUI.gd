@@ -13,9 +13,10 @@ var player_win = false
 onready var commentary = get_node('M/V/H2/BG/M/Commentary')
 onready var monsters_node = get_node('M/V/H/Monsters')
 onready var characters_node = get_node('M/V/H/Characters')
+onready var story_ui_characters_node = get_node('/root/Game/StoryUI/M/FullWidth/Characters')
 
-onready var selected_box = ResourceLoader.load('res://Assets/GUI/SelectedBox.png')
-onready var disabled_box = ResourceLoader.load('res://Assets/GUI/CommentaryShade.png')
+#onready var selected_box = ResourceLoader.load('res://Assets/GUI/SelectedBox.png')
+#onready var disabled_box = ResourceLoader.load('res://Assets/GUI/CommentaryShade.png')
 
 signal turn_completed
 signal end_combat
@@ -156,12 +157,12 @@ func battle():
 #		The below code may never run since I'm now using a signal to end the battle.
 		if enemy_hp <= 0:   # Player has won.
 		# close everything and go to the on_win page
-			print('Player has won!')
+			#print('Player has won!')
 			player_win = true
 			emit_signal('end_combat')
 		if player_hp <= 0:  # Player has lost.
 		# close everything and go to the on_lose page
-			print('Player has lost!')
+			#print('Player has lost!')
 			player_win = false
 			emit_signal('end_combat')
 			
@@ -245,13 +246,15 @@ func monster_attack():
 	for i in range( characters_node.get_child_count() ):
 		player_hp += characters_node.get_child(i).char_data['current_hp']
 		if characters_node.get_child(i).char_data['current_hp'] == 0:
-			characters_node.get_child(i).get_node('BG').texture = disabled_box
+			#characters_node.get_child(i).get_node('BG').texture = disabled_box
+			characters_node.get_child(i).enabled = false
+			characters_node.get_child(i).update_ui(false)
 	if player_hp > 0:
 		while true: # Make sure the monster is attacking a living character.
 			character_to_attack = randi() % characters_node.get_child_count()
-			print("Test character to attack: ", character_to_attack)
+			#print("Test character to attack: ", character_to_attack)
 			attacked_character_node = characters_node.get_child(character_to_attack)
-			print("Test character HP: ", attacked_character_node.char_data['current_hp'] )
+			#print("Test character HP: ", attacked_character_node.char_data['current_hp'] )
 			if attacked_character_node.char_data['current_hp'] > 0:
 				break
 		var message = ' The ' + active_monster.monster_data['name'] + ' attacks ' + attacked_character_node.char_data['name'] + '.'
@@ -273,9 +276,9 @@ func monster_attack():
 				attacked_character_node.char_data['current_hp'] -= damage
 				if attacked_character_node.char_data['current_hp'] < 0:
 					attacked_character_node.char_data['current_hp'] = 0
-					print('Going to disable the character:', attacked_character_node)
-					for x in range( characters_node.get_child_count() ):  # Clear previous selections
-							characters_node.get_child(x).get_node('BG').texture = null
+					#print('Going to disable the character:', attacked_character_node)
+					#for x in range( characters_node.get_child_count() ):  # Clear previous selections
+					#		characters_node.get_child(x).get_node('BG').texture = null
 					attacked_character_node.disable()
 					# CHARACTER KILLED, NEED TO DO SOMETHING...DO WE REMOVE THEM? DISABLE THEM?
 				message = ' The ' + active_monster.monster_data['name'] + ' attacks with ' + active_monster.monster_data['attacks'][i] + ' and does ' + str(damage) + ' damage.'
@@ -322,7 +325,7 @@ func _on_MeleeButton_pressed():
 				selected_monster_node.selected = false
 				monsters_node.remove_child(selected_monster_node)
 				var remaining_monsters = monsters_node.get_children()
-				print( remaining_monsters )
+				#print( remaining_monsters )
 				remaining_monsters[0].selected = true
 				selected_monster = remaining_monsters[0].name.right( remaining_monsters[0].name.length() - 1 )
 				remaining_monsters[0].update_ui(false)
@@ -337,7 +340,7 @@ func _on_MeleeButton_pressed():
 
 func _on_CombatUI_end_combat():
 	if player_win:
-		print('XP Earned: ', str(xp_earned) )
+		#print('XP Earned: ', str(xp_earned) )
 		for i in range( characters_node.get_child_count() ):
 			Global.current_characters[i]['xp'] += xp_earned
 		
@@ -369,7 +372,14 @@ func _on_DoneButton_pressed():
 		$EndCombatLose.hide()
 		self.get_parent().get_node('/root/Game/StoryUI').update_page(on_lose)
 		self.get_parent().get_node('/root/Game/StoryUI').show()
-	# NEED TO SEND THE CHARACTER INFORMATION BACK TO THE GLOBAL VARIABLE. AND THEN UPDATE
-	# THAT INFORMATION BACK TO THE CHARACTERS ON STORY UI.
-	
+#	Copy updated stats from the combat back into the Global variables.
+	var return_char_stats = []
+	for character in characters_node.get_children():
+		return_char_stats.append( character.char_data )
+	Global.current_characters.clear()
+	Global.current_characters = return_char_stats
+#	Update UI on StoryUI Characters.
+	for character in story_ui_characters_node.get_children():
+		character.update_ui(true)
+#	Close combat results.
 	self.hide()

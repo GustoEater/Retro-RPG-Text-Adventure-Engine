@@ -3,9 +3,12 @@ extends HBoxContainer
 var char_data = {}
 var my_index
 var selected = false
+var active = true
+var enabled = true
 
 onready var selected_box = ResourceLoader.load('res://Assets/GUI/SelectedBox.png')
 onready var disabled_box = ResourceLoader.load('res://Assets/GUI/DisabledBox.png')
+
 
 func disable():
 	$BG.texture = disabled_box
@@ -34,6 +37,17 @@ func update_ui(full):
 		$Selected.show()
 	else:
 		$Selected.hide()
+	if active: # show the green selected_box
+		$BG.texture = selected_box
+		$BG/Info/M/V/Name.disabled = false
+	else: # don't show the green selected_box
+		$BG.texture = null
+	if enabled:
+		enable()
+	else:
+		disable()
+		
+	
 	if char_data['current_hp'] == 0:
 		$BG.texture = disabled_box
 
