@@ -33,6 +33,7 @@ func prep_combat(monster_list, on_win_page, on_lose_page):
 		var new_node = target_parent_node.get_child(i)
 	#	Fill in the data on the new node with info from character.
 		new_node.my_index = i
+		new_node.combat = true
 		new_node.char_data = Global.current_characters[i]
 		new_node.update_ui(true)
 #	Parse the list of monsters and add to Global.current_monster_list array.
@@ -114,6 +115,10 @@ func battle():
 	while enemy_hp > 0 and player_hp > 0:
 		roll_initiative()
 	#	Conduct this loop until one of the sides has lost. This is one round of fighting.
+	#	Deactivate all characters until we determine which one will be active.
+		for character in characters_node.get_children():
+			character.active = false
+
 		var now_serving = num_of_fighters 
 		for i in range( num_of_fighters ):
 		#	Loop through each fighter and allow them to conduct their turn. Starting at highest 'combat_order'.
@@ -123,16 +128,21 @@ func battle():
 					active_character = characters_node.get_child(j)
 					if active_character.char_data['current_hp'] > 0:
 						commentary.text = commentary.text + "\nIt's " + active_character.char_data['name'] + "'s Turn"
-						$M/V/H/Commands/MeleeButton.disabled = false
+						$M/V/H/Commands/V/MeleeButton.disabled = false
 				#	Highlight the active character.
 						#for x in range( characters_node.get_child_count() ):  # Clear previous selections
 						#	characters_node.get_child(x).get_node('BG').texture = null
 						#characters_node.get_child(j).get_node('BG').texture = selected_box
-						characters_node.get_child(j).activate()
-
+						#characters_node.get_child(j).activate()
+						active_character.activate()
+						#active_character.active = true
+						active_character.update_ui(false)
 				#	Wait for Player Input, once finished, the signal 'turn_completed' is emitted.
 						yield(self, 'turn_completed')
-						characters_node.get_child(j).enable()
+						#characters_node.get_child(j).enable()
+						#characters_node.get_child(j).active = false
+						active_character.active = false
+						active_character.update_ui(false)
 
 			for j in range( monsters_node.get_child_count() ):  # Monsters
 				if monsters_node.get_child(j).monster_data['combat_order'] == now_serving:
@@ -247,7 +257,8 @@ func monster_attack():
 		player_hp += characters_node.get_child(i).char_data['current_hp']
 		if characters_node.get_child(i).char_data['current_hp'] == 0:
 			#characters_node.get_child(i).get_node('BG').texture = disabled_box
-			characters_node.get_child(i).enabled = false
+			#characters_node.get_child(i).enabled = false
+			characters_node.get_child(i).disable()
 			characters_node.get_child(i).update_ui(false)
 	if player_hp > 0:
 		while true: # Make sure the monster is attacking a living character.
@@ -292,8 +303,8 @@ func monster_attack():
 		print('It seems that all the characters are dead. Are they?')
 
 
-func _on_MeleeButton_pressed():
-	$M/V/H/Commands/MeleeButton.disabled = true
+func character_melee_attack():
+	#$M/V/H/Commands/MeleeButton.disabled = true
 	var selected_monster_node = get_node('M/V/H/Monsters/Monster' + str(selected_monster) )
 	var monster_ac = selected_monster_node.monster_data['ac']
 	var message = '\n'
@@ -335,6 +346,51 @@ func _on_MeleeButton_pressed():
 		message = active_character.char_data['name'] + ' missed ' + selected_monster_node.monster_data['name'] + ' with a roll of ' + str(attack_roll) + '.'
 	commentary.text += message
 
+
+func _on_MeleeButton_pressed():
+#	$M/V/H/Commands/MeleeButton.disabled = true
+#	var selected_monster_node = get_node('M/V/H/Monsters/Monster' + str(selected_monster) )
+#	var monster_ac = selected_monster_node.monster_data['ac']
+#	var message = '\n'
+#	var critical_hit = false
+#	var critical_miss = false
+#	var attack_roll = roll_dice('1d20')
+#	if attack_roll == 20:
+#		critical_hit = true
+#		message += 'CRITICAL HIT! Double damage!\n'
+#	if attack_roll == 1:  # A critical miss always misses.
+#		critical_miss = true
+#		message += 'CRITIICAL MISS!\n'
+#		attack_roll = -10  # This is so that even if the really low roll hits, it will miss
+#	attack_roll += active_character.char_data['attack_bonus'] + active_character.char_data['str_bonus']
+#	if attack_roll >= monster_ac or critical_hit:   # A Hit
+#		message = '\n' + active_character.char_data['name'] + ' hit ' + selected_monster_node.monster_data['name'] + ' with a roll of ' + str(attack_roll) + '.'
+#		var damage = roll_dice('1d8')
+#		if critical_hit:
+#			damage = damage * 2
+#		message += '\n' + selected_monster_node.monster_data['name'] + ' took ' + str(damage) + ' sword damage.'
+#		selected_monster_node.monster_data['current_hp'] -= damage
+#		if selected_monster_node.monster_data['current_hp'] <= 0:  # Monster has been killed.
+#			xp_earned += int(selected_monster_node.monster_data['xp'])
+#			selected_monster_node.monster_data['current_hp'] = 0
+#			if monsters_node.get_child_count() == 1:  # The last monster was killed. Battle is won.
+#				message = 'You won!'
+#				emit_signal('end_combat')
+#			else:   # There are still monsters remaining.
+#				selected_monster_node.selected = false
+#				monsters_node.remove_child(selected_monster_node)
+#				var remaining_monsters = monsters_node.get_children()
+#				#print( remaining_monsters )
+#				remaining_monsters[0].selected = true
+#				selected_monster = remaining_monsters[0].name.right( remaining_monsters[0].name.length() - 1 )
+#				remaining_monsters[0].update_ui(false)
+#		else:
+#			selected_monster_node.update_ui(false)
+#	else:
+#		message = active_character.char_data['name'] + ' missed ' + selected_monster_node.monster_data['name'] + ' with a roll of ' + str(attack_roll) + '.'
+#	commentary.text += message
+	$M/V/H/Commands/V/MeleeButton.disabled = true
+	character_melee_attack()
 	emit_signal('turn_completed')
 
 

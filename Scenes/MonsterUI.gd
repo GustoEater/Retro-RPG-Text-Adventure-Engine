@@ -3,18 +3,43 @@ extends HBoxContainer
 var monster_data = {}
 var my_index
 var selected = false
+var active = true
+var enabled = true
+
+onready var selected_box = ResourceLoader.load('res://Assets/GUI/SelectedBox.png')
+onready var disabled_box = ResourceLoader.load('res://Assets/GUI/DisabledBox.png')
+
+func disable():
+	$BG.texture = disabled_box
+	$BG/Info/M/V/Name.disabled = true
+
+
+func enable():
+	$BG.texture = null
+	$BG/Info/M/V/Name.disabled = false
 
 
 func update_ui(full):
 	if full:
-		$NinePatchRect/Info/M/V/Name.text = monster_data.name
-		$NinePatchRect/Info/M/V/Health.max_value = monster_data.max_hp
-		$NinePatchRect/Image/M/Image.texture_normal = ResourceLoader.load( 'res://Assets/Character/' + monster_data.pic )
-	$NinePatchRect/Info/M/V/Health.value = monster_data.current_hp
+		$BG/Info/M/V/Name.text = monster_data.name
+		$BG/Info/M/V/Health.max_value = monster_data.max_hp
+		$BG/Image/M/Image.texture_normal = ResourceLoader.load( 'res://Assets/Character/' + monster_data.pic )
+	$BG/Info/M/V/Health.value = monster_data.current_hp
 	if selected:
 		$Selected.visible = true
 	else:
 		$Selected.visible = false
+	if active: # show the green selected_box
+		$BG.texture = selected_box
+		$BG/Info/M/V/Name.disabled = false
+	else: # don't show the green selected_box
+		$BG.texture = null
+	if enabled:
+		enable()
+	else:
+		disable()
+
+
 
 
 func _on_Name_pressed():
