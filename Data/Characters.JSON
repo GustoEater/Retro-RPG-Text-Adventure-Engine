@@ -6,7 +6,7 @@
 	"str_bonus":2, "int_bonus": 0, "wis_bonus":-1, "dex_bonus":1,"con_bonus":1, "chr_bonus":-1, 
 	"save_death":16 , "save_wands":17 , "save_stone":18, "save_dragon":18 , "save_spells":21,
 	"pic":"2001458.png", "combat_order":0,
-		"weapons":{"melee":"Sword", "melee-damage":"1d8"}
+		"weapons":{"melee":"Longsword", "melee-damage":"1d8"}
 	},
 
 	{
@@ -16,7 +16,7 @@
 	"str_bonus":1, "int_bonus":0, "wis_bonus":2, "dex_bonus":0,"con_bonus":0, "chr_bonus":0, 
 	"save_death":11 , "save_wands":12 , "save_stone":14 , "save_dragon":16 , "save_spells":15,
 	"pic":"1297304.png", "combat_order":0,
-		"weapons":{"range":"Compound Bow", "range-damage":"2d4"}
+		"weapons":{"range":"Long Bow", "range-damage":"1d8"}
 	},
 
 	{
@@ -26,7 +26,7 @@
 	"str_bonus":1, "int_bonus":1, "wis_bonus":0, "dex_bonus":2,"con_bonus":0, "chr_bonus":0, 
 	"save_death":13 , "save_wands":16 , "save_stone":14, "save_dragon":16, "save_spells":17,
 	"pic":"156849.png", "combat_order":0,
-		"weapons":{"melee":"Dagger", "melee-damage":"1d6", "range":"Short Bow", "range-damage":"1d4"}
+		"weapons":{"melee":"Dagger", "melee-damage":"1d4", "range":"Short Bow", "range-damage":"1d6"}
 	},
 
 	{

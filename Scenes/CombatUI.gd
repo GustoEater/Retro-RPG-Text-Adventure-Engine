@@ -1,6 +1,5 @@
 extends NinePatchRect
 
-var num_of_fighters
 var active_character
 var active_monster
 var selected_character
@@ -105,7 +104,7 @@ func battle():
 #	Main Battle Loop
 	var enemy_hp = 0
 	var player_hp = 0
-	num_of_fighters = characters_node.get_child_count() + monsters_node.get_child_count()
+	var num_of_fighters = characters_node.get_child_count() + monsters_node.get_child_count()
 #	Total up HP from each fighter
 	for i in range( characters_node.get_child_count() ):
 		player_hp += characters_node.get_child(i).char_data['current_hp']
@@ -120,7 +119,7 @@ func battle():
 			character.active = false
 
 		var now_serving = num_of_fighters 
-		for i in range( num_of_fighters ):
+		for i in range( num_of_fighters + 1 ):
 		#	Loop through each fighter and allow them to conduct their turn. Starting at highest 'combat_order'.
 			for j in range( characters_node.get_child_count() ):  # Characters
 				if characters_node.get_child(j).char_data['combat_order'] == now_serving:
@@ -129,18 +128,14 @@ func battle():
 					if active_character.char_data['current_hp'] > 0:
 						commentary.text = commentary.text + "\nIt's " + active_character.char_data['name'] + "'s Turn"
 						$M/V/H/Commands/V/MeleeButton.disabled = false
+						$M/V/H/Commands/V/RangeButton.disabled = false
+						$M/V/H/Commands/V/WandButton.disabled = false
 				#	Highlight the active character.
-						#for x in range( characters_node.get_child_count() ):  # Clear previous selections
-						#	characters_node.get_child(x).get_node('BG').texture = null
-						#characters_node.get_child(j).get_node('BG').texture = selected_box
-						#characters_node.get_child(j).activate()
 						active_character.activate()
-						#active_character.active = true
 						active_character.update_ui(false)
 				#	Wait for Player Input, once finished, the signal 'turn_completed' is emitted.
 						yield(self, 'turn_completed')
-						#characters_node.get_child(j).enable()
-						#characters_node.get_child(j).active = false
+				#	Deselect the active character.
 						active_character.active = false
 						active_character.update_ui(false)
 
@@ -149,8 +144,6 @@ func battle():
 					commentary.text = commentary.text + "\nIt's " + monsters_node.get_child(j).monster_data['name'] + "'s Turn"
 					active_monster = monsters_node.get_child(j)
 					monster_attack()
-				#	NEED TO ADD THE MONSTER'S ATTACK HERE.
-					#commentary.text = commentary.text + '\n' + monsters_node.get_child(j).monster_data['name'] + ' attacked!'
 		#	Serving the next player.
 			now_serving -= 1
 		
@@ -167,12 +160,10 @@ func battle():
 #		The below code may never run since I'm now using a signal to end the battle.
 		if enemy_hp <= 0:   # Player has won.
 		# close everything and go to the on_win page
-			#print('Player has won!')
 			player_win = true
 			emit_signal('end_combat')
 		if player_hp <= 0:  # Player has lost.
 		# close everything and go to the on_lose page
-			#print('Player has lost!')
 			player_win = false
 			emit_signal('end_combat')
 			
@@ -195,8 +186,8 @@ func roll_initiative():
 			num_to_try = max_size
 		num_to_try = int(num_to_try)
 		if !available_ranks.has( num_to_try ):
-			# the number to try doesn't appear in the available numbers.
-			# here we need to subtract one from it and check again. We can do this up to 6 times.
+		#	The number to try doesn't appear in the available numbers.
+		#	We need to subtract one from it and check again. We can do this up to 6 times.
 			for x in range( max_size * 2 ):
 				if decreasing:
 					num_to_try -= 1
@@ -241,31 +232,21 @@ func roll_initiative():
 func monster_attack():
 #	Process attack from active_monster.
 	var num_of_attacks = active_monster.monster_data['attacks'].size()
-	#print('This monster has ' + str(num_of_attacks) + ' attacks.')
 #	Decide which character to attack. (STARTING WITHOUT ANY KIND OF AI, JUST RANDOMLY CHOOSING)
 	randomize()
-	#var character_to_attack = randi() % characters_node.get_child_count()
-	#var attacked_character_node = characters_node.get_child(character_to_attack)
-#	while attacked_character_node.char_data['current_hp'] > 0:  # Make sure the monster is attacking a living character.
-#		character_to_attack = randi() % characters_node.get_child_count()
-#		attacked_character_node = characters_node.get_child(character_to_attack)
-	# Determine if there are any living players:
+#	Determine if there are any living players:
 	var player_hp = 0
 	var character_to_attack
 	var attacked_character_node
 	for i in range( characters_node.get_child_count() ):
 		player_hp += characters_node.get_child(i).char_data['current_hp']
 		if characters_node.get_child(i).char_data['current_hp'] == 0:
-			#characters_node.get_child(i).get_node('BG').texture = disabled_box
-			#characters_node.get_child(i).enabled = false
 			characters_node.get_child(i).disable()
 			characters_node.get_child(i).update_ui(false)
 	if player_hp > 0:
 		while true: # Make sure the monster is attacking a living character.
 			character_to_attack = randi() % characters_node.get_child_count()
-			#print("Test character to attack: ", character_to_attack)
 			attacked_character_node = characters_node.get_child(character_to_attack)
-			#print("Test character HP: ", attacked_character_node.char_data['current_hp'] )
 			if attacked_character_node.char_data['current_hp'] > 0:
 				break
 		var message = ' The ' + active_monster.monster_data['name'] + ' attacks ' + attacked_character_node.char_data['name'] + '.'
@@ -283,15 +264,11 @@ func monster_attack():
 			attack_roll += active_monster.monster_data['attack_bonus']
 			if attack_roll >= attacked_character_node.char_data['ac'] or critical_hit: # A hit
 				var damage = roll_dice( active_monster.monster_data['damage'][i] )
-				# Apply damage.
+			#	Apply damage.
 				attacked_character_node.char_data['current_hp'] -= damage
 				if attacked_character_node.char_data['current_hp'] < 0:
 					attacked_character_node.char_data['current_hp'] = 0
-					#print('Going to disable the character:', attacked_character_node)
-					#for x in range( characters_node.get_child_count() ):  # Clear previous selections
-					#		characters_node.get_child(x).get_node('BG').texture = null
 					attacked_character_node.disable()
-					# CHARACTER KILLED, NEED TO DO SOMETHING...DO WE REMOVE THEM? DISABLE THEM?
 				message = ' The ' + active_monster.monster_data['name'] + ' attacks with ' + active_monster.monster_data['attacks'][i] + ' and does ' + str(damage) + ' damage.'
 				commentary.text += message
 				attacked_character_node.update_ui(false)
@@ -300,11 +277,10 @@ func monster_attack():
 				commentary.text += message
 	else:
 		# It seems that all the characters are dead. Are they?
-		print('It seems that all the characters are dead. Are they?')
+		pass
 
 
-func character_melee_attack():
-	#$M/V/H/Commands/MeleeButton.disabled = true
+func character_attack(attack_type):
 	var selected_monster_node = get_node('M/V/H/Monsters/Monster' + str(selected_monster) )
 	var monster_ac = selected_monster_node.monster_data['ac']
 	var message = '\n'
@@ -321,11 +297,19 @@ func character_melee_attack():
 	attack_roll += active_character.char_data['attack_bonus'] + active_character.char_data['str_bonus']
 	if attack_roll >= monster_ac or critical_hit:   # A Hit
 		message = '\n' + active_character.char_data['name'] + ' hit ' + selected_monster_node.monster_data['name'] + ' with a roll of ' + str(attack_roll) + '.'
-		var damage = roll_dice('1d8')
+		var damage = roll_dice( active_character.char_data['weapons'][ attack_type + '-damage' ] )
 		if critical_hit:
 			damage = damage * 2
 		message += '\n' + selected_monster_node.monster_data['name'] + ' took ' + str(damage) + ' sword damage.'
 		selected_monster_node.monster_data['current_hp'] -= damage
+
+	#	Hit Animation
+		$slash/Sprite.translate( Vector2(200, 200) )  # While this moves the sprite...it does so relatively.
+		$slash/Sprite.visible = true
+		$slash.play("slash")
+		yield($slash, "animation_finished")
+		$slash/Sprite.visible = false
+
 		if selected_monster_node.monster_data['current_hp'] <= 0:  # Monster has been killed.
 			xp_earned += int(selected_monster_node.monster_data['xp'])
 			selected_monster_node.monster_data['current_hp'] = 0
@@ -348,49 +332,11 @@ func character_melee_attack():
 
 
 func _on_MeleeButton_pressed():
-#	$M/V/H/Commands/MeleeButton.disabled = true
-#	var selected_monster_node = get_node('M/V/H/Monsters/Monster' + str(selected_monster) )
-#	var monster_ac = selected_monster_node.monster_data['ac']
-#	var message = '\n'
-#	var critical_hit = false
-#	var critical_miss = false
-#	var attack_roll = roll_dice('1d20')
-#	if attack_roll == 20:
-#		critical_hit = true
-#		message += 'CRITICAL HIT! Double damage!\n'
-#	if attack_roll == 1:  # A critical miss always misses.
-#		critical_miss = true
-#		message += 'CRITIICAL MISS!\n'
-#		attack_roll = -10  # This is so that even if the really low roll hits, it will miss
-#	attack_roll += active_character.char_data['attack_bonus'] + active_character.char_data['str_bonus']
-#	if attack_roll >= monster_ac or critical_hit:   # A Hit
-#		message = '\n' + active_character.char_data['name'] + ' hit ' + selected_monster_node.monster_data['name'] + ' with a roll of ' + str(attack_roll) + '.'
-#		var damage = roll_dice('1d8')
-#		if critical_hit:
-#			damage = damage * 2
-#		message += '\n' + selected_monster_node.monster_data['name'] + ' took ' + str(damage) + ' sword damage.'
-#		selected_monster_node.monster_data['current_hp'] -= damage
-#		if selected_monster_node.monster_data['current_hp'] <= 0:  # Monster has been killed.
-#			xp_earned += int(selected_monster_node.monster_data['xp'])
-#			selected_monster_node.monster_data['current_hp'] = 0
-#			if monsters_node.get_child_count() == 1:  # The last monster was killed. Battle is won.
-#				message = 'You won!'
-#				emit_signal('end_combat')
-#			else:   # There are still monsters remaining.
-#				selected_monster_node.selected = false
-#				monsters_node.remove_child(selected_monster_node)
-#				var remaining_monsters = monsters_node.get_children()
-#				#print( remaining_monsters )
-#				remaining_monsters[0].selected = true
-#				selected_monster = remaining_monsters[0].name.right( remaining_monsters[0].name.length() - 1 )
-#				remaining_monsters[0].update_ui(false)
-#		else:
-#			selected_monster_node.update_ui(false)
-#	else:
-#		message = active_character.char_data['name'] + ' missed ' + selected_monster_node.monster_data['name'] + ' with a roll of ' + str(attack_roll) + '.'
-#	commentary.text += message
 	$M/V/H/Commands/V/MeleeButton.disabled = true
-	character_melee_attack()
+	$M/V/H/Commands/V/RangeButton.disabled = true
+	$M/V/H/Commands/V/WandButton.disabled = true
+	
+	character_attack('melee')
 	emit_signal('turn_completed')
 
 
@@ -404,13 +350,7 @@ func _on_CombatUI_end_combat():
 		$EndCombatWin.show()
 	else:
 		$EndCombatLose.show()
-		pass
-	
-	
-	
-#	Update the XP in the Global variables.
-	
-	
+
 
 func _on_DoneButton_pressed():
 #	Send back to the StoryUI and Clean Up
@@ -439,3 +379,21 @@ func _on_DoneButton_pressed():
 		character.update_ui(true)
 #	Close combat results.
 	self.hide()
+
+
+func _on_RangeButton_pressed():
+	$M/V/H/Commands/V/MeleeButton.disabled = true
+	$M/V/H/Commands/V/RangeButton.disabled = true
+	$M/V/H/Commands/V/WandButton.disabled = true
+	
+	character_attack('range')
+	emit_signal('turn_completed')
+
+
+func _on_WandButton_pressed():
+	$M/V/H/Commands/V/MeleeButton.disabled = true
+	$M/V/H/Commands/V/RangeButton.disabled = true
+	$M/V/H/Commands/V/WandButton.disabled = true
+	
+	character_attack('wand')
+	emit_signal('turn_completed')

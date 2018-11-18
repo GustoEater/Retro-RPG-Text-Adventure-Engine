@@ -7,7 +7,7 @@ export var active = false
 export var enabled = true
 export var combat = false
 
-onready var selected_box = ResourceLoader.load('res://Assets/GUI/health-progress-fill.png')
+onready var selected_box = ResourceLoader.load('res://Assets/GUI/SelectedBox.png')
 onready var disabled_box = ResourceLoader.load('res://Assets/GUI/DisabledBox.png')
 #onready var combat_command_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/Label')
 #onready var combat_command_melee_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/Melee')
@@ -28,7 +28,7 @@ func enable():
 
 
 func activate():
-	print(char_data['name'], ' is active. Making the texture selected_box.')
+	#print(char_data['name'], ' is active. Making the texture selected_box.')
 	$M/BG.texture = selected_box
 	$M/BG/Info/M/V/Name.disabled = false
 	active = true
@@ -51,15 +51,33 @@ func update_ui(full):
 		$M/Selected.hide()
 	if active: # show the green selected_box
 		if combat:
-			print('Trying to change texture to selected_box on ', char_data['name'] )
+			#print('Trying to change texture to selected_box on ', char_data['name'] )
 			$M/BG.texture = selected_box
 			$M/BG/Info/M/V/Name.disabled = false
 			var combat_command_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/Label')
 			var combat_command_melee_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/MeleeButton')
+			var combat_command_range_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/RangeButton')
+			var combat_command_wand_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/WandButton')
 			combat_command_label.text = char_data['name'] + "'s turn:"
+			if char_data['weapons'].has('melee'):
+				combat_command_melee_button.text = 'Attack: ' + char_data['weapons']['melee']
+				combat_command_melee_button.show()
+			else:
+				combat_command_melee_button.hide()
+			if char_data['weapons'].has('range'):
+				combat_command_range_button.text = 'Attack: ' + char_data['weapons']['range']
+				combat_command_range_button.show()
+			else:
+				combat_command_range_button.hide()
+			if char_data['weapons'].has('wand'):
+				combat_command_wand_button.text = 'Attack: ' + char_data['weapons']['wand']
+				combat_command_wand_button.show()
+			else:
+				combat_command_wand_button.hide()
+
 	elif !active:
 		if combat:
-			print('Making the texture null on ', char_data['name'])
+			#print('Making the texture null on ', char_data['name'])
 			$M/BG.texture = null
 	if enabled:
 		enable()
