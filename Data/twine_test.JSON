@@ -1,0 +1,117 @@
+{
+  "passages": [
+    {
+      "text": "Welcome to our fantasy role playing adventure. Hopefully you will like the story that we have in store for you.\n\n[[Next->begin]]",
+      "links": [
+        {
+          "name": "Next",
+          "link": "begin",
+          "pid": "2"
+        }
+      ],
+      "name": "Welcome!",
+      "pid": "1",
+      "position": {
+        "x": "37",
+        "y": "99"
+      }
+    },
+    {
+      "text": "You are standing in a field. To the south is a small house. To the north is a path leading to a forest.\n\n[[South->porch]]\n\n[[North->forest entry]]",
+      "links": [
+        {
+          "name": "South",
+          "link": "porch",
+          "pid": "3"
+        },
+        {
+          "name": "North",
+          "link": "forest entry",
+          "pid": "5"
+        }
+      ],
+      "name": "begin",
+      "pid": "2",
+      "position": {
+        "x": "224",
+        "y": "85"
+      }
+    },
+    {
+      "text": "You are standing on the front porch of your house. It's been a long day and you are looking forward to getting some well-deserved rest. Good night.\n\nTHE END",
+      "name": "porch",
+      "pid": "3",
+      "position": {
+        "x": "179",
+        "y": "241"
+      }
+    },
+    {
+      "text": "COMBAT\n_Bear_\n_Cat_\n_Horse_\n[[On win->win]]\n[[On lose->lose]]",
+      "links": [
+        {
+          "name": "On win",
+          "link": "win",
+          "pid": "6"
+        },
+        {
+          "name": "On lose",
+          "link": "lose",
+          "pid": "7"
+        }
+      ],
+      "name": "forest monsters",
+      "pid": "4",
+      "position": {
+        "x": "465",
+        "y": "311"
+      }
+    },
+    {
+      "text": "You are standing at the edge of a large forest. A path leads into the darkness and you can see nothing more than this.\n\n[[Next->forest monsters]]",
+      "links": [
+        {
+          "name": "Next",
+          "link": "forest monsters",
+          "pid": "4"
+        }
+      ],
+      "name": "forest entry",
+      "pid": "5",
+      "position": {
+        "x": "485",
+        "y": "155"
+      }
+    },
+    {
+      "text": "You won!\n\nTHE END",
+      "name": "win",
+      "pid": "6",
+      "position": {
+        "x": "390",
+        "y": "461"
+      }
+    },
+    {
+      "text": "You lose!\n\n[[Try again?->Welcome!]]\n",
+      "links": [
+        {
+          "name": "Try again?",
+          "link": "Welcome!",
+          "pid": "1"
+        }
+      ],
+      "name": "lose",
+      "pid": "7",
+      "position": {
+        "x": "540",
+        "y": "461"
+      }
+    }
+  ],
+  "name": "Fantasy RPG Adventure Test",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.2.1",
+  "ifid": "3E20E9CB-C658-4033-8465-8E113E452C66"
+}

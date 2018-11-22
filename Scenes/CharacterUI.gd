@@ -40,11 +40,11 @@ func activate():
 func update_ui(full):
 	if full:
 		$M/BG/Info/M/V/Name.text = char_data['name']
-		$M/BG/Info/M/V/Health.max_value = char_data['max_hp']
-		$M/BG/Info/M/V/Magic.max_value = char_data['max_mp']
+		$M/BG/Info/M/V/H/Health.max_value = char_data['max_hp']
+		$M/BG/Info/M/V/H2/Magic.max_value = char_data['max_mp']
 		$M/BG/Image/M/Image.texture_normal = load('res://Assets/Character/' + char_data.pic)
-	$M/BG/Info/M/V/Health.value = char_data['current_hp']
-	$M/BG/Info/M/V/Magic.value = char_data['current_mp']
+	$M/BG/Info/M/V/H/Health.value = char_data['current_hp']
+	$M/BG/Info/M/V/H2/Magic.value = char_data['current_mp']
 	if selected:
 		$M/Selected.show()
 	else:
@@ -54,23 +54,23 @@ func update_ui(full):
 			#print('Trying to change texture to selected_box on ', char_data['name'] )
 			$M/BG.texture = selected_box
 			$M/BG/Info/M/V/Name.disabled = false
-			var combat_command_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/Label')
-			var combat_command_melee_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/MeleeButton')
-			var combat_command_range_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/RangeButton')
-			var combat_command_wand_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/WandButton')
+			var combat_command_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/Main')
+			var combat_command_melee_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H4/MeleeButton')
+			var combat_command_range_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H4/RangeButton')
+			var combat_command_wand_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H4/WandButton')
 			combat_command_label.text = char_data['name'] + "'s turn:"
 			if char_data['weapons'].has('melee'):
-				combat_command_melee_button.text = 'Attack: ' + char_data['weapons']['melee']
+				#combat_command_melee_button.text = 'Attack: ' + char_data['weapons']['melee']
 				combat_command_melee_button.show()
 			else:
 				combat_command_melee_button.hide()
 			if char_data['weapons'].has('range'):
-				combat_command_range_button.text = 'Attack: ' + char_data['weapons']['range']
+				#combat_command_range_button.text = 'Attack: ' + char_data['weapons']['range']
 				combat_command_range_button.show()
 			else:
 				combat_command_range_button.hide()
 			if char_data['weapons'].has('wand'):
-				combat_command_wand_button.text = 'Attack: ' + char_data['weapons']['wand']
+				#combat_command_wand_button.text = 'Attack: ' + char_data['weapons']['wand']
 				combat_command_wand_button.show()
 			else:
 				combat_command_wand_button.hide()
@@ -86,7 +86,11 @@ func update_ui(full):
 	if char_data['current_hp'] == 0:
 		#enabled = false
 		disable()
-
+# Health and Magic Values
+	var health_text = str( char_data['current_hp'] ) + ' / ' + str( char_data['max_hp'] )
+	var magic_text = str( char_data['current_mp'] ) + ' / ' + str( char_data['max_mp'] )
+	$M/BG/Info/M/V/H/BG/HealthText.text = health_text
+	$M/BG/Info/M/V/H2/BG/MagicText.text = magic_text
 
 
 func _on_Name_pressed():

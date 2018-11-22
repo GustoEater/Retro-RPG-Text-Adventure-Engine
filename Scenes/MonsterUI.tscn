@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/GUI/health-progress-over.png" type="Texture" id=4]
 [ext_resource path="res://Assets/GUI/health-progress-fill.png" type="Texture" id=5]
 
-[node name="MonsterUI" type="HBoxContainer"]
+[node name="MonsterUI" type="HBoxContainer" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0

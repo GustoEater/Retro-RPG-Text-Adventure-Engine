@@ -4,11 +4,15 @@ export ( String, FILE, '*.json' ) var adventure_to_load = 'res://Data/AdventureP
 export ( String, FILE, '*.json' ) var current_characters_to_load = 'res://Data/Characters.JSON'
 export ( String, FILE, '*.json' ) var available_characters_to_load = ''
 export ( String, FILE, '*.json' ) var all_monsters_to_load = 'res://Data/Monsters.JSON'
+export ( String, FILE, '*.json' ) var twine = 'res://Data/twine_test.JSON'
+
 
 export var full_adventure = {}
 var current_characters = []
 var all_monsters = {}
 var current_monster_list = []
+var twine_test = {}
+var passages = []  # The array of 'pages' (called 'passages' by Twine)
 
 
 func _ready():
@@ -49,6 +53,24 @@ func _ready():
 	else:  # If there is an error in the JSON file, then deal with it.
 		print( 'Adventure:', full_file_parse.error_line, ', ', full_file_parse.error_string )
 
+
+# Load the Twine Testing stuff
+	file = File.new()
+	file.open( twine, file.READ )
+	full_file_text = file.get_as_text()
+	file.close()
+
+	full_file_parse = JSON.parse( full_file_text )
+	if full_file_parse.error == OK:  # If the JSON file was okay, then process it.
+		twine_test = full_file_parse.result
+	else:  # If there is an error in the JSON file, then deal with it.
+		print( 'Twine Test: ', full_file_parse.error_line, ', ', full_file_parse.error_string )
+	
+	passages = twine_test.passages
+
+
+
+
 # Add Scenes to the Tree
 	var scene = load('res://Scenes/StoryUI.tscn')
 	var scene_instance = scene.instance()
@@ -62,3 +84,10 @@ func _ready():
 	scene_instance.set_name( 'CombatUI' )
 	scene_instance.hide()
 	get_node('/root/Game').add_child(scene_instance)
+
+
+
+
+	
+	
+	

@@ -1,8 +1,12 @@
-[gd_resource type="Theme" load_steps=9 format=2]
+[gd_resource type="Theme" load_steps=13 format=2]
 
-[ext_resource path="res://Assets/GUI/Button.png" type="Texture" id=1]
-[ext_resource path="res://Assets/GUI/Themes/Fonts/VT323Font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/GUI/Themes/Fonts/OpenSans-Regular-20.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Assets/GUI/Button.png" type="Texture" id=2]
 [ext_resource path="res://Assets/GUI/stylebox-tan.tres" type="StyleBox" id=3]
+[ext_resource path="res://Assets/GUI/Themes/Fonts/OpenSans-Bold-20.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Assets/GUI/Themes/Fonts/OpenSans-BoldItalic-20.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Assets/GUI/Themes/Fonts/OpenSans-Italic-20.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Assets/GUI/Themes/Fonts/VT323Font.tres" type="DynamicFont" id=7]
 
 [sub_resource type="StyleBoxLine" id=1]
 
@@ -93,14 +97,14 @@ _sections_unfolded = [ "Corner Radius" ]
 
 [resource]
 
-default_font = ExtResource( 2 )
+default_font = ExtResource( 1 )
 Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
 Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 Button/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
 Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 Button/constants/hseparation = 2
-Button/fonts/font = null
-Button/icons/Button = ExtResource( 1 )
+Button/fonts/font = ExtResource( 1 )
+Button/icons/Button = ExtResource( 2 )
 Button/styles/disabled = SubResource( 1 )
 Button/styles/focus = SubResource( 2 )
 Button/styles/hover = SubResource( 3 )
@@ -112,8 +116,21 @@ Label/constants/line_spacing = 3
 Label/constants/shadow_as_outline = 0
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
-Label/fonts/font = ExtResource( 2 )
+Label/fonts/font = ExtResource( 1 )
 Label/styles/normal = null
 PopupPanel/styles/panel = ExtResource( 3 )
-_sections_unfolded = [ "Button", "Button/fonts", "Button/icons", "Button/styles", "Label", "Label/fonts", "PopupPanel/styles", "ProgressBar", "ProgressBar/colors", "ProgressBar/fonts", "ProgressBar/styles" ]
+RichTextLabel/colors/default_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+RichTextLabel/colors/font_color_selected = Color( 0.490196, 0.490196, 0.490196, 1 )
+RichTextLabel/colors/selection_color = Color( 0.1, 0.1, 1, 0.8 )
+RichTextLabel/constants/line_separation = 1
+RichTextLabel/constants/table_hseparation = 3
+RichTextLabel/constants/table_vseparation = 3
+RichTextLabel/fonts/bold_font = ExtResource( 4 )
+RichTextLabel/fonts/bold_italics_font = ExtResource( 5 )
+RichTextLabel/fonts/italics_font = ExtResource( 6 )
+RichTextLabel/fonts/mono_font = ExtResource( 7 )
+RichTextLabel/fonts/normal_font = ExtResource( 1 )
+RichTextLabel/styles/focus = null
+RichTextLabel/styles/normal = null
+_sections_unfolded = [ "Button", "Button/fonts", "Button/icons", "Button/styles", "Label", "Label/fonts", "PopupPanel/styles", "ProgressBar", "ProgressBar/colors", "ProgressBar/fonts", "ProgressBar/styles", "RichTextLabel", "RichTextLabel/fonts" ]
 

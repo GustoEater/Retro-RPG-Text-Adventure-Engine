@@ -1,10 +1,16 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/GUI/FantasyTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/GUI/paper-bg.jpg" type="Texture" id=2]
 [ext_resource path="res://Scenes/CombatUI.gd" type="Script" id=3]
-[ext_resource path="res://Assets/GUI/CommentaryShade.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Animations/slash.png" type="Texture" id=5]
+[ext_resource path="res://Assets/GUI/Icons/sword-icon.png" type="Texture" id=4]
+[ext_resource path="res://Assets/GUI/Icons/sword-icon-hover.png" type="Texture" id=5]
+[ext_resource path="res://Assets/GUI/Icons/bow-icon.png" type="Texture" id=6]
+[ext_resource path="res://Assets/GUI/Icons/bow-icon-hover.png" type="Texture" id=7]
+[ext_resource path="res://Assets/GUI/Icons/staff-icon.png" type="Texture" id=8]
+[ext_resource path="res://Assets/GUI/Icons/staff-icon-hover.png" type="Texture" id=9]
+[ext_resource path="res://Assets/GUI/CommentaryShade.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Animations/slash.png" type="Texture" id=11]
 
 [sub_resource type="Animation" id=1]
 
@@ -25,7 +31,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 3, 4, 4 ]
 }
 
-[node name="CombatUI" type="NinePatchRect" index="0"]
+[node name="CombatUI" type="NinePatchRect"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -101,7 +107,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 326.0
+margin_right = 291.0
 margin_bottom = 400.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -118,8 +124,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 330.0
-margin_right = 656.0
+margin_left = 295.0
+margin_right = 690.0
 margin_bottom = 400.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -136,7 +142,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 8.0
-margin_right = 326.0
+margin_right = 395.0
 margin_bottom = 400.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -146,13 +152,13 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 alignment = 0
 
-[node name="Label" type="Label" parent="M/V/H/Commands/V" index="0"]
+[node name="Main" type="Label" parent="M/V/H/Commands/V" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 318.0
+margin_right = 387.0
 margin_bottom = 30.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -175,7 +181,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 34.0
-margin_right = 318.0
+margin_right = 387.0
 margin_bottom = 38.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -184,41 +190,70 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="MeleeButton" type="Button" parent="M/V/H/Commands/V" index="2"]
+[node name="Attacks" type="Label" parent="M/V/H/Commands/V" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 42.0
-margin_right = 318.0
+margin_right = 387.0
 margin_bottom = 72.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
+mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
-size_flags_vertical = 1
+size_flags_vertical = 4
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Melee Attack"
-flat = false
+text = "Attacks"
 align = 1
-_sections_unfolded = [ "Size Flags", "custom_colors" ]
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors" ]
 
-[node name="RangeButton" type="Button" parent="M/V/H/Commands/V" index="3"]
+[node name="H2" type="HSeparator" parent="M/V/H/Commands/V" index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 76.0
-margin_right = 318.0
-margin_bottom = 106.0
+margin_right = 387.0
+margin_bottom = 80.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="H4" type="HBoxContainer" parent="M/V/H/Commands/V" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 84.0
+margin_right = 387.0
+margin_bottom = 212.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="MeleeButton" type="TextureButton" parent="M/V/H/Commands/V/H4" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 128.0
+margin_bottom = 128.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -226,25 +261,24 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = "Range Attack"
-flat = false
-align = 1
-_sections_unfolded = [ "Size Flags", "custom_colors" ]
+texture_normal = ExtResource( 4 )
+texture_hover = ExtResource( 5 )
+stretch_mode = 5
+_sections_unfolded = [ "Size Flags", "Textures", "custom_colors" ]
 
-[node name="WandButton" type="Button" parent="M/V/H/Commands/V" index="4"]
+[node name="RangeButton" type="TextureButton" parent="M/V/H/Commands/V/H4" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 110.0
-margin_right = 318.0
-margin_bottom = 140.0
+margin_left = 132.0
+margin_right = 260.0
+margin_bottom = 128.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -252,25 +286,47 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = "Spell Attack"
-flat = false
-align = 1
-_sections_unfolded = [ "Size Flags", "custom_colors" ]
+texture_normal = ExtResource( 6 )
+texture_hover = ExtResource( 7 )
+_sections_unfolded = [ "Size Flags", "Textures", "custom_colors" ]
 
-[node name="H2" type="HSeparator" parent="M/V/H/Commands/V" index="5"]
+[node name="WandButton" type="TextureButton" parent="M/V/H/Commands/V/H4" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 144.0
-margin_right = 318.0
-margin_bottom = 148.0
+margin_left = 264.0
+margin_right = 387.0
+margin_bottom = 128.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 8 )
+texture_hover = ExtResource( 9 )
+_sections_unfolded = [ "Size Flags", "Textures", "custom_colors" ]
+
+[node name="H3" type="HSeparator" parent="M/V/H/Commands/V" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 216.0
+margin_right = 387.0
+margin_bottom = 220.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -284,9 +340,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 152.0
-margin_right = 318.0
-margin_bottom = 182.0
+margin_top = 224.0
+margin_right = 387.0
+margin_bottom = 254.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -310,7 +366,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 660.0
+margin_left = 694.0
 margin_right = 986.0
 margin_bottom = 400.0
 rect_pivot_offset = Vector2( 0, 0 )
@@ -354,7 +410,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 4 )
+texture = ExtResource( 10 )
 _sections_unfolded = [ "Axis Stretch", "Rect", "Size Flags" ]
 
 [node name="M" type="MarginContainer" parent="M/V/H2/BG" index="0"]
@@ -721,19 +777,26 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="Sprite" type="Sprite" parent="slash" index="0"]
 
-visible = false
 position = Vector2( 223.102, 141.479 )
-texture = ExtResource( 5 )
+texture = ExtResource( 11 )
 hframes = 5
+frame = 4
 _sections_unfolded = [ "Animation", "Region" ]
+
+[node name="Timer" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
 
 [connection signal="end_combat" from="." to="." method="_on_CombatUI_end_combat"]
 
-[connection signal="pressed" from="M/V/H/Commands/V/MeleeButton" to="." method="_on_MeleeButton_pressed"]
+[connection signal="pressed" from="M/V/H/Commands/V/H4/MeleeButton" to="." method="_on_MeleeButton_pressed"]
 
-[connection signal="pressed" from="M/V/H/Commands/V/RangeButton" to="." method="_on_RangeButton_pressed"]
+[connection signal="pressed" from="M/V/H/Commands/V/H4/RangeButton" to="." method="_on_RangeButton_pressed"]
 
-[connection signal="pressed" from="M/V/H/Commands/V/WandButton" to="." method="_on_WandButton_pressed"]
+[connection signal="pressed" from="M/V/H/Commands/V/H4/WandButton" to="." method="_on_WandButton_pressed"]
 
 [connection signal="pressed" from="EndCombatWin/MarginContainer/VBoxContainer/DoneButton" to="." method="_on_DoneButton_pressed"]
 
