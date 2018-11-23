@@ -1,12 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/GUI/FantasyTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/GUI/paper-bg.jpg" type="Texture" id=2]
 [ext_resource path="res://Scenes/StoryUI.gd" type="Script" id=3]
 [ext_resource path="res://Assets/GUI/MapFrame.png" type="Texture" id=4]
-[ext_resource path="res://Scenes/Combat.tscn" type="PackedScene" id=5]
 
-[node name="StoryUI" type="NinePatchRect" index="0"]
+[node name="StoryUI" type="NinePatchRect"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -22,7 +21,6 @@ theme = ExtResource( 1 )
 texture = ExtResource( 2 )
 script = ExtResource( 3 )
 _sections_unfolded = [ "Margin", "Theme", "custom_constants" ]
-use_twine = true
 
 [node name="M" type="MarginContainer" parent="." index="0"]
 
@@ -120,7 +118,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 400.0
-margin_bottom = 49.0
+margin_bottom = 74.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -140,9 +138,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 10.0
-margin_top = 10.0
+margin_top = 23.0
 margin_right = 390.0
-margin_bottom = 38.0
+margin_bottom = 51.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -164,9 +162,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 53.0
+margin_top = 78.0
 margin_right = 400.0
-margin_bottom = 453.0
+margin_bottom = 478.0
 rect_min_size = Vector2( 400, 400 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -216,9 +214,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 457.0
+margin_top = 482.0
 margin_right = 400.0
-margin_bottom = 581.0
+margin_bottom = 556.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -235,7 +233,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 8.0
 margin_right = 400.0
-margin_bottom = 124.0
+margin_bottom = 74.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -244,125 +242,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 0
 
-[node name="Choice0" type="Button" parent="M/FullWidth/Main/V/OptionButtons/V" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 392.0
-margin_bottom = 28.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Option 1"
-flat = false
-align = 1
-_sections_unfolded = [ "Anchor", "Visibility", "custom_colors" ]
-
-[node name="Choice1" type="Button" parent="M/FullWidth/Main/V/OptionButtons/V" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 32.0
-margin_right = 392.0
-margin_bottom = 60.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Option 2"
-flat = false
-align = 1
-_sections_unfolded = [ "Visibility", "custom_colors" ]
-
-[node name="Choice2" type="Button" parent="M/FullWidth/Main/V/OptionButtons/V" index="2"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 64.0
-margin_right = 392.0
-margin_bottom = 92.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Option 3"
-flat = false
-align = 1
-_sections_unfolded = [ "Visibility", "custom_colors" ]
-
-[node name="Choice3" type="Button" parent="M/FullWidth/Main/V/OptionButtons/V" index="3"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 96.0
-margin_right = 392.0
-margin_bottom = 124.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Option 4"
-flat = false
-align = 1
-_sections_unfolded = [ "Visibility", "custom_colors" ]
-
 [node name="M" type="MarginContainer" parent="M/FullWidth/Main/V" index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 585.0
+margin_top = 560.0
 margin_right = 400.0
 margin_bottom = 634.0
 rect_min_size = Vector2( 0, 40 )
@@ -426,22 +312,5 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 texture = ExtResource( 4 )
 _sections_unfolded = [ "Rect" ]
-
-[node name="Combat" parent="." index="1" instance=ExtResource( 5 )]
-
-visible = false
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 8.0
-margin_right = 1032.0
-margin_bottom = 580.0
-
-[connection signal="pressed" from="M/FullWidth/Main/V/OptionButtons/V/Choice0" to="." method="_on_Choice0_pressed"]
-
-[connection signal="pressed" from="M/FullWidth/Main/V/OptionButtons/V/Choice1" to="." method="_on_Choice1_pressed"]
-
-[connection signal="pressed" from="M/FullWidth/Main/V/OptionButtons/V/Choice2" to="." method="_on_Choice2_pressed"]
-
-[connection signal="pressed" from="M/FullWidth/Main/V/OptionButtons/V/Choice3" to="." method="_on_Choice3_pressed"]
 
 

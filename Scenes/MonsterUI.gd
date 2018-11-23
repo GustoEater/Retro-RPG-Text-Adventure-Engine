@@ -9,18 +9,18 @@ var enabled = true
 onready var selected_box = ResourceLoader.load('res://Assets/GUI/SelectedBox.png')
 onready var disabled_box = ResourceLoader.load('res://Assets/GUI/DisabledBox.png')
 
-func disable():
+func disable():	# This status means the monster is dead.
 	$BG.texture = disabled_box
 	$BG/Info/M/V/Name.disabled = true
 
 
-func enable():
+func enable():	# This status means the monster is not dead.
 	$BG.texture = null
 	$BG/Info/M/V/Name.disabled = false
 
 
-func update_ui(full):
-	if full:
+func update_ui(full_update):
+	if full_update:
 		$BG/Info/M/V/Name.text = monster_data.name
 		$BG/Info/M/V/Health.max_value = monster_data.max_hp
 		$BG/Image/M/Image.texture_normal = ResourceLoader.load( 'res://Assets/Character/' + monster_data.pic )
@@ -38,8 +38,6 @@ func update_ui(full):
 		enable()
 	else:
 		disable()
-
-
 
 
 func _on_Name_pressed():

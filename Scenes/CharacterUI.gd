@@ -5,44 +5,36 @@ var my_index
 export var selected = false
 export var active = false
 export var enabled = true
-export var combat = false
+export var in_combat = false
 
 onready var selected_box = ResourceLoader.load('res://Assets/GUI/SelectedBox.png')
 onready var disabled_box = ResourceLoader.load('res://Assets/GUI/DisabledBox.png')
-#onready var combat_command_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/Label')
-#onready var combat_command_melee_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/Melee')
 
 
-
-
-func disable():
+func disable():	# This status means the character is dead.
 	enabled = false
 	$M/BG.texture = disabled_box
 	$M/BG/Info/M/V/Name.disabled = true
 
 
-func enable():
+func enable():	# This status means the character is not dead.
 	enabled = true
-	#$M/BG.texture = null
 	$M/BG/Info/M/V/Name.disabled = false
 
 
-func activate():
-	#print(char_data['name'], ' is active. Making the texture selected_box.')
+func activate():	# This status means the character is conducting it's turn.
 	$M/BG.texture = selected_box
 	$M/BG/Info/M/V/Name.disabled = false
 	active = true
-#	if combat:
-#		var combat_command_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/Label')
-#		var combat_command_melee_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/Melee')
-#		combat_command_label.text = char_data['name'] + "'s turn:"
 
-func update_ui(full):
-	if full:
+
+func update_ui(full_update):
+	if full_update:	# Certain items are done only occasionally.
 		$M/BG/Info/M/V/Name.text = char_data['name']
 		$M/BG/Info/M/V/H/Health.max_value = char_data['max_hp']
 		$M/BG/Info/M/V/H2/Magic.max_value = char_data['max_mp']
 		$M/BG/Image/M/Image.texture_normal = load('res://Assets/Character/' + char_data.pic)
+
 	$M/BG/Info/M/V/H/Health.value = char_data['current_hp']
 	$M/BG/Info/M/V/H2/Magic.value = char_data['current_mp']
 	if selected:
@@ -50,8 +42,7 @@ func update_ui(full):
 	else:
 		$M/Selected.hide()
 	if active: # show the green selected_box
-		if combat:
-			#print('Trying to change texture to selected_box on ', char_data['name'] )
+		if in_combat:
 			$M/BG.texture = selected_box
 			$M/BG/Info/M/V/Name.disabled = false
 			var combat_command_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/Main')
@@ -59,16 +50,18 @@ func update_ui(full):
 			var combat_command_range_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H4/RangeButton')
 			var combat_command_wand_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H4/WandButton')
 			combat_command_label.text = char_data['name'] + "'s turn:"
+
 			if char_data['weapons'].has('melee'):
-				#combat_command_melee_button.text = 'Attack: ' + char_data['weapons']['melee']
 				combat_command_melee_button.show()
 			else:
 				combat_command_melee_button.hide()
+
 			if char_data['weapons'].has('range'):
 				#combat_command_range_button.text = 'Attack: ' + char_data['weapons']['range']
 				combat_command_range_button.show()
 			else:
 				combat_command_range_button.hide()
+
 			if char_data['weapons'].has('wand'):
 				#combat_command_wand_button.text = 'Attack: ' + char_data['weapons']['wand']
 				combat_command_wand_button.show()
@@ -76,8 +69,7 @@ func update_ui(full):
 				combat_command_wand_button.hide()
 
 	elif !active:
-		if combat:
-			#print('Making the texture null on ', char_data['name'])
+		if in_combat:
 			$M/BG.texture = null
 	if enabled:
 		enable()

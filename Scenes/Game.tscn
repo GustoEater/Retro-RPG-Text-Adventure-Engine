@@ -1,10 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/Game.gd" type="Script" id=1]
 [ext_resource path="res://Assets/GUI/paper-bg.jpg" type="Texture" id=2]
-[ext_resource path="res://Scenes/Units.gd" type="Script" id=3]
 
-[node name="Game" type="Node"]
+[node name="Game" type="Node" index="0"]
 
 script = ExtResource( 1 )
 
@@ -61,16 +60,6 @@ group = null
 text = "Play!"
 flat = false
 align = 1
-
-[node name="Units" type="Node" parent="." index="1"]
-
-script = ExtResource( 3 )
-characters_to_load = "res://Data/Characters.JSON"
-opt_characters_to_load = ""
-
-[node name="Characters" type="Node" parent="Units" index="0"]
-
-[node name="Monsters" type="Node" parent="Units" index="1"]
 
 [connection signal="pressed" from="TitleUI/CenterContainer/StartGame" to="." method="_on_StartGame_pressed"]
 
