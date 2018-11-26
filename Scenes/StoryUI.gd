@@ -25,6 +25,18 @@ func update_page( target_page_index ):
 #	Because target_page_index is passed in pulling from the 'pid' and Twine doesn't start at 0, we need
 #		to subtract 1 from the target_page_index.
 	target_page_index -= 1
+	
+	if target_page_index == 0:	# If we're loading the first welcome page...reset hp to maximum for characters.
+		for character in Global.current_characters:
+			character.current_hp = character.max_hp
+			character.current_mp = character.max_mp
+		for character in $M/FullWidth/Characters.get_children():
+			character.enable()
+			character.update_ui(true)
+		$M/FullWidth/Main/V/Title/PageTitle.text = Global.full_adventure.name
+	else:
+		$M/FullWidth/Main/V/Title.hide()
+	
 	current_page = Global.passages[ target_page_index ]
 
 	if current_page['text'].left(6) == 'COMBAT':	# This is a combat page, special processing.

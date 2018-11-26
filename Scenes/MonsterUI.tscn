@@ -209,14 +209,14 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 200.0
-margin_bottom = 48.0
+margin_bottom = 20.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 1
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
@@ -233,9 +233,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 52.0
+margin_top = 24.0
 margin_right = 200.0
-margin_bottom = 100.0
+margin_bottom = 60.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -256,6 +256,24 @@ radial_fill_degrees = 360.0
 radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = true
 _sections_unfolded = [ "Percent", "Size Flags", "Textures", "Theme" ]
+
+[node name="MarginContainer" type="MarginContainer" parent="BG/Info/M/V" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 64.0
+margin_right = 200.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 20 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 3
+_sections_unfolded = [ "Rect", "Size Flags" ]
 
 [node name="Position" type="Control" parent="." index="2"]
 

@@ -19,6 +19,7 @@ func disable():	# This status means the character is dead.
 
 func enable():	# This status means the character is not dead.
 	enabled = true
+	$M/BG.texture = null
 	$M/BG/Info/M/V/Name.disabled = false
 
 

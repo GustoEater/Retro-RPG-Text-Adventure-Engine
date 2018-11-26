@@ -18,5 +18,35 @@
 	{
 		"name":"Grizzly Spider", "ac":14, "hit_dice":"5d8", "num_of_attacks":4,"attacks":["claws","claws","a bite","a hug"],
 		"attack_bonus":5, "damage":["1d4","1d4","1d8","2d8"],"xp":360, "max_hp":0, "current_hp":0, "combat_order":0, "pic":"000001.png"
+	},
+	"Ant":
+	{
+		"name":"Giant Ant", "ac":17, "hit_dice":"4d8", "attacks":["a bite"],
+		"attack_bonus":4, "damage":["2d6"],"xp":240, "max_hp":0, "current_hp":0, "combat_order":0, "pic":"000001.png"
+	},
+	"Ape":
+	{
+		"name":"Carnivorous Ape", "ac":14, "hit_dice":"4d8", "attacks":["claws","claws"],
+		"attack_bonus":4, "damage":["1d4","1d4"],"xp":240, "max_hp":0, "current_hp":0, "combat_order":0, "pic":"000001.png"
+	},
+	"Vine":
+	{
+		"name":"Assasin Vine", "ac":15, "hit_dice":"6d8", "attacks":["a snap","entangling"],
+		"attack_bonus":6, "damage":["1d8","1d8"],"xp":500, "max_hp":0, "current_hp":0, "combat_order":0, "pic":"000001.png"
+	},
+	"Bat":
+	{
+		"name":"Giant Bat", "ac":14, "hit_dice":"2d8", "attacks":["bite"],
+		"attack_bonus":2, "damage":["1d4"],"xp":75, "max_hp":0, "current_hp":0, "combat_order":0, "pic":"000001.png"
+	},
+	"Guard":
+	{
+		"name":"Dungeon Guard", "ac":15, "hit_dice":"2d8", "attacks":["Shortsword"],
+		"attack_bonus":3, "damage":["1d8"],"xp":75, "max_hp":0, "current_hp":0, "combat_order":0, "pic":"000001.png"
+	},
+	"Bee":
+	{
+		"name":"Giant Bee", "ac":13, "hit_dice":"1d8", "attacks":["a sting"],
+		"attack_bonus":0, "damage":["1d4"],"xp":13, "max_hp":0, "current_hp":0, "combat_order":0, "pic":"000001.png"
 	}
 }

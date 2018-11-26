@@ -3,7 +3,7 @@ extends Node
 export ( String, FILE, '*.json' ) var current_characters_to_load = 'res://Data/Characters.JSON'
 export ( String, FILE, '*.json' ) var available_characters_to_load = ''
 export ( String, FILE, '*.json' ) var all_monsters_to_load = 'res://Data/Monsters.JSON'
-export ( String, FILE, '*.json' ) var adventure = 'res://Data/twine_test.JSON'
+export ( String, FILE, '*.json' ) var adventure = 'res://Data/The_Fairhaven_Incident.JSON'
 
 var current_characters = []
 var all_monsters = {}
@@ -68,3 +68,15 @@ func _ready():
 	scene_instance.set_name( 'CombatUI' )
 	scene_instance.hide()
 	get_node('/root/Game').add_child(scene_instance)
+
+
+func roll_dice( string ):
+#	This function takes an input string like "1d6" and rolls the appropriate dice.
+	var sum = 0
+#	Parse the string.
+	var number = int( string.left( string.findn( 'd' ) ) )
+	var type = int( string.right( string.length() - ( str(number).length() + 1) ) )
+	for i in range( number ):
+		randomize()
+		sum += randi() % type + 1
+	return sum

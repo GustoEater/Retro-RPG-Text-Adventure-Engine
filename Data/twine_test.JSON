@@ -47,7 +47,7 @@
       }
     },
     {
-      "text": "COMBAT\n_Bear_\n_Cat_\n_Horse_\n[[On win->win]]\n[[On lose->lose]]",
+      "text": "COMBAT\n_Bat_\n_Bee_\n[[On win->win]]\n[[On lose->lose]]",
       "links": [
         {
           "name": "On win",
@@ -84,28 +84,140 @@
       }
     },
     {
-      "text": "You won!\n\nTHE END",
-      "name": "win",
-      "pid": "6",
-      "position": {
-        "x": "390",
-        "y": "461"
-      }
-    },
-    {
-      "text": "You lose!\n\n[[Try again?->Welcome!]]\n",
+      "text": "You won!\n\nTHE END\n\n[[Try again?->Welcome!]]\n[[Something new->testbed]]",
       "links": [
         {
           "name": "Try again?",
           "link": "Welcome!",
           "pid": "1"
+        },
+        {
+          "name": "Something new",
+          "link": "testbed",
+          "pid": "8"
+        }
+      ],
+      "name": "win",
+      "pid": "6",
+      "position": {
+        "x": "420",
+        "y": "476"
+      }
+    },
+    {
+      "text": "You lose!\n\n[[Try again?->Welcome!]]\n[[Something New->testbed]]\n",
+      "links": [
+        {
+          "name": "Try again?",
+          "link": "Welcome!",
+          "pid": "1"
+        },
+        {
+          "name": "Something New",
+          "link": "testbed",
+          "pid": "8"
         }
       ],
       "name": "lose",
       "pid": "7",
       "position": {
-        "x": "540",
-        "y": "461"
+        "x": "583",
+        "y": "476"
+      }
+    },
+    {
+      "text": "I wanted to try something new to show the use of more links.\n\n[[First Option->first]]\n[[Second Option->second]]\n[[Third Option->third]]\n[[Fourth Option->fourth]]\n[[Fifth Option->fifth]]\n[[Sixth Option->sixth]]",
+      "links": [
+        {
+          "name": "First Option",
+          "link": "first",
+          "pid": "9"
+        },
+        {
+          "name": "Second Option",
+          "link": "second",
+          "pid": "10"
+        },
+        {
+          "name": "Third Option",
+          "link": "third",
+          "pid": "11"
+        },
+        {
+          "name": "Fourth Option",
+          "link": "fourth",
+          "pid": "12"
+        },
+        {
+          "name": "Fifth Option",
+          "link": "fifth",
+          "pid": "13"
+        },
+        {
+          "name": "Sixth Option",
+          "link": "sixth",
+          "pid": "14"
+        }
+      ],
+      "name": "testbed",
+      "pid": "8",
+      "position": {
+        "x": "583",
+        "y": "626"
+      }
+    },
+    {
+      "text": "This was the first option. It seems to work.\n\nTHE END",
+      "name": "first",
+      "pid": "9",
+      "position": {
+        "x": "358",
+        "y": "776"
+      }
+    },
+    {
+      "text": "This was the x option. It seems to work.\n\nTHE END",
+      "name": "second",
+      "pid": "10",
+      "position": {
+        "x": "508",
+        "y": "776"
+      }
+    },
+    {
+      "text": "This was the 3rd option. It seems to work.\n\nTHE END",
+      "name": "third",
+      "pid": "11",
+      "position": {
+        "x": "658",
+        "y": "776"
+      }
+    },
+    {
+      "text": "This was the nth option. It seems to work.\n\nTHE END",
+      "name": "fourth",
+      "pid": "12",
+      "position": {
+        "x": "808",
+        "y": "775"
+      }
+    },
+    {
+      "text": "Double-click this passage to edit it.",
+      "name": "fifth",
+      "pid": "13",
+      "position": {
+        "x": "934",
+        "y": "777"
+      }
+    },
+    {
+      "text": "Double-click this passage to edit it.",
+      "name": "sixth",
+      "pid": "14",
+      "position": {
+        "x": "1082",
+        "y": "779"
       }
     }
   ],

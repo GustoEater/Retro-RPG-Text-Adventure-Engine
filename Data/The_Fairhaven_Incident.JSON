@@ -1,0 +1,262 @@
+{
+  "passages": [
+    {
+      "text": "In the thirty-third year of the reign of King Mistkrest of Sommersbrie darkness fell upon throne. A kingdom once renowned for its prosperity and its peace was shattered, blackened, and burned by strife. A tragic finish to the kingdom was in sight.\n\nUntil one night there was to rise a new hero foretold by a long forgotten prophecy. That one night could bring a new dawn restoring the King to his rightful thrown. That night is known as the Fallhaven Incident.\n\n[[Next->prophecy]]",
+      "links": [
+        {
+          "name": "Next",
+          "link": "prophecy",
+          "pid": "2"
+        }
+      ],
+      "name": "start",
+      "pid": "1",
+      "position": {
+        "x": "412",
+        "y": "187.5"
+      }
+    },
+    {
+      "text": "STUFF ABOUT THE PROHPECY\n\n[[Next->awakening]]",
+      "links": [
+        {
+          "name": "Next",
+          "link": "awakening",
+          "pid": "3"
+        }
+      ],
+      "name": "prophecy",
+      "pid": "2",
+      "position": {
+        "x": "544",
+        "y": "185.5"
+      }
+    },
+    {
+      "text": "You hear the loud BANG SPLASH of a full goblet being slammed onto a wooden table.\n\nYou can't remember anything that happened before. You have no idea how you got here...and for that matter, you don't even know where 'here' is.\n\nWhat you do know is that there is a throbbing, massive pain in your head that won't go away and a gruff voice yelling:\n\n\"If you want it, then get IT YERSELF!\"\n\nYou finally open your eyes and look around.\n\n[[Next->trapped]]",
+      "links": [
+        {
+          "name": "Next",
+          "link": "trapped",
+          "pid": "4"
+        }
+      ],
+      "name": "awakening",
+      "pid": "3",
+      "position": {
+        "x": "664",
+        "y": "185.5"
+      }
+    },
+    {
+      "text": "Your party is locked behind bars in a dank and putrid dungeon.\n\nThere is a three-legged table with one short leg that looks like it would be easily overturned if there were a fight in this room.\n\nOne GUARD sits at the table enjoying his mead while a second GUARD stands by a stairway leading up out of the dungeon. There is a door to your right...but it doesn't look like it's been used in quite a while.\n\n[[Next->still trapped]]",
+      "links": [
+        {
+          "name": "Next",
+          "link": "still trapped",
+          "pid": "5"
+        }
+      ],
+      "name": "trapped",
+      "pid": "4",
+      "position": {
+        "x": "780",
+        "y": "185.5"
+      }
+    },
+    {
+      "text": "You rummage through the cell, desperately searching for something to help you escape.\n\nEach member of your party attempts to unlock the cell.\n\n[[Roll D20->escape]]\n\n",
+      "links": [
+        {
+          "name": "Roll D20",
+          "link": "escape",
+          "pid": "6"
+        }
+      ],
+      "name": "still trapped",
+      "pid": "5",
+      "position": {
+        "x": "909",
+        "y": "184.5"
+      }
+    },
+    {
+      "text": "(set: $roll to (random: 1, 20))\n\nYou rolled a $roll on 1d20.\n\n(if: $roll > 7)[Fiddling with the lock you hear a faint CLINK and the lock falls open.\n\n[[Free at last->free]] ]\n\n(if: $roll <= 7)[You are completely incapable of picking the lock on this cell door. It must be some new kind of lock that you haven't seen before.\n\n[[Still stuck->stuck]] ]",
+      "links": [
+        {
+          "name": "Free at last",
+          "link": "free",
+          "pid": "7"
+        },
+        {
+          "name": "Still stuck",
+          "link": "stuck",
+          "pid": "8"
+        }
+      ],
+      "name": "escape",
+      "pid": "6",
+      "position": {
+        "x": "1028",
+        "y": "186.5"
+      }
+    },
+    {
+      "text": "The GUARD by the stairway stretches, yawns, and goes up.\n\nYou could fling open the cell door and take the GUARD by surprise.\n\nOn the other hand, you could bide your time and wait for the GUARD to drift off to sleep.\n\n[[Surprise->surprise]]\n\n[[Wait for bedtime->wait]]",
+      "links": [
+        {
+          "name": "Surprise",
+          "link": "surprise",
+          "pid": "9"
+        },
+        {
+          "name": "Wait for bedtime",
+          "link": "wait",
+          "pid": "10"
+        }
+      ],
+      "name": "free",
+      "pid": "7",
+      "position": {
+        "x": "1142",
+        "y": "442.5"
+      }
+    },
+    {
+      "text": "You start to get comfortable in your cell. The more obsessive-compulsive Adventurers among you shake out the soggy matresses and sweep the dust from one end of the cell to the other.\n\nThe GUARD continues downing his mead. He appears to be getting sleepy and starts to mumble.\n\n\"Why does Hellmantle get to be the Emperor of Fallhaven. I was his commander at the battle of Misht...Mi...Misthammer. That wizard Ih...Ik...Ikroth is to blame...\"\n\n[[Next->free_at_last]]",
+      "links": [
+        {
+          "name": "Next",
+          "link": "free_at_last",
+          "pid": "12"
+        }
+      ],
+      "name": "stuck",
+      "pid": "8",
+      "position": {
+        "x": "1028",
+        "y": "320.5"
+      }
+    },
+    {
+      "text": "All at once, you throw open the cell door with a CRASH! You charge the GUARD and take him by storm!!\n\n[[Prepare for combat!->guardCOMBAT]]",
+      "links": [
+        {
+          "name": "Prepare for combat!",
+          "link": "guardCOMBAT",
+          "pid": "11"
+        }
+      ],
+      "name": "surprise",
+      "pid": "9",
+      "position": {
+        "x": "1440",
+        "y": "442.5"
+      }
+    },
+    {
+      "text": "The GUARD's head hits the wooden table with a CLUNK. His goblet drops to the floor.\n\nYou quietly push open the cell door, free at last!!\n\nThinking that the stairs must lead out of the dungeon, you could go up.\n\nInstead, you could check what's behind the seldomly used door.\n\n[[Stairs->up]]\n\n[[Door->door]]",
+      "links": [
+        {
+          "name": "Stairs",
+          "link": "up",
+          "pid": "13"
+        },
+        {
+          "name": "Door",
+          "link": "door",
+          "pid": "14"
+        }
+      ],
+      "name": "wait",
+      "pid": "10",
+      "position": {
+        "x": "1297",
+        "y": "577.5"
+      }
+    },
+    {
+      "text": "COMBAT\n_Guard_\n\n[[On Win->guardCOMBATwin]]\n[[On Win->guardCOMBATlose]]\n",
+      "links": [
+        {
+          "name": "On Win",
+          "link": "guardCOMBATwin",
+          "pid": "15"
+        },
+        {
+          "name": "On Win",
+          "link": "guardCOMBATlose",
+          "pid": "16"
+        }
+      ],
+      "name": "guardCOMBAT",
+      "pid": "11",
+      "position": {
+        "x": "1581",
+        "y": "444.5"
+      }
+    },
+    {
+      "text": "You desperately search the cell again.\n\nUnder a dripping crack in the ceiling -hopefully this foul-smelling liquid is just rainwater- you find a shard of wood that looks suspiciously like a key.\n\nTo your surprise, it fits perfectly into the lock. With a CLINK the lock falls open.\n\nYou could fling open the cell door and take the GUARD by surprise.\n\nOn the other hand, you could bide your time and wait for the GUARD to drift off to sleep.\n\n[[Surprise->surprise]]\n\n[[Wait for bedtime->wait]]",
+      "links": [
+        {
+          "name": "Surprise",
+          "link": "surprise",
+          "pid": "9"
+        },
+        {
+          "name": "Wait for bedtime",
+          "link": "wait",
+          "pid": "10"
+        }
+      ],
+      "name": "free_at_last",
+      "pid": "12",
+      "position": {
+        "x": "1297",
+        "y": "317.5"
+      }
+    },
+    {
+      "text": "Double-click this passage to edit it.",
+      "name": "up",
+      "pid": "13",
+      "position": {
+        "x": "1438",
+        "y": "575.5"
+      }
+    },
+    {
+      "text": "Double-click this passage to edit it.",
+      "name": "door",
+      "pid": "14",
+      "position": {
+        "x": "1442",
+        "y": "700.5"
+      }
+    },
+    {
+      "text": "Double-click this passage to edit it.",
+      "name": "guardCOMBATwin",
+      "pid": "15",
+      "position": {
+        "x": "1708",
+        "y": "445.5"
+      }
+    },
+    {
+      "text": "Double-click this passage to edit it.",
+      "name": "guardCOMBATlose",
+      "pid": "16",
+      "position": {
+        "x": "1582",
+        "y": "184.5"
+      }
+    }
+  ],
+  "name": "Fantasy RPG",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.2.1",
+  "ifid": "4B721106-68F4-4CD9-AC84-69A246FFECDF"
+}

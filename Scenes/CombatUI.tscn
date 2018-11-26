@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Assets/GUI/FantasyTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/GUI/paper-bg.jpg" type="Texture" id=2]
@@ -10,16 +10,37 @@
 [ext_resource path="res://Assets/GUI/Icons/staff-icon.png" type="Texture" id=8]
 [ext_resource path="res://Assets/GUI/Icons/staff-icon-hover.png" type="Texture" id=9]
 [ext_resource path="res://Assets/GUI/CommentaryShade.png" type="Texture" id=10]
-[ext_resource path="res://Assets/Animations/slash.png" type="Texture" id=11]
+[ext_resource path="res://Assets/GUI/Themes/Fonts/OpenSans-Regular-12.tres" type="DynamicFont" id=11]
+[ext_resource path="res://Assets/Animations/slash.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Animations/miss.png" type="Texture" id=13]
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "miss"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animations/Position/Miss:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4 ]
+}
 
 [sub_resource type="Animation" id=1]
 
 resource_name = "slash"
 length = 1.0
-loop = false
+loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("slash/Position/Sprite:frame")
+tracks/0/path = NodePath("Animations/Position/Slash:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -31,7 +52,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 3, 4, 4 ]
 }
 
-[node name="CombatUI" type="NinePatchRect"]
+[node name="CombatUI" type="NinePatchRect" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -108,7 +129,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 294.0
+margin_right = 326.0
 margin_bottom = 400.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -125,8 +146,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 298.0
-margin_right = 688.0
+margin_left = 330.0
+margin_right = 656.0
 margin_bottom = 400.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -143,7 +164,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 8.0
-margin_right = 390.0
+margin_right = 326.0
 margin_bottom = 400.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -159,7 +180,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 382.0
+margin_right = 318.0
 margin_bottom = 28.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -182,7 +203,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 32.0
-margin_right = 382.0
+margin_right = 318.0
 margin_bottom = 36.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -198,7 +219,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 40.0
-margin_right = 382.0
+margin_right = 318.0
 margin_bottom = 68.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -221,7 +242,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 72.0
-margin_right = 382.0
+margin_right = 318.0
 margin_bottom = 76.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -237,8 +258,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 80.0
-margin_right = 382.0
+margin_right = 318.0
 margin_bottom = 208.0
+rect_min_size = Vector2( 0, 128 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -250,6 +272,7 @@ _sections_unfolded = [ "Rect" ]
 
 [node name="MeleeButton" type="TextureButton" parent="M/V/H/Commands/V/H4" index="0"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -274,12 +297,12 @@ _sections_unfolded = [ "Size Flags", "Textures", "custom_colors" ]
 
 [node name="RangeButton" type="TextureButton" parent="M/V/H/Commands/V/H4" index="1"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 127.0
-margin_right = 255.0
+margin_right = 128.0
 margin_bottom = 128.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -298,13 +321,13 @@ _sections_unfolded = [ "Size Flags", "Textures", "custom_colors" ]
 
 [node name="WandButton" type="TextureButton" parent="M/V/H/Commands/V/H4" index="2"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 259.0
-margin_right = 382.0
-margin_bottom = 128.0
+margin_right = 123.0
+margin_bottom = 123.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -320,6 +343,35 @@ texture_normal = ExtResource( 8 )
 texture_hover = ExtResource( 9 )
 _sections_unfolded = [ "Size Flags", "Textures", "custom_colors" ]
 
+[node name="Button" type="Button" parent="M/V/H/Commands/V/H4" index="3"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 226.0
+margin_bottom = 128.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Short Bow"
+icon = ExtResource( 6 )
+flat = false
+align = 0
+_sections_unfolded = [ "custom_colors" ]
+
 [node name="H3" type="HSeparator" parent="M/V/H/Commands/V" index="5"]
 
 anchor_left = 0.0
@@ -327,7 +379,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 212.0
-margin_right = 382.0
+margin_right = 318.0
 margin_bottom = 216.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -343,7 +395,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 220.0
-margin_right = 382.0
+margin_right = 318.0
 margin_bottom = 248.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -368,7 +420,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 692.0
+margin_left = 660.0
 margin_right = 986.0
 margin_bottom = 400.0
 rect_pivot_offset = Vector2( 0, 0 )
@@ -396,7 +448,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 0
-_sections_unfolded = [ "Size Flags" ]
+_sections_unfolded = [ "Margin", "Size Flags" ]
 
 [node name="BG" type="NinePatchRect" parent="M/V/H2" index="0"]
 
@@ -411,7 +463,7 @@ rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 1
 texture = ExtResource( 10 )
 _sections_unfolded = [ "Axis Stretch", "Rect", "Size Flags" ]
 
@@ -427,7 +479,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-_sections_unfolded = [ "Size Flags" ]
+_sections_unfolded = [ "Size Flags", "custom_constants" ]
 
 [node name="Commentary" type="RichTextLabel" parent="M/V/H2/BG/M" index="0"]
 
@@ -444,6 +496,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+custom_fonts/normal_font = ExtResource( 11 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = false
 bbcode_text = ""
@@ -456,6 +509,7 @@ scroll_active = true
 scroll_following = true
 selection_enabled = false
 override_selected_font_color = false
+_sections_unfolded = [ "Margin", "custom_fonts" ]
 
 [node name="EndCombatWin" type="PopupPanel" parent="." index="1"]
 
@@ -766,26 +820,35 @@ text = "Done"
 flat = false
 align = 1
 
-[node name="slash" type="AnimationPlayer" parent="." index="3"]
+[node name="Animations" type="AnimationPlayer" parent="." index="3"]
 
 root_node = NodePath("..")
 autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 2.0
+anims/miss = SubResource( 2 )
 anims/slash = SubResource( 1 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="Position" type="Node2D" parent="slash" index="0"]
+[node name="Position" type="Node2D" parent="Animations" index="0"]
 
-[node name="Sprite" type="Sprite" parent="slash/Position" index="0"]
+[node name="Slash" type="Sprite" parent="Animations/Position" index="0"]
 
 scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 centered = false
 hframes = 5
 frame = 4
+_sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
+
+[node name="Miss" type="Sprite" parent="Animations/Position" index="1"]
+
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 13 )
+centered = false
+hframes = 5
 _sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
 
 [node name="Timer" type="Timer" parent="." index="4"]
