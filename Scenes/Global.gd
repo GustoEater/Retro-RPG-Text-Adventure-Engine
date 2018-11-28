@@ -71,12 +71,24 @@ func _ready():
 
 
 func roll_dice( string ):
-#	This function takes an input string like "1d6" and rolls the appropriate dice.
+#	This function takes an input string like "1d6+1" and rolls the appropriate dice.
 	var sum = 0
 #	Parse the string.
-	var number = int( string.left( string.findn( 'd' ) ) )
-	var type = int( string.right( string.length() - ( str(number).length() + 1) ) )
-	for i in range( number ):
-		randomize()
-		sum += randi() % type + 1
-	return sum
+	if string.findn( '+' ) == -1:
+		var number = int( string.left( string.findn( 'd' ) ) )
+		var type = int( string.right( string.length() - ( str(number).length() + 1) ) )
+		for i in range( number ):
+			randomize()
+			sum += randi() % type + 1
+		return sum
+	elif string.findn( '+' ) > -1:
+		# There is a bonus at the end.
+		var number = int( string.left( string.findn( 'd' ) ) )   # int( string.left( 1 ) = 1
+		var remainder = string.right( string.length() - ( str(number).length() + 1) )  # string.right( 5 - 1+1 ) right(3) = 6+1
+		var type = int( remainder.left( remainder.findn( '+' ) ) )   # int( string.left( 1 ) = 6
+		var bonus = int( remainder.right( remainder.length() - ( str(type).length() + 1) ) )
+		for i in range( number ):
+			randomize()
+			sum += randi() % type + 1
+		sum += bonus
+		return sum

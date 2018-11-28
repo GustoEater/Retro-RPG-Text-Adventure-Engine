@@ -6,7 +6,7 @@
 	"str_bonus":2, "int_bonus": 0, "wis_bonus":-1, "dex_bonus":1,"con_bonus":1, "chr_bonus":-1, 
 	"save_death":16 , "save_wands":17 , "save_stone":18, "save_dragon":18 , "save_spells":21,
 	"pic":"2001458.png", "combat_order":0,
-		"weapons":{"melee":"Longsword", "melee_damage":"1d8", "melee_pic":"sword.png", "melee_anim":"slash"}
+		"weapons":{"melee":"Longsword", "melee_damage":"1d8", "melee_pic":"sword.png", "melee_anim":"slash"},
 	},
 
 	{
@@ -16,7 +16,8 @@
 	"str_bonus":1, "int_bonus":0, "wis_bonus":2, "dex_bonus":0,"con_bonus":0, "chr_bonus":0, 
 	"save_death":11 , "save_wands":12 , "save_stone":14 , "save_dragon":16 , "save_spells":15,
 	"pic":"1297304.png", "combat_order":0,
-		"weapons":{"range":"Long Bow", "range_damage":"1d8", "range_pic":"bow.png", "range_anim":"pierce", "melee_pic":"sword.png", "melee_anim":"slash"}
+		"weapons":{"range":"Long Bow", "range_damage":"1d8", "range_pic":"bow.png", "range_anim":"pierce", "melee_pic":"sword.png", "melee_anim":"slash"},
+		"spells":{"heal":"Cure Light Wound", "heal_amount":"1d6+1", "heal_pic":"sword.png", "heal_anim":""}
 	},
 
 	{
@@ -36,6 +37,7 @@
 	"str_bonus":0, "int_bonus":1, "wis_bonus":-1, "dex_bonus":1, "con_bonus":1, "chr_bonus":10, 
 	"save_death":13 , "save_wands":14 , "save_stone":13 , "save_dragon":16 , "save_spells":15,
 	"pic":"2898152.png", "combat_order":0,
-		"weapons":{"wand":"Fireball Staff", "wand_damage":"1d8", "wand_pic":"staff.png", "wand_anim":"fire"}
+		"weapons":{"wand":"Fireball Staff", "wand_damage":"1d8", "wand_pic":"staff.png", "wand_anim":"fire"},
+		"spells":{"heal":"Cure Light Wound", "heal_amount":"1d6+1", "heal_pic":"sword.png", "heal_anim":""}
 	}
 ]

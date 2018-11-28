@@ -266,68 +266,6 @@ func roll_initiative():
 		monsters_node.get_child(i).monster_data['combat_order'] = num_to_try
 
 
-#func monster_attack():
-##	Process attack from active_monster.
-#	var message = ''
-#	var num_of_attacks = active_monster.monster_data['attacks'].size()
-##	Decide which character to attack. (STARTING WITHOUT ANY KIND OF AI, JUST RANDOMLY CHOOSING)
-#	randomize()
-##	Determine if there are any living players:
-#	var player_hp = 0
-#	var character_to_attack
-#	var attacked_character_node
-#	for i in range( characters_node.get_child_count() ):
-#		player_hp += characters_node.get_child(i).char_data['current_hp']
-#		if characters_node.get_child(i).char_data['current_hp'] == 0:
-#			characters_node.get_child(i).disable()
-#			characters_node.get_child(i).update_ui(false)
-#	if player_hp > 0:
-#		while true: # Make sure the monster is attacking a living character.
-#			character_to_attack = randi() % characters_node.get_child_count()
-#			attacked_character_node = characters_node.get_child(character_to_attack)
-#			if attacked_character_node.char_data['current_hp'] > 0:
-#				break
-#		message += 'The ' + active_monster.monster_data['name'] + ' attacked ' + attacked_character_node.char_data['name'] + ' and did damage: ('
-#		for i in range( active_monster.monster_data['attacks'].size() ):
-#			var critical_miss = false
-#			var critical_hit = false
-#			var attack_roll = Global.roll_dice('1d20')
-#			if attack_roll == 0:  # Critical Miss
-#				critical_miss = true
-#				attack_roll = -20
-#			elif attack_roll == 20:  # Critical Hit
-#				critical_hit = true
-#			attack_roll += active_monster.monster_data['attack_bonus']
-#			if attack_roll >= attacked_character_node.char_data['ac'] or critical_hit: # A hit
-#				var damage = Global.roll_dice( active_monster.monster_data['damage'][i] )
-#
-#			#	Apply damage.
-#				attacked_character_node.char_data['current_hp'] -= damage
-#				if attacked_character_node.char_data['current_hp'] < 0:
-#					attacked_character_node.char_data['current_hp'] = 0
-#					attacked_character_node.disable()
-#				message += active_monster.monster_data['attacks'][i] + ': ' + str(damage) + "  "
-#
-#			#	Hit Animation
-#				var hit_position = attacked_character_node.get_node('M/BG/Image/M/Image').get_global_position()
-#				$slash/Position.set_global_position( hit_position )
-#				$slash/Position/Sprite.visible = true
-#				$slash.play("slash")
-#				yield($slash, "animation_finished")
-#				$slash/Position/Sprite.visible = false
-#
-#				emit_signal('monster_turn_completed')
-#				attacked_character_node.update_ui(false)
-#
-#			else:  # A miss.
-#				message += active_monster.monster_data['attacks'][i] + ': Miss  '
-#		message += ')\n'
-#		commentary.text += message
-#	else:
-#		player_win = false
-#		emit_signal('end_combat')
-
-
 func character_attack(attack_type, weapon):
 	var selected_monster_node = get_node('M/V/H/Monsters/Monster' + str(selected_monster) )
 	var monster_ac = selected_monster_node.monster_data['ac']
@@ -470,3 +408,18 @@ func _on_WandButton_pressed():
 	
 	character_attack('wand', active_character.char_data['weapons']['wand'])
 	emit_signal('turn_completed')
+
+
+func _on_HealButton_pressed():
+	var selected_count = 0
+	for character in characters_node.get_children():
+		if character.selected:
+			selected_count += 1
+	if selected_count > 0:
+		# Heal all of the selected characters ( divide the total heal amount by the number of players and round)
+		pass
+	else:
+		# Send up a dialog box telling the player to select a character to heal first.
+		$NoSelectionDialog.show()
+
+

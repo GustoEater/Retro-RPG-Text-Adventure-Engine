@@ -48,26 +48,36 @@ func update_ui(full_update):
 			$M/BG/Info/M/V/Name.disabled = false
 			var combat_command_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/Main')
 			var combat_command_melee_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H4/MeleeButton')
+			var combat_command_melee_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H5/MeleeLabel')
 			var combat_command_range_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H4/RangeButton')
+			var combat_command_range_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H5/RangeLabel')
 			var combat_command_wand_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H4/WandButton')
+			var combat_command_wand_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H5/WandLabel')
 			combat_command_label.text = char_data['name'] + "'s turn:"
 
 			if char_data['weapons'].has('melee'):
 				combat_command_melee_button.show()
+				combat_command_melee_label.text = char_data['weapons']['melee']
+				combat_command_melee_label.show()
 			else:
 				combat_command_melee_button.hide()
+				combat_command_melee_label.hide()
 
 			if char_data['weapons'].has('range'):
-				#combat_command_range_button.text = 'Attack: ' + char_data['weapons']['range']
 				combat_command_range_button.show()
+				combat_command_range_label.text = char_data['weapons']['range']
+				combat_command_range_label.show()
 			else:
 				combat_command_range_button.hide()
+				combat_command_range_label.hide()
 
 			if char_data['weapons'].has('wand'):
-				#combat_command_wand_button.text = 'Attack: ' + char_data['weapons']['wand']
 				combat_command_wand_button.show()
+				combat_command_wand_label.text = char_data['weapons']['wand']
+				combat_command_wand_label.show()
 			else:
 				combat_command_wand_button.hide()
+				combat_command_wand_label.hide()
 
 	elif !active:
 		if in_combat:
@@ -88,7 +98,13 @@ func update_ui(full_update):
 
 func _on_Name_pressed():
 	# If we are in CombatUI then it selects this character and unselects the rest.
-	
+	if in_combat:
+		if selected:
+			selected = false
+		else:
+			selected = true
+		update_ui(false)
 	# If we are in StoryUI then pops up the PopupPanel to see full character details.
-	
-	pass # replace with function body
+	else:
+		pass
+
