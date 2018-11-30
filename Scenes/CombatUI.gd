@@ -17,6 +17,7 @@ onready var story_ui_characters_node = get_node('/root/Game/StoryUI/M/FullWidth/
 onready var melee_button = get_node('M/V/H/Commands/V/H4/MeleeButton')
 onready var range_button = get_node('M/V/H/Commands/V/H4/RangeButton')
 onready var wand_button = get_node('M/V/H/Commands/V/H4/WandButton')
+onready var heal_button = get_node('M/V/H/Commands/V/H6/HealButton')
 
 signal turn_completed
 signal monster_turn_completed
@@ -169,9 +170,9 @@ func battle():
 				#	Once completed, deactivate the current player.
 						active_character.active = false
 						active_character.update_ui(false)
-						melee_button.visible = false
-						range_button.visible = false
-						wand_button.visible = false
+						#melee_button.visible = false
+						#range_button.visible = false
+						#wand_button.visible = false
 
 			for j in range( monsters_node.get_child_count() ):  # Monsters
 				if monsters_node.get_child(j) != null:
@@ -387,6 +388,7 @@ func _on_MeleeButton_pressed():
 	melee_button.hide()
 	range_button.hide()
 	wand_button.hide()
+	heal_button.hide()
 	
 	var useless = character_attack('melee', active_character.char_data['weapons']['melee'])
 	emit_signal('turn_completed')
@@ -396,6 +398,7 @@ func _on_RangeButton_pressed():
 	melee_button.hide()
 	range_button.hide()
 	wand_button.hide()
+	heal_button.hide()
 	
 	character_attack('range', active_character.char_data['weapons']['range'])
 	emit_signal('turn_completed')
@@ -405,6 +408,7 @@ func _on_WandButton_pressed():
 	melee_button.hide()
 	range_button.hide()
 	wand_button.hide()
+	heal_button.hide()
 	
 	character_attack('wand', active_character.char_data['weapons']['wand'])
 	emit_signal('turn_completed')
@@ -412,12 +416,30 @@ func _on_WandButton_pressed():
 
 func _on_HealButton_pressed():
 	var selected_count = 0
+	var message = active_character.char_data['name'] + ' healed '
 	for character in characters_node.get_children():
 		if character.selected:
+			message += character.char_data['name'] + '  '
 			selected_count += 1
 	if selected_count > 0:
 		# Heal all of the selected characters ( divide the total heal amount by the number of players and round)
-		pass
+		var heal_amount = 0
+		heal_amount = Global.roll_dice( active_character.char_data['spells']['heal_amount'] )
+		#print( 'Healing: ', heal_amount )
+		heal_amount = int( heal_amount / selected_count )  # divide into each.
+		message += ' for ' + str(heal_amount) + '.'
+		#print( 'Healing: ', heal_amount )
+		for character in characters_node.get_children():
+			if character.selected:
+				character.char_data['current_hp'] += heal_amount
+				character.update_ui(false)
+				# ALSO NEED TO PLAY THE ANIMATIONS
+
+		commentary.text += message
+		emit_signal('turn_completed')
+	
+	
+		
 	else:
 		# Send up a dialog box telling the player to select a character to heal first.
 		$NoSelectionDialog.show()

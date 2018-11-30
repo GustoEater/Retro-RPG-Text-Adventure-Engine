@@ -83,10 +83,15 @@ func roll_dice( string ):
 		return sum
 	elif string.findn( '+' ) > -1:
 		# There is a bonus at the end.
+		#print( 'Rolling: ', string )
 		var number = int( string.left( string.findn( 'd' ) ) )   # int( string.left( 1 ) = 1
-		var remainder = string.right( string.length() - ( str(number).length() + 1) )  # string.right( 5 - 1+1 ) right(3) = 6+1
+		#print( 'Rolling number: ', number )
+		var remainder = string.right( string.find( 'd' ) )  # string.right( 5 - 1+1 ) right(3) = 6+1
+		#print( 'Rolling remainder (1): ', remainder )
 		var type = int( remainder.left( remainder.findn( '+' ) ) )   # int( string.left( 1 ) = 6
+		#print( 'Rolling type: ', type )
 		var bonus = int( remainder.right( remainder.length() - ( str(type).length() + 1) ) )
+		#print( 'Rolling bonus: ', bonus )
 		for i in range( number ):
 			randomize()
 			sum += randi() % type + 1

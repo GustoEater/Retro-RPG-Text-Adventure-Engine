@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/GUI/FantasyTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/GUI/paper-bg.jpg" type="Texture" id=2]
@@ -10,9 +10,11 @@
 [ext_resource path="res://Assets/GUI/Icons/staff-icon.png" type="Texture" id=8]
 [ext_resource path="res://Assets/GUI/Icons/staff-icon-hover.png" type="Texture" id=9]
 [ext_resource path="res://Assets/GUI/Themes/Fonts/OpenSans-Regular-12.tres" type="DynamicFont" id=10]
-[ext_resource path="res://Assets/GUI/CommentaryShade.png" type="Texture" id=11]
-[ext_resource path="res://Assets/Animations/slash.png" type="Texture" id=12]
-[ext_resource path="res://Assets/Animations/miss.png" type="Texture" id=13]
+[ext_resource path="res://Assets/GUI/Icons/health-icon.png" type="Texture" id=11]
+[ext_resource path="res://Assets/GUI/Icons/health-icon-hover.png" type="Texture" id=12]
+[ext_resource path="res://Assets/GUI/CommentaryShade.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Animations/slash.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Animations/miss.png" type="Texture" id=15]
 
 [sub_resource type="Animation" id=2]
 
@@ -515,8 +517,8 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 4 )
-texture_hover = ExtResource( 5 )
+texture_normal = ExtResource( 11 )
+texture_hover = ExtResource( 12 )
 stretch_mode = 5
 _sections_unfolded = [ "Rect", "Size Flags", "Textures", "custom_colors" ]
 
@@ -613,7 +615,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-texture = ExtResource( 11 )
+texture = ExtResource( 13 )
 _sections_unfolded = [ "Axis Stretch", "Rect", "Size Flags" ]
 
 [node name="M" type="MarginContainer" parent="M/V/H2/BG" index="0"]
@@ -987,7 +989,7 @@ _sections_unfolded = [ "Playback Options" ]
 
 visible = false
 scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 12 )
+texture = ExtResource( 14 )
 centered = false
 hframes = 5
 frame = 4
@@ -997,7 +999,7 @@ _sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
 
 visible = false
 scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 13 )
+texture = ExtResource( 15 )
 centered = false
 hframes = 5
 _sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]

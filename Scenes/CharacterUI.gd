@@ -53,31 +53,55 @@ func update_ui(full_update):
 			var combat_command_range_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H5/RangeLabel')
 			var combat_command_wand_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H4/WandButton')
 			var combat_command_wand_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H5/WandLabel')
+			var combat_command_heal_button = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H6/HealButton')
+			var combat_command_heal_label = get_node('/root/Game/CombatUI/M/V/H/Commands/V/H7/HealLabel')
 			combat_command_label.text = char_data['name'] + "'s turn:"
 
-			if char_data['weapons'].has('melee'):
-				combat_command_melee_button.show()
-				combat_command_melee_label.text = char_data['weapons']['melee']
-				combat_command_melee_label.show()
-			else:
-				combat_command_melee_button.hide()
+			if char_data.has('weapons'):
+				if char_data['weapons'].has('melee'):
+					combat_command_melee_button.show()
+					combat_command_melee_label.text = char_data['weapons']['melee']
+					combat_command_melee_label.show()
+				else:
+					combat_command_melee_button.hide()
+					combat_command_melee_label.hide()
+	
+				if char_data['weapons'].has('range'):
+					combat_command_range_button.show()
+					combat_command_range_label.text = char_data['weapons']['range']
+					combat_command_range_label.show()
+				else:
+					combat_command_range_button.hide()
+					combat_command_range_label.hide()
+	
+				if char_data['weapons'].has('wand'):
+					combat_command_wand_button.show()
+					combat_command_wand_label.text = char_data['weapons']['wand']
+					combat_command_wand_label.show()
+				else:
+					combat_command_wand_button.hide()
+					combat_command_wand_label.hide()
+			else:  # Hide all
 				combat_command_melee_label.hide()
-
-			if char_data['weapons'].has('range'):
-				combat_command_range_button.show()
-				combat_command_range_label.text = char_data['weapons']['range']
-				combat_command_range_label.show()
-			else:
-				combat_command_range_button.hide()
+				combat_command_melee_button.hide()
 				combat_command_range_label.hide()
-
-			if char_data['weapons'].has('wand'):
-				combat_command_wand_button.show()
-				combat_command_wand_label.text = char_data['weapons']['wand']
-				combat_command_wand_label.show()
-			else:
-				combat_command_wand_button.hide()
+				combat_command_range_button.hide()
 				combat_command_wand_label.hide()
+				combat_command_wand_button.hide()
+				
+				
+
+			if char_data.has('spells'):
+				if char_data['spells'].has('heal'):
+					combat_command_heal_button.show()
+					combat_command_heal_label.text = char_data['spells']['heal']
+					combat_command_heal_label.show()
+				else:
+					combat_command_heal_button.hide()
+					combat_command_heal_label.hide()
+			else:  # Hide all
+				combat_command_heal_button.hide()
+				combat_command_heal_label.hide()
 
 	elif !active:
 		if in_combat:
